@@ -1,0 +1,14 @@
+﻿ioiocore.logger
+===============
+
+.. automodule:: ioiocore.logger
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      LogEntry
+      LogType
+      Logger
+   

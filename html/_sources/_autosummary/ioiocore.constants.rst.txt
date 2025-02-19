@@ -1,0 +1,13 @@
+﻿ioiocore.constants
+==================
+
+.. automodule:: ioiocore.constants
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Constants
+      KeyValueContainer
+   

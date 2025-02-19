@@ -1,0 +1,290 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ioiocore.constants &mdash; ioiocore v2.2.2  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9a2dae69"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="ioiocore.logger" href="ioiocore.logger.html" />
+    <link rel="prev" title="ioiocore Programming Reference" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ioiocore v2.2.2
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">ioiocore.constants</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#ioiocore.constants.Constants"><code class="docutils literal notranslate"><span class="pre">Constants</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ioiocore.constants.Constants.Conditions"><code class="docutils literal notranslate"><span class="pre">Constants.Conditions</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Conditions.ERROR"><code class="docutils literal notranslate"><span class="pre">Constants.Conditions.ERROR</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Conditions.HEALTHY"><code class="docutils literal notranslate"><span class="pre">Constants.Conditions.HEALTHY</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ioiocore.constants.Constants.Defaults"><code class="docutils literal notranslate"><span class="pre">Constants.Defaults</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Defaults.NODE_NAME"><code class="docutils literal notranslate"><span class="pre">Constants.Defaults.NODE_NAME</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Defaults.PORT_IN"><code class="docutils literal notranslate"><span class="pre">Constants.Defaults.PORT_IN</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Defaults.PORT_OUT"><code class="docutils literal notranslate"><span class="pre">Constants.Defaults.PORT_OUT</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ioiocore.constants.Constants.Keys"><code class="docutils literal notranslate"><span class="pre">Constants.Keys</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Keys.CHANNEL_COUNT"><code class="docutils literal notranslate"><span class="pre">Constants.Keys.CHANNEL_COUNT</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Keys.INPUT_PORTS"><code class="docutils literal notranslate"><span class="pre">Constants.Keys.INPUT_PORTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Keys.OUTPUT_PORTS"><code class="docutils literal notranslate"><span class="pre">Constants.Keys.OUTPUT_PORTS</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Keys.SAMPLING_RATE"><code class="docutils literal notranslate"><span class="pre">Constants.Keys.SAMPLING_RATE</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ioiocore.constants.Constants.States"><code class="docutils literal notranslate"><span class="pre">Constants.States</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.States.RUNNING"><code class="docutils literal notranslate"><span class="pre">Constants.States.RUNNING</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.States.STOPPED"><code class="docutils literal notranslate"><span class="pre">Constants.States.STOPPED</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#ioiocore.constants.Constants.Timing"><code class="docutils literal notranslate"><span class="pre">Constants.Timing</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Timing.ASYNC"><code class="docutils literal notranslate"><span class="pre">Constants.Timing.ASYNC</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Timing.INHERITED"><code class="docutils literal notranslate"><span class="pre">Constants.Timing.INHERITED</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#ioiocore.constants.Constants.Timing.SYNC"><code class="docutils literal notranslate"><span class="pre">Constants.Timing.SYNC</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#ioiocore.constants.KeyValueContainer"><code class="docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#ioiocore.constants.KeyValueContainer.keys"><code class="docutils literal notranslate"><span class="pre">KeyValueContainer.keys()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#ioiocore.constants.KeyValueContainer.values"><code class="docutils literal notranslate"><span class="pre">KeyValueContainer.values()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.logger.html">ioiocore.logger</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.portable.html">ioiocore.portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.port.html">ioiocore.port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.i_port.html">ioiocore.i_port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.o_port.html">ioiocore.o_port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.node.html">ioiocore.node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.i_node.html">ioiocore.i_node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.o_node.html">ioiocore.o_node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.io_node.html">ioiocore.io_node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="ioiocore.pipeline.html">ioiocore.pipeline</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ioiocore v2.2.2</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">ioiocore.constants</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/_autosummary/ioiocore.constants.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-ioiocore.constants">
+<span id="ioiocore-constants"></span><h1>ioiocore.constants<a class="headerlink" href="#module-ioiocore.constants" title="Link to this heading"></a></h1>
+<p class="rubric">Classes</p>
+<table class="autosummary longtable docutils align-default">
+<tbody>
+<tr class="row-odd"><td><p><a class="reference internal" href="#ioiocore.constants.Constants" title="ioiocore.constants.Constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Constants</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-obj docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a>()</p></td>
+<td><p></p></td>
+</tr>
+</tbody>
+</table>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.constants.</span></span><span class="sig-name descname"><span class="pre">Constants</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Conditions">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Conditions</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Conditions" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Conditions.ERROR">
+<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Error'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Conditions.ERROR" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Conditions.HEALTHY">
+<span class="sig-name descname"><span class="pre">HEALTHY</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Healthy'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Conditions.HEALTHY" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Defaults">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Defaults</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Defaults" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Defaults.NODE_NAME">
+<span class="sig-name descname"><span class="pre">NODE_NAME</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'default'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Defaults.NODE_NAME" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Defaults.PORT_IN">
+<span class="sig-name descname"><span class="pre">PORT_IN</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'in'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Defaults.PORT_IN" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Defaults.PORT_OUT">
+<span class="sig-name descname"><span class="pre">PORT_OUT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'out'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Defaults.PORT_OUT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Keys">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Keys</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Keys" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Keys.CHANNEL_COUNT">
+<span class="sig-name descname"><span class="pre">CHANNEL_COUNT</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'channel_count'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Keys.CHANNEL_COUNT" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Keys.INPUT_PORTS">
+<span class="sig-name descname"><span class="pre">INPUT_PORTS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'input_ports'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Keys.INPUT_PORTS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Keys.OUTPUT_PORTS">
+<span class="sig-name descname"><span class="pre">OUTPUT_PORTS</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'output_ports'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Keys.OUTPUT_PORTS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Keys.SAMPLING_RATE">
+<span class="sig-name descname"><span class="pre">SAMPLING_RATE</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'sampling_rate'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Keys.SAMPLING_RATE" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.States">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">States</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.States"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.States" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.States.RUNNING">
+<span class="sig-name descname"><span class="pre">RUNNING</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Running'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.States.RUNNING" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.States.STOPPED">
+<span class="sig-name descname"><span class="pre">STOPPED</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Stopped'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.States.STOPPED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Timing">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Timing</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Timing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Timing" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Timing.ASYNC">
+<span class="sig-name descname"><span class="pre">ASYNC</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Async'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Timing.ASYNC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Timing.INHERITED">
+<span class="sig-name descname"><span class="pre">INHERITED</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Inherited'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Timing.INHERITED" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.constants.Constants.Timing.SYNC">
+<span class="sig-name descname"><span class="pre">SYNC</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'Sync'</span></em><a class="headerlink" href="#ioiocore.constants.Constants.Timing.SYNC" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.constants.KeyValueContainer">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.constants.</span></span><span class="sig-name descname"><span class="pre">KeyValueContainer</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#KeyValueContainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.constants.KeyValueContainer.keys">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/constants.html#KeyValueContainer.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer.keys" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.constants.KeyValueContainer.values">
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/constants.html#KeyValueContainer.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer.values" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="ioiocore Programming Reference" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="ioiocore.logger.html" class="btn btn-neutral float-right" title="ioiocore.logger" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2024, Martin Walchshofer, Johannes Grünwald.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

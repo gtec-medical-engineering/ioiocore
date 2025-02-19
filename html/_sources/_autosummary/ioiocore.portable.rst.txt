@@ -1,0 +1,12 @@
+﻿ioiocore.portable
+=================
+
+.. automodule:: ioiocore.portable
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Portable
+   

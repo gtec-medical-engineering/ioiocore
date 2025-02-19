@@ -1,0 +1,12 @@
+﻿ioiocore.pipeline
+=================
+
+.. automodule:: ioiocore.pipeline
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Pipeline
+   

@@ -1,0 +1,23 @@
+.. ioiocore documentation master file, created by
+   sphinx-quickstart on Thu Nov 23 2024.
+
+ioiocore Programming Reference
+=======================================
+
+.. autosummary::
+   :toctree: _autosummary
+   :recursive:
+
+
+   ioiocore.constants
+   ioiocore.settings
+   ioiocore.logger
+   ioiocore.portable
+   ioiocore.port
+   ioiocore.i_port
+   ioiocore.o_port
+   ioiocore.node
+   ioiocore.i_node
+   ioiocore.o_node
+   ioiocore.io_node
+   ioiocore.pipeline
