@@ -1,2 +1,2 @@
-# ioiocore
-real-time processing framework for Python
+# ioiocore-dev
+ioiocore development repository
