@@ -1,11 +1,6 @@
-# Change Log
+# Changelog
 
-## 1.0.0
-### Added
-- Initial release
+All notable changes to this project will be documented in this file.
 
-### Changed
-- Nothing 
-
-### Removed
-- Nothing 
+## [2.2.3] - 2025-02-20
+- First public beta release
