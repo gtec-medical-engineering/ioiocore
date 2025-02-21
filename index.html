@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore Programming Reference &mdash; ioiocore v2.2.3  documentation</title>
+  <title>ioiocore &mdash; ioiocore v2.2.4  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=e59714d7" />
 
@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="ioiocore.constants" href="_autosummary/ioiocore.constants.html" /> 
+    <link rel="next" title="Constants" href="content/constants.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +31,7 @@
           
           
           <a href="#" class="icon icon-home">
-            ioiocore v2.2.3
+            ioiocore v2.2.4
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -41,18 +41,21 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.constants.html">ioiocore.constants</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.logger.html">ioiocore.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.portable.html">ioiocore.portable</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.port.html">ioiocore.port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.i_port.html">ioiocore.i_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.o_port.html">ioiocore.o_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.node.html">ioiocore.node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.i_node.html">ioiocore.i_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.o_node.html">ioiocore.o_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.io_node.html">ioiocore.io_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="_autosummary/ioiocore.pipeline.html">ioiocore.pipeline</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/logging.html">Logging</a></li>
 </ul>
 
         </div>
@@ -61,7 +64,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">ioiocore v2.2.3</a>
+          <a href="#">ioiocore v2.2.4</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -69,7 +72,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="#" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">ioiocore Programming Reference</li>
+      <li class="breadcrumb-item active">ioiocore</li>
       <li class="wy-breadcrumbs-aside">
             <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
       </li>
@@ -79,58 +82,61 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="ioiocore-programming-reference">
-<h1>ioiocore Programming Reference<a class="headerlink" href="#ioiocore-programming-reference" title="Link to this heading"></a></h1>
-<table class="autosummary longtable docutils align-default">
-<tbody>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ioiocore.constants.html#module-ioiocore.constants" title="ioiocore.constants"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.constants</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ioiocore.logger.html#module-ioiocore.logger" title="ioiocore.logger"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.logger</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ioiocore.portable.html#module-ioiocore.portable" title="ioiocore.portable"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.portable</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ioiocore.port.html#module-ioiocore.port" title="ioiocore.port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.port</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ioiocore.i_port.html#module-ioiocore.i_port" title="ioiocore.i_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.i_port</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ioiocore.o_port.html#module-ioiocore.o_port" title="ioiocore.o_port"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.o_port</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ioiocore.node.html#module-ioiocore.node" title="ioiocore.node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.node</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ioiocore.i_node.html#module-ioiocore.i_node" title="ioiocore.i_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.i_node</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ioiocore.o_node.html#module-ioiocore.o_node" title="ioiocore.o_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.o_node</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-even"><td><p><a class="reference internal" href="_autosummary/ioiocore.io_node.html#module-ioiocore.io_node" title="ioiocore.io_node"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.io_node</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-<tr class="row-odd"><td><p><a class="reference internal" href="_autosummary/ioiocore.pipeline.html#module-ioiocore.pipeline" title="ioiocore.pipeline"><code class="xref py py-obj docutils literal notranslate"><span class="pre">ioiocore.pipeline</span></code></a></p></td>
-<td><p></p></td>
-</tr>
-</tbody>
-</table>
+  <section id="ioiocore">
+<h1>ioiocore<a class="headerlink" href="#ioiocore" title="Link to this heading"></a></h1>
+<p><a class="reference external" href="http://gtec.at"><img alt="Powered by g.tec" src="https://img.shields.io/badge/powered_by-g.tec-blue" /></a>
+<a class="reference external" href="https://pypi.org/project/ioiocore/"><img alt="PyPI version" src="https://img.shields.io/pypi/v/ioiocore.svg?label=PyPI%20version&amp;color=brown" /></a>
+<a class="reference external" href="https://github.com/gtec-medical-engineering/ioiocore/blob/main/LICENSE"><img alt="License" src="https://img.shields.io/badge/License-GNCL-red" /></a>
+<a class="reference external" href="https://gtec-medical-engineering.github.io/ioiocore/"><img alt="Documentation" src="https://img.shields.io/badge/docs-GitHub%20Pages-green" /></a></p>
+<p><strong>Real-time signal processing framework for Python.</strong></p>
+<p><code class="docutils literal notranslate"><span class="pre">ioiocore</span></code> is a real-time signal processing framework for Python. It provides an abstract, node-based data propagation
+architecture that can be used in various contexts, such as biosignal processing.</p>
+<section id="installation">
+<h2>Installation<a class="headerlink" href="#installation" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ioiocore</span></code> is available on PyPI:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ioiocore</span>
+</pre></div>
+</div>
 </section>
+<section id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Link to this heading"></a></h2>
+<p>Full documentation is available at <a class="reference external" href="https://gtec-medical-engineering.github.io/ioiocore/">GitHub Pages</a>.</p>
+</section>
+<section id="license">
+<h2>License<a class="headerlink" href="#license" title="Link to this heading"></a></h2>
+<p>This project is licensed under the <strong>g.tec Non-Commercial License (GNCL)</strong>. See the <a class="reference external" href="https://github.com/gtec-medical-engineering/ioiocore/blob/main/LICENSE">LICENSE</a> file for details.</p>
+</section>
+</section>
+<div class="toctree-wrapper compound">
+<p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="content/constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/logging.html">Logging</a></li>
+</ul>
+</div>
 
 
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="_autosummary/ioiocore.constants.html" class="btn btn-neutral float-right" title="ioiocore.constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="content/constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Martin Walchshofer, Johannes Grünwald.</p>
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

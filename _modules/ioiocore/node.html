@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.node &mdash; ioiocore v2.2.3  documentation</title>
+  <title>ioiocore.node &mdash; ioiocore v2.2.4  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v2.2.3
+            ioiocore v2.2.4
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -39,18 +39,21 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.constants.html">ioiocore.constants</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.logger.html">ioiocore.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.portable.html">ioiocore.portable</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.port.html">ioiocore.port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.i_port.html">ioiocore.i_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.o_port.html">ioiocore.o_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.node.html">ioiocore.node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.i_node.html">ioiocore.i_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.o_node.html">ioiocore.o_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.io_node.html">ioiocore.io_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.pipeline.html">ioiocore.pipeline</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
 
         </div>
@@ -59,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v2.2.3</a>
+          <a href="../../index.html">ioiocore v2.2.4</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -88,95 +91,231 @@
 
 
 <div class="viewcode-block" id="Node">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Portable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Abstract base class representing a node in a signal processing pipeline.</span>
+
+<span class="sd">    Inherits from ABC and Portable, and provides the core structure for</span>
+<span class="sd">    setting up and running the Node, including managing its configuration,</span>
+<span class="sd">    implementation, logger, and state.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _IMP_CLASS : type</span>
+<span class="sd">        The implementation class for the Node.</span>
+<span class="sd">    _imp : _IMP_CLASS</span>
+<span class="sd">        The instance of the implementation class for the Node.</span>
+<span class="sd">    config : Configuration</span>
+<span class="sd">        The configuration object for the Node.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">NodeImp</span>
 
 <div class="viewcode-block" id="Node.Configuration">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.Configuration">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.Configuration">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">Portable</span><span class="o">.</span><span class="n">Configuration</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configuration class for the Node</span>
+
+<span class="sd">        Attributes</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Keys</span>
+<span class="sd">            The configuration keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
 <div class="viewcode-block" id="Node.Configuration.Keys">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.Configuration.Keys">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.Configuration.Keys">[docs]</a>
         <span class="k">class</span><span class="w"> </span><span class="nc">Keys</span><span class="p">(</span><span class="n">Portable</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;Configuration keys.&quot;&quot;&quot;</span>
             <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span></div>
 
 
+<div class="viewcode-block" id="Node.Configuration.__init__">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.Configuration.__init__">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Initialize the Node configuration.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            name : str, optional</span>
+<span class="sd">                The name of the Node (default is the class name).</span>
+<span class="sd">            kwargs : additional keyword arguments</span>
+<span class="sd">                Other configuration parameters passed to the base class.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__qualname__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
 
     <span class="n">_imp</span><span class="p">:</span> <span class="n">_IMP_CLASS</span>  <span class="c1"># for type hinting  # type: ignore</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Configuration</span>  <span class="c1"># for type hinting</span>
 
+<div class="viewcode-block" id="Node.__init__">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize the Node.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        name : str, optional</span>
+<span class="sd">            The name of the Node (default is None).</span>
+<span class="sd">        kwargs : additional keyword arguments</span>
+<span class="sd">            Other parameters passed to create the Node configuration.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_config</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">set_setup_handler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">setup</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">set_step_handler</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">step</span><span class="p">)</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="Node.start">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.start">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.start">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Start the Node.</span>
+
+<span class="sd">        Starts the internal implementation of the Node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Node.stop">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.stop">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.stop">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Stop the Node.</span>
+
+<span class="sd">        Stops the internal implementation of the Node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Node.set_logger">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.set_logger">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.set_logger">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">set_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Set the logger for the Node.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        logger : Logger</span>
+<span class="sd">            The Logger instance to set for the Node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">set_logger</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Node.get_name">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.get_name">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_name">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the name of the Node.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The name of the Node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_name</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Node.get_load">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.get_load">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_load">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_load</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current load of the Node.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        float</span>
+<span class="sd">            The load value of the Node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_load</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Node.get_counter">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.get_counter">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_counter">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current counter value of the Node.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The counter value of the Node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_counter</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Node.get_state">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.get_state">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Constants.STATE&#39;</span><span class="p">:</span>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_state">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Constants.States&#39;</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the current state of the Node.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Constants.States</span>
+<span class="sd">            The current state of the Node.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Node.setup">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.setup">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.setup">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
               <span class="n">port_metadata_in</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method to setup the Node.</span>
+
+<span class="sd">        This method should be implemented to define the setup logic for the</span>
+<span class="sd">        Node.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            The input data to configure the Node.</span>
+<span class="sd">        port_metadata_in : dict</span>
+<span class="sd">            Metadata for the input ports.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The configuration of the output ports.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="Node.step">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.node.html#ioiocore.node.Node.step">[docs]</a>
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.step">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Abstract method for the Node&#39;s step function.</span>
+
+<span class="sd">        This method should be implemented to define the processing logic for</span>
+<span class="sd">        each step of the Node.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            The input data to process.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The processed data after applying the step logic.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">pass</span></div>
 </div>
 
@@ -189,7 +328,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Martin Walchshofer, Johannes Grünwald.</p>
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

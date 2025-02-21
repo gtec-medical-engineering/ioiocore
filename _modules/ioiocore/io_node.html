@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.io_node &mdash; ioiocore v2.2.3  documentation</title>
+  <title>ioiocore.io_node &mdash; ioiocore v2.2.4  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v2.2.3
+            ioiocore v2.2.4
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -39,18 +39,21 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.constants.html">ioiocore.constants</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.logger.html">ioiocore.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.portable.html">ioiocore.portable</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.port.html">ioiocore.port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.i_port.html">ioiocore.i_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.o_port.html">ioiocore.o_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.node.html">ioiocore.node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.i_node.html">ioiocore.i_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.o_node.html">ioiocore.o_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.io_node.html">ioiocore.io_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.pipeline.html">ioiocore.pipeline</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
 
         </div>
@@ -59,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v2.2.3</a>
+          <a href="../../index.html">ioiocore v2.2.4</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -89,24 +92,47 @@
 
 
 <div class="viewcode-block" id="IONode">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.io_node.html#ioiocore.io_node.IONode">[docs]</a>
+<a class="viewcode-back" href="../../content/io_node.html#ioiocore.io_node.IONode">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">IONode</span><span class="p">(</span><span class="n">INode</span><span class="p">,</span> <span class="n">ONode</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    A class representing a node with input and output ports, inheriting from</span>
+<span class="sd">    both INode and ONode.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="IONode.Configuration">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.io_node.html#ioiocore.io_node.IONode.Configuration">[docs]</a>
+<a class="viewcode-back" href="../../content/io_node.html#ioiocore.io_node.IONode.Configuration">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">INode</span><span class="o">.</span><span class="n">Configuration</span><span class="p">,</span> <span class="n">ONode</span><span class="o">.</span><span class="n">Configuration</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Configuration class for IONode.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="IONode.Configuration.Keys">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.io_node.html#ioiocore.io_node.IONode.Configuration.Keys">[docs]</a>
+<a class="viewcode-back" href="../../content/io_node.html#ioiocore.io_node.IONode.Configuration.Keys">[docs]</a>
         <span class="k">class</span><span class="w"> </span><span class="nc">Keys</span><span class="p">(</span><span class="n">INode</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">,</span> <span class="n">ONode</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Keys for the IONode configuration (none except the inherited ones).</span>
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">pass</span></div>
 
 
+<div class="viewcode-block" id="IONode.Configuration.__init__">
+<a class="viewcode-back" href="../../content/io_node.html#ioiocore.io_node.IONode.Configuration.__init__">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">input_ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="n">output_ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">OPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                     <span class="n">update_rule</span><span class="p">:</span> <span class="n">INode</span><span class="o">.</span><span class="n">UpdateRule</span> <span class="o">=</span> <span class="n">INode</span><span class="o">.</span><span class="n">UpdateRule</span><span class="o">.</span><span class="n">ALL_PORTS</span><span class="p">,</span>  <span class="c1"># noqa: E501</span>
                      <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            Initializes the configuration for IONode.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            input_ports : list of IPort.Configuration, optional</span>
+<span class="sd">                A list of input port configurations (default is None).</span>
+<span class="sd">            output_ports : list of OPort.Configuration, optional</span>
+<span class="sd">                A list of output port configurations (default is None).</span>
+<span class="sd">            **kwargs : additional keyword arguments</span>
+<span class="sd">                Other configuration options.</span>
+<span class="sd">            &quot;&quot;&quot;</span>
             <span class="k">if</span> <span class="n">input_ports</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">input_ports</span> <span class="o">=</span> <span class="p">[</span><span class="n">IPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()]</span>
             <span class="k">if</span> <span class="n">output_ports</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
@@ -115,36 +141,70 @@
             <span class="n">INode</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                          <span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
                                          <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
-                                         <span class="n">update_rule</span><span class="o">=</span><span class="n">update_rule</span><span class="p">,</span>
                                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">ONode</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                          <span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
                                          <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
-                                         <span class="n">update_rule</span><span class="o">=</span><span class="n">update_rule</span><span class="p">,</span>
                                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
 
 
     <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">IONodeImp</span>
     <span class="n">_imp</span><span class="p">:</span> <span class="n">_IMP_CLASS</span>  <span class="c1"># for type hinting  # type: ignore</span>
     <span class="n">config</span><span class="p">:</span> <span class="n">Configuration</span>  <span class="c1"># for type hinting</span>
 
+<div class="viewcode-block" id="IONode.__init__">
+<a class="viewcode-back" href="../../content/io_node.html#ioiocore.io_node.IONode.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">input_ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">IPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">output_ports</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="n">OPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
-                 <span class="n">update_rule</span><span class="p">:</span> <span class="n">INode</span><span class="o">.</span><span class="n">UpdateRule</span> <span class="o">=</span> <span class="n">INode</span><span class="o">.</span><span class="n">UpdateRule</span><span class="o">.</span><span class="n">ALL_PORTS</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initializes the IONode.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        input_ports : list of IPort.Configuration, optional</span>
+<span class="sd">            A list of input port configurations (default is None).</span>
+<span class="sd">        output_ports : list of OPort.Configuration, optional</span>
+<span class="sd">            A list of output port configurations (default is None).</span>
+<span class="sd">        **kwargs : additional keyword arguments</span>
+<span class="sd">            Other configuration options.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_config</span><span class="p">(</span><span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
                            <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
-                           <span class="n">update_rule</span><span class="o">=</span><span class="n">update_rule</span><span class="p">,</span>
                            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">()</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="IONode.setup">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.io_node.html#ioiocore.io_node.IONode.setup">[docs]</a>
+<a class="viewcode-back" href="../../content/io_node.html#ioiocore.io_node.IONode.setup">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">data</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="n">Any</span><span class="p">],</span>
               <span class="n">port_metadata_in</span><span class="p">:</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">Dict</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="nb">dict</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Standard implementation of the setup method. Only allowed for</span>
+<span class="sd">        one input port. If subclasses have more than one input port, they</span>
+<span class="sd">        must overload this method.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            A dictionary containing setup data.</span>
+<span class="sd">        port_metadata_in : dict</span>
+<span class="sd">            A dictionary containing input port metadata.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            A dictionary containing output port metadata.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        ValueError</span>
+<span class="sd">            If the number of input ports is not exactly one.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">port_metadata_in</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
             <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Default implementation of setup() requires &quot;</span>
                              <span class="s2">&quot;exactly one input port. Please overload this &quot;</span>
@@ -169,7 +229,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Martin Walchshofer, Johannes Grünwald.</p>
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

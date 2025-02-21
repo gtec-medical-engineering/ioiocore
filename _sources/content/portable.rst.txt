@@ -1,0 +1,8 @@
+Portable
+--------
+
+.. autoclass:: ioiocore.portable.Portable
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:

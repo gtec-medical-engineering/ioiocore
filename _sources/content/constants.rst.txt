@@ -1,0 +1,14 @@
+Constants
+---------
+
+.. autoclass:: ioiocore.constants.KeyValueContainer
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+   
+.. autoclass:: ioiocore.constants.Constants
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:

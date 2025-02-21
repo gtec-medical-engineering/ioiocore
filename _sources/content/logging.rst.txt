@@ -1,0 +1,30 @@
+Logging
+-------
+
+Logger
+~~~~~~
+
+.. autoclass:: ioiocore.logger.Logger
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+LogEntry
+~~~~~~~~
+
+.. autoclass:: ioiocore.logger.LogEntry
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+
+LogType
+~~~~~~~
+
+.. autoclass:: ioiocore.logger.LogType
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
+

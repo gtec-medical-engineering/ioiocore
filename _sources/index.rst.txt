@@ -1,23 +1,26 @@
-.. ioiocore documentation master file, created by
-   sphinx-quickstart on Thu Nov 23 2024.
+.. include:: ../README.md
+   :parser: myst_parser.sphinx_
 
-ioiocore Programming Reference
-=======================================
+.. toctree::
+   :maxdepth: 1
+   :caption: Programming Reference
 
-.. autosummary::
-   :toctree: _autosummary
-   :recursive:
+   content/constants
+   content/configuration
+   content/interface
+   content/portable
+   
+   content/port
+   content/i_port
+   content/o_port
+
+   content/node
+   content/i_node
+   content/o_node
+   content/io_node
+
+   content/pipeline
+   
+   content/logging
 
 
-   ioiocore.constants
-   ioiocore.settings
-   ioiocore.logger
-   ioiocore.portable
-   ioiocore.port
-   ioiocore.i_port
-   ioiocore.o_port
-   ioiocore.node
-   ioiocore.i_node
-   ioiocore.o_node
-   ioiocore.io_node
-   ioiocore.pipeline

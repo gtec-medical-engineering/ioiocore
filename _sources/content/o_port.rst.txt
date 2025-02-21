@@ -1,0 +1,8 @@
+OPort
+-----
+
+.. autoclass:: ioiocore.o_port.OPort
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:

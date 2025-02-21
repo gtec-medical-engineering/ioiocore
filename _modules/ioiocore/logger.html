@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.logger &mdash; ioiocore v2.2.3  documentation</title>
+  <title>ioiocore.logger &mdash; ioiocore v2.2.4  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v2.2.3
+            ioiocore v2.2.4
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -39,18 +39,21 @@
   </form>
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
-              <ul>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.constants.html">ioiocore.constants</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.logger.html">ioiocore.logger</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.portable.html">ioiocore.portable</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.port.html">ioiocore.port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.i_port.html">ioiocore.i_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.o_port.html">ioiocore.o_port</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.node.html">ioiocore.node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.i_node.html">ioiocore.i_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.o_node.html">ioiocore.o_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.io_node.html">ioiocore.io_node</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../_autosummary/ioiocore.pipeline.html">ioiocore.pipeline</a></li>
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
 
         </div>
@@ -59,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v2.2.3</a>
+          <a href="../../index.html">ioiocore v2.2.4</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -86,8 +89,11 @@
 
 
 <div class="viewcode-block" id="LogType">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.LogType">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.LogType">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LogType</span><span class="p">(</span><span class="n">Enum</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Enumeration of log message types.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">INFO</span> <span class="o">=</span> <span class="s2">&quot;INFO&quot;</span>
     <span class="n">WARNING</span> <span class="o">=</span> <span class="s2">&quot;WARNING&quot;</span>
     <span class="n">ERROR</span> <span class="o">=</span> <span class="s2">&quot;ERROR&quot;</span></div>
@@ -95,98 +101,254 @@
 
 
 <div class="viewcode-block" id="LogEntry">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.LogEntry">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.LogEntry">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LogEntry</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Represents a log entry containing type, stack trace, and message.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">LogEntryImp</span>
     <span class="n">_imp</span><span class="p">:</span> <span class="n">_IMP_CLASS</span>  <span class="c1"># for type hinting  # type: ignore</span>
 
+<div class="viewcode-block" id="LogEntry.__init__">
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.LogEntry.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">LogType</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a log entry.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        type : LogType</span>
+<span class="sd">            Type of the log entry.</span>
+<span class="sd">        stack : str</span>
+<span class="sd">            Stack trace information.</span>
+<span class="sd">        message : str</span>
+<span class="sd">            Log message.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span>
                                    <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
-                                   <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span>
+                                   <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
+
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve an item from the log entry.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        key : Any</span>
+<span class="sd">            The key to retrieve.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Any</span>
+<span class="sd">            The corresponding value.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Iterate over the log entry fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="p">)</span>
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Get the number of fields in the log entry.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The number of fields.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="p">)</span>
 
 <div class="viewcode-block" id="LogEntry.keys">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.LogEntry.keys">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.LogEntry.keys">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve all keys in the log entry.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Iterable</span>
+<span class="sd">            An iterable of keys.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="LogEntry.values">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.LogEntry.values">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.LogEntry.values">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve all values in the log entry.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Iterable</span>
+<span class="sd">            An iterable of values.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">values</span><span class="p">()</span></div>
 
 
     <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Represent the log entry as a string.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            String representation of the log entry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="sa">f</span><span class="s2">&quot;LogEntry(</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="si">}</span><span class="s2">)&quot;</span>
 
 <div class="viewcode-block" id="LogEntry.to_formatted_string">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.LogEntry.to_formatted_string">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.LogEntry.to_formatted_string">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">to_formatted_string</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve a formatted string representation of the log entry.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            Formatted log entry string.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">to_formatted_string</span><span class="p">()</span></div>
 </div>
 
 
 
 <div class="viewcode-block" id="Logger">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Logger</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Logger interface for writing and retrieving log entries.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">LoggerImp</span>
     <span class="n">_imp</span><span class="p">:</span> <span class="n">_IMP_CLASS</span>  <span class="c1"># type: ignore</span>
 
+<div class="viewcode-block" id="Logger.__init__">
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="n">Optional</span><span class="p">[</span><span class="nb">str</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Initialize a logger instance.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        directory : Optional[str], optional</span>
+<span class="sd">            Directory for log storage, by default None.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span></div>
+
 
 <div class="viewcode-block" id="Logger.write">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger.write">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.write">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">LogType</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LogEntry</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Write a log entry.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        type : LogType</span>
+<span class="sd">            Type of the log entry.</span>
+<span class="sd">        message : str</span>
+<span class="sd">            Log message.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        LogEntry</span>
+<span class="sd">            The created log entry.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">type</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Logger.flush">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger.flush">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.flush">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">flush</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Flush the log buffer.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Logger.get_all">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger.get_all">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.get_all">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_all</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LogEntry</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve all log entries.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[LogEntry]</span>
+<span class="sd">            A list of all log entries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_all</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Logger.get_by_type">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger.get_by_type">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.get_by_type">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_by_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">LogType</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">LogEntry</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve log entries of a specific type.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        type : LogType</span>
+<span class="sd">            The log type to filter by.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        List[LogEntry]</span>
+<span class="sd">            A list of matching log entries.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_by_type</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Logger.has_entries">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger.has_entries">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.has_entries">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">has_entries</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">LogType</span> <span class="o">=</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Check if there are log entries of a specific type.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        type : LogType, optional</span>
+<span class="sd">            The log type to check, by default None.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if there are matching log entries, False otherwise.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">has_entries</span><span class="p">(</span><span class="nb">type</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Logger.get_last_error">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger.get_last_error">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.get_last_error">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_last_error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Optional</span><span class="p">[</span><span class="n">LogEntry</span><span class="p">]:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the last logged error entry.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Optional[LogEntry]</span>
+<span class="sd">            The last error log entry, if available.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Logger.get_file_name">
-<a class="viewcode-back" href="../../_autosummary/ioiocore.logger.html#ioiocore.logger.Logger.get_file_name">[docs]</a>
+<a class="viewcode-back" href="../../content/logging.html#ioiocore.logger.Logger.get_file_name">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_file_name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve the log file name.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        str</span>
+<span class="sd">            The log file name.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_file_name</span><span class="p">()</span></div>
 </div>
 
@@ -199,7 +361,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2024, Martin Walchshofer, Johannes Grünwald.</p>
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
