@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
 ioiocore
--------
+--------
 
 A realtime data processing framework for python
 

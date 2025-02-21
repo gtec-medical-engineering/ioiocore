@@ -9,17 +9,38 @@ import ioiocore.imp as imp
 
 
 class IONode(INode, ONode):
+    """
+    A class representing a node with input and output ports, inheriting from
+    both INode and ONode.
+    """
 
     class Configuration(INode.Configuration, ONode.Configuration):
+        """
+        Configuration class for IONode.
+        """
 
         class Keys(INode.Configuration.Keys, ONode.Configuration.Keys):
+            """
+            Keys for the IONode configuration (none except the inherited ones).
+            """
             pass
 
         def __init__(self,
                      input_ports: list[IPort.Configuration] = None,
                      output_ports: list[OPort.Configuration] = None,
-                     update_rule: INode.UpdateRule = INode.UpdateRule.ALL_PORTS,  # noqa: E501
                      **kwargs):
+            """
+            Initializes the configuration for IONode.
+
+            Parameters
+            ----------
+            input_ports : list of IPort.Configuration, optional
+                A list of input port configurations (default is None).
+            output_ports : list of OPort.Configuration, optional
+                A list of output port configurations (default is None).
+            **kwargs : additional keyword arguments
+                Other configuration options.
+            """
             if input_ports is None:
                 input_ports = [IPort.Configuration()]
             if output_ports is None:
@@ -28,12 +49,10 @@ class IONode(INode, ONode):
             INode.Configuration.__init__(self,
                                          input_ports=input_ports,
                                          output_ports=output_ports,
-                                         update_rule=update_rule,
                                          **kwargs)
             ONode.Configuration.__init__(self,
                                          input_ports=input_ports,
                                          output_ports=output_ports,
-                                         update_rule=update_rule,
                                          **kwargs)
 
     _IMP_CLASS = imp.IONodeImp
@@ -43,11 +62,21 @@ class IONode(INode, ONode):
     def __init__(self,
                  input_ports: list[IPort.Configuration] = None,
                  output_ports: list[OPort.Configuration] = None,
-                 update_rule: INode.UpdateRule = INode.UpdateRule.ALL_PORTS,
                  **kwargs):
+        """
+        Initializes the IONode.
+
+        Parameters
+        ----------
+        input_ports : list of IPort.Configuration, optional
+            A list of input port configurations (default is None).
+        output_ports : list of OPort.Configuration, optional
+            A list of output port configurations (default is None).
+        **kwargs : additional keyword arguments
+            Other configuration options.
+        """
         self.create_config(input_ports=input_ports,
                            output_ports=output_ports,
-                           update_rule=update_rule,
                            **kwargs)
         self.create_implementation()
         super().__init__(**self.config)
@@ -55,6 +84,28 @@ class IONode(INode, ONode):
     def setup(self,
               data: Dict[str, Any],
               port_metadata_in: Dict[str, dict]) -> Dict[str, dict]:
+        """
+        Standard implementation of the setup method. Only allowed for
+        one input port. If subclasses have more than one input port, they
+        must overload this method.
+
+        Parameters
+        ----------
+        data : dict
+            A dictionary containing setup data.
+        port_metadata_in : dict
+            A dictionary containing input port metadata.
+
+        Returns
+        -------
+        dict
+            A dictionary containing output port metadata.
+
+        Raises
+        ------
+        ValueError
+            If the number of input ports is not exactly one.
+        """
         if len(port_metadata_in) != 1:
             raise ValueError("Default implementation of setup() requires "
                              "exactly one input port. Please overload this "

@@ -8,12 +8,30 @@ import ioiocore.imp as imp
 
 class ONode(Node):
 
+    """
+    A class representing an output node, inheriting from Node.
+    """
+
     class Configuration(Node.Configuration):
+        """
+        Configuration class for ONode.
+        """
+
         class Keys(Node.Configuration.Keys):
+            """
+            Keys for the ONode configuration.
+            """
             OUTPUT_PORTS = "output_ports"
 
-        def __init__(self,
-                     **kwargs):
+        def __init__(self, **kwargs):
+            """
+            Initializes the configuration for ONode.
+
+            Parameters
+            ----------
+            **kwargs : additional keyword arguments
+                Other configuration options, including output ports.
+            """
             # remove output_ports from kwargs;
             # if not present, assign a default value. This avoids errors when
             # deserialization is performed.
@@ -30,6 +48,20 @@ class ONode(Node):
     def __init__(self,
                  output_ports: list[OPort.Configuration] = None,
                  **kwargs):
+        """
+        Initializes the ONode.
+
+        Parameters
+        ----------
+        output_ports : list of OPort.Configuration, optional
+            A list of output port configurations (default is None).
+        **kwargs : additional keyword arguments
+            Other configuration options.
+        """
+        self.create_config(output_ports=output_ports,
+                           **kwargs)
+        self.create_implementation()
+        super().__init__(**self.config)
         self.create_config(output_ports=output_ports,
                            **kwargs)
         self.create_implementation()
@@ -39,17 +71,56 @@ class ONode(Node):
                 output_port: str,
                 target: INode,
                 input_port: str):
+        """
+        Connects an output port to an input port of a target node.
+
+        Parameters
+        ----------
+        output_port : str
+            The name of the output port.
+        target : INode
+            The target node to which the output port will be connected.
+        input_port : str
+            The name of the input port on the target node.
+        """
         self._imp.connect(output_port, target._imp, input_port)
 
     def disconnect(self,
                    output_port: str,
                    target: INode,
                    input_port: str):
+        """
+        Disconnects an output port from an input port of a target node.
+
+        Parameters
+        ----------
+        output_port : str
+            The name of the output port.
+        target : INode
+            The target node from which the output port will be disconnected.
+        input_port : str
+            The name of the input port on the target node.
+        """
         self._imp.disconnect(output_port, target._imp, input_port)
 
     def setup(self,
               data: Dict[str, Any],
               port_metadata_in: Dict[str, dict]) -> Dict[str, dict]:
+        """
+        Sets up the ONode.
+
+        Parameters
+        ----------
+        data : dict
+            A dictionary containing setup data.
+        port_metadata_in : dict
+            A dictionary containing input port metadata.
+
+        Returns
+        -------
+        dict
+            A dictionary containing output port metadata.
+        """
         port_metadata_out: Dict[str, dict] = {}
         op_config = self.config[self.config.Keys.OUTPUT_PORTS]
         op_names = [s[self.Configuration.Keys.NAME] for s in op_config]
@@ -59,4 +130,13 @@ class ONode(Node):
         return port_metadata_out
 
     def cycle(self, data: Dict[str, Any] = {}):
+        """
+        Performs a cycle operation on the ONode.
+
+        Parameters
+        ----------
+        data : dict, optional
+            A dictionary containing the data for the cycle operation (default
+            is an empty dictionary).
+        """
         self._imp._cycle(data)

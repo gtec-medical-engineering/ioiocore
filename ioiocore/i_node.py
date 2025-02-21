@@ -7,18 +7,34 @@ import ioiocore.imp as imp
 
 
 class INode(Node):
-
-    class UpdateRule(Enum):
-        ALL_PORTS = 1
-        ANY_PORT = 2
+    """
+    Represents a node that has only input ports.
+    """
 
     class Configuration(Node.Configuration):
+        """
+        Configuration class for INode.
+        """
+
         class Keys(Node.Configuration.Keys):
+            """
+            Keys for the INode configuration.
+            """
             INPUT_PORTS = 'input_ports'
 
         def __init__(self,
                      input_ports: list[IPort.Configuration] = None,
                      **kwargs):
+            """
+            Initializes the configuration for INode.
+
+            Parameters
+            ----------
+            input_ports : list of IPort.Configuration, optional
+                A list of input port configurations (default is None).
+            **kwargs : additional keyword arguments
+                Other configuration options.
+            """
             if input_ports is None:
                 input_ports = [IPort.Configuration()]
             super().__init__(input_ports=input_ports,
@@ -31,18 +47,49 @@ class INode(Node):
     def __init__(self,
                  input_ports: list[IPort.Configuration] = None,
                  **kwargs):
+        """
+        Initializes the INode.
+
+        Parameters
+        ----------
+        input_ports : list of IPort.Configuration, optional
+            A list of input port configurations (default is None).
+        **kwargs : additional keyword arguments
+            Other configuration options.
+        """
         self.create_config(input_ports=input_ports,
                            **kwargs)
         self.create_implementation()
         super().__init__(**self.config)
 
     def start(self):
+        """
+        Starts the node.
+        """
         self._imp.start()
 
     def stop(self):
+        """
+        Stops the node.
+        """
         self._imp.stop()
 
     def setup(self,
               data: Dict[str, Any],
               port_metadata_in: Dict[str, dict]) -> Dict[str, dict]:
-        pass
+        """
+        Sets up the INode.
+
+        Parameters
+        ----------
+        data : dict
+            A dictionary containing the data.
+        port_metadata_in : dict
+            A dictionary containing port metadata.
+
+        Returns
+        -------
+        dict
+            An empty dictionary, because INode has no output ports.
+        """
+        return {}
