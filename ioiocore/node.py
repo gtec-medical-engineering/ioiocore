@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from typing import Dict, Any
 from .portable import Portable
-from .logger import Logger
+from .logging import Logger
 from .constants import Constants
 
 import ioiocore.imp as imp  # type: ignore
