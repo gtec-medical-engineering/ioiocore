@@ -1,5 +1,6 @@
 from enum import Enum
-from typing import Dict, Any
+from typing import Any
+
 from .i_port import IPort
 from .node import Node
 
@@ -23,7 +24,7 @@ class INode(Node):
             INPUT_PORTS = 'input_ports'
 
         def __init__(self,
-                     input_ports: list[IPort.Configuration] = None,
+                     input_ports: list = None,
                      **kwargs):
             """
             Initializes the configuration for INode.
@@ -45,7 +46,7 @@ class INode(Node):
     config: Configuration  # for type hinting
 
     def __init__(self,
-                 input_ports: list[IPort.Configuration] = None,
+                 input_ports: list = None,
                  **kwargs):
         """
         Initializes the INode.
@@ -75,8 +76,8 @@ class INode(Node):
         self._imp.stop()
 
     def setup(self,
-              data: Dict[str, Any],
-              port_metadata_in: Dict[str, dict]) -> Dict[str, dict]:
+              data: dict,
+              port_metadata_in: dict) -> dict:
         """
         Sets up the INode.
 

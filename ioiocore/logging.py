@@ -1,5 +1,5 @@
 from enum import Enum
-from typing import List, Optional
+from typing import Optional
 
 import ioiocore.imp as imp
 from .interface import Interface
@@ -160,18 +160,18 @@ class Logger(Interface):
         """
         self._imp.flush()
 
-    def get_all(self) -> List[LogEntry]:
+    def get_all(self) -> list:
         """
         Retrieve all log entries.
 
         Returns
         -------
-        List[LogEntry]
+        list
             A list of all log entries.
         """
         return self._imp.get_all()
 
-    def get_by_type(self, type: LogType) -> List[LogEntry]:
+    def get_by_type(self, type: LogType) -> list:
         """
         Retrieve log entries of a specific type.
 
@@ -182,7 +182,7 @@ class Logger(Interface):
 
         Returns
         -------
-        List[LogEntry]
+        list
             A list of matching log entries.
         """
         return self._imp.get_by_type(type)

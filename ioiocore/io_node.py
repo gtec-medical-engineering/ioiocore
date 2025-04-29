@@ -1,4 +1,4 @@
-from typing import Any, Dict
+from typing import Any
 from copy import deepcopy
 from .i_node import INode
 from .o_node import ONode
@@ -26,8 +26,8 @@ class IONode(INode, ONode):
             pass
 
         def __init__(self,
-                     input_ports: list[IPort.Configuration] = None,
-                     output_ports: list[OPort.Configuration] = None,
+                     input_ports: list = None,
+                     output_ports: list = None,
                      **kwargs):
             """
             Initializes the configuration for IONode.
@@ -60,8 +60,8 @@ class IONode(INode, ONode):
     config: Configuration  # for type hinting
 
     def __init__(self,
-                 input_ports: list[IPort.Configuration] = None,
-                 output_ports: list[OPort.Configuration] = None,
+                 input_ports: list = None,
+                 output_ports: list = None,
                  **kwargs):
         """
         Initializes the IONode.
@@ -82,8 +82,8 @@ class IONode(INode, ONode):
         super().__init__(**self.config)
 
     def setup(self,
-              data: Dict[str, Any],
-              port_metadata_in: Dict[str, dict]) -> Dict[str, dict]:
+              data: dict,
+              port_metadata_in: dict) -> dict:
         """
         Standard implementation of the setup method. Only allowed for
         one input port. If subclasses have more than one input port, they
@@ -110,7 +110,7 @@ class IONode(INode, ONode):
             raise ValueError("Default implementation of setup() requires "
                              "exactly one input port. Please overload this "
                              "method appropriately.")
-        port_metadata_out: Dict[str, dict] = {}
+        port_metadata_out: dict = {}
         ip_config = self.config[self.config.Keys.INPUT_PORTS]
         ip_names = [s[self.Configuration.Keys.NAME] for s in ip_config]
         op_config = self.config[self.config.Keys.OUTPUT_PORTS]

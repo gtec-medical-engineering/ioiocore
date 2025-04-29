@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
-from typing import Dict, Any
+from typing import Any, TYPE_CHECKING
+
 from .portable import Portable
 from .logging import Logger
 from .constants import Constants
@@ -153,8 +154,8 @@ class Node(ABC, Portable):
 
     @abstractmethod
     def setup(self,
-              data: Dict[str, Any],
-              port_metadata_in: Dict[str, dict]) -> Dict[str, dict]:
+              data: dict,
+              port_metadata_in: dict) -> dict:
         """
         Abstract method to setup the Node.
 
@@ -173,10 +174,10 @@ class Node(ABC, Portable):
         dict
             The configuration of the output ports.
         """
-        pass
+        pass  # pragma: no cover
 
     @abstractmethod
-    def step(self, data: Dict[str, Any]) -> Dict[str, Any]:
+    def step(self, data: dict) -> dict:
         """
         Abstract method for the Node's step function.
 
@@ -193,4 +194,4 @@ class Node(ABC, Portable):
         dict
             The processed data after applying the step logic.
         """
-        pass
+        pass  # pragma: no cover

@@ -1,4 +1,4 @@
-from typing import Dict, Any
+from typing import Any
 from .o_port import OPort
 from .node import Node
 from .i_node import INode
@@ -36,8 +36,8 @@ class ONode(Node):
             # if not present, assign a default value. This avoids errors when
             # deserialization is performed.
             op_key = self.Keys.OUTPUT_PORTS
-            output_ports: list[OPort.Configuration] = kwargs.pop(op_key,
-                                                                 [OPort.Configuration()])  # noqa: E501
+            output_ports: list = kwargs.pop(op_key,
+                                            [OPort.Configuration()])  # noqa: E501
             super().__init__(output_ports=output_ports,
                              **kwargs)
 
@@ -46,7 +46,7 @@ class ONode(Node):
     config: Configuration  # for type hinting
 
     def __init__(self,
-                 output_ports: list[OPort.Configuration] = None,
+                 output_ports: list = None,
                  **kwargs):
         """
         Initializes the ONode.
@@ -104,8 +104,8 @@ class ONode(Node):
         self._imp.disconnect(output_port, target._imp, input_port)
 
     def setup(self,
-              data: Dict[str, Any],
-              port_metadata_in: Dict[str, dict]) -> Dict[str, dict]:
+              data: dict,
+              port_metadata_in: dict) -> dict:
         """
         Sets up the ONode.
 
@@ -121,7 +121,7 @@ class ONode(Node):
         dict
             A dictionary containing output port metadata.
         """
-        port_metadata_out: Dict[str, dict] = {}
+        port_metadata_out: dict = {}
         op_config = self.config[self.config.Keys.OUTPUT_PORTS]
         op_names = [s[self.Configuration.Keys.NAME] for s in op_config]
         md = self.config.get_metadata()
@@ -129,7 +129,7 @@ class ONode(Node):
             port_metadata_out[port_name] = md
         return port_metadata_out
 
-    def cycle(self, data: Dict[str, Any] = {}):
+    def cycle(self, data: dict = {}):
         """
         Performs a cycle operation on the ONode.
 

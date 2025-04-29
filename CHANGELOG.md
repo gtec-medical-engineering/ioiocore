@@ -1,5 +1,9 @@
 ## Changelog
 
+### [2.3.0] - 2025-04-16
+- Increase unit test coverage
+- Added support for Python 3.8 and 3.9
+
 ### [2.2.6] - 2025-02-24
 - Added Changelog to README.md
 - Added support for Python 3.10
