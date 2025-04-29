@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Constants &mdash; ioiocore v2.2.6  documentation</title>
+  <title>Constants &mdash; ioiocore v2.3.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v2.2.6
+            ioiocore v2.3.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -65,7 +65,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v2.2.6</a>
+          <a href="../index.html">ioiocore v2.3.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -87,13 +87,13 @@
 <h1>Constants<a class="headerlink" href="#constants" title="Link to this heading"></a></h1>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.constants.KeyValueContainer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.constants.</span></span><span class="sig-name descname"><span class="pre">KeyValueContainer</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#KeyValueContainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.constants.</span></span><span class="sig-name descname"><span class="pre">KeyValueContainer</span></span><a class="reference internal" href="../_modules/ioiocore/utilities.html#KeyValueContainer"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A container class that provides methods to retrieve all keys
 and values defined in subclasses.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.constants.KeyValueContainer.keys">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/constants.html#KeyValueContainer.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer.keys" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">keys</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/utilities.html#KeyValueContainer.keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer.keys" title="Link to this definition"></a></dt>
 <dd><p>Retrieve all keys defined in the class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
@@ -108,12 +108,12 @@ dunder attributes.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.constants.KeyValueContainer.values">
-<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/constants.html#KeyValueContainer.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer.values" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">classmethod</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">values</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/utilities.html#KeyValueContainer.values"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.KeyValueContainer.values" title="Link to this definition"></a></dt>
 <dd><p>Retrieve all values defined in the class.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
 <dd class="field-odd"><p>A list of all values in the class that are not
-dunder attributes.</p>
+dunder attributes or private attributes.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
 <dd class="field-even"><p>list</p>
@@ -126,12 +126,12 @@ dunder attributes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.constants.</span></span><span class="sig-name descname"><span class="pre">Constants</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
 <p>A collection of categorized constants used in the system.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Conditions">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Conditions</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Conditions"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Conditions" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.utilities.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
 <p>System conditions indicating operational status.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Conditions.ERROR">
@@ -148,7 +148,7 @@ dunder attributes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Defaults">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Defaults</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Defaults"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Defaults" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.utilities.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
 <p>Default values for various system components.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Defaults.NODE_NAME">
@@ -170,7 +170,7 @@ dunder attributes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Keys">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Keys</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Keys" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.utilities.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
 <p>Keys used for system configuration and metadata.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Keys.CHANNEL_COUNT">
@@ -197,7 +197,7 @@ dunder attributes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.States">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">States</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.States"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.States" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.utilities.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
 <p>Possible states of a pipeline.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.States.RUNNING">
@@ -214,7 +214,7 @@ dunder attributes.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Timing">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">Timing</span></span><a class="reference internal" href="../_modules/ioiocore/constants.html#Constants.Timing"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.constants.Constants.Timing" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.constants.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="#ioiocore.constants.KeyValueContainer" title="ioiocore.utilities.KeyValueContainer"><code class="xref py py-class docutils literal notranslate"><span class="pre">KeyValueContainer</span></code></a></p>
 <p>Timing modes available in the system.</p>
 <dl class="py attribute">
 <dt class="sig sig-object py" id="ioiocore.constants.Constants.Timing.ASYNC">

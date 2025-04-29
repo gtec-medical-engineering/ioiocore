@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.constants &mdash; ioiocore v2.2.6  documentation</title>
+  <title>ioiocore.constants &mdash; ioiocore v2.3.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v2.2.6
+            ioiocore v2.3.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -62,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v2.2.6</a>
+          <a href="../../index.html">ioiocore v2.3.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -81,54 +81,15 @@
            <div itemprop="articleBody">
              
   <h1>Source code for ioiocore.constants</h1><div class="highlight"><pre>
-<div class="viewcode-block" id="KeyValueContainer">
-<a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer">[docs]</a>
-<span></span><span class="k">class</span><span class="w"> </span><span class="nc">KeyValueContainer</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A container class that provides methods to retrieve all keys</span>
-<span class="sd">    and values defined in subclasses.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
-<div class="viewcode-block" id="KeyValueContainer.values">
-<a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer.values">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve all values defined in the class.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            A list of all values in the class that are not</span>
-<span class="sd">            dunder attributes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)]</span></div>
-
-
-<div class="viewcode-block" id="KeyValueContainer.keys">
-<a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer.keys">[docs]</a>
-    <span class="nd">@classmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Retrieve all keys defined in the class.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        list</span>
-<span class="sd">            A list of all keys in the class that are not</span>
-<span class="sd">            dunder attributes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)]</span></div>
-</div>
-
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.utilities</span><span class="w"> </span><span class="kn">import</span> <span class="n">KeyValueContainer</span>
 
 
 <div class="viewcode-block" id="Constants">
 <a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.Constants">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">Constants</span><span class="p">(</span><span class="n">KeyValueContainer</span><span class="p">):</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Constants</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    A collection of categorized constants used in the system.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
 <div class="viewcode-block" id="Constants.Defaults">
 <a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.Constants.Defaults">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Defaults</span><span class="p">(</span><span class="n">KeyValueContainer</span><span class="p">):</span>

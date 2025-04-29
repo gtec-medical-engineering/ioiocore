@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.interface &mdash; ioiocore v2.3.0  documentation</title>
+  <title>ioiocore.utilities &mdash; ioiocore v2.3.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -71,7 +71,7 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
-      <li class="breadcrumb-item active">ioiocore.interface</li>
+      <li class="breadcrumb-item active">ioiocore.utilities</li>
       <li class="wy-breadcrumbs-aside">
       </li>
   </ul>
@@ -80,40 +80,50 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <h1>Source code for ioiocore.interface</h1><div class="highlight"><pre>
-<span></span><span class="kn">import</span><span class="w"> </span><span class="nn">ioiocore.imp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">imp</span>
+  <h1>Source code for ioiocore.utilities</h1><div class="highlight"><pre>
+<span></span><span class="k">class</span><span class="w"> </span><span class="nc">_ImmutableClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot modify constant &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
 
 
-<div class="viewcode-block" id="Interface">
-<a class="viewcode-back" href="../../content/interface.html#ioiocore.interface.Interface">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<div class="viewcode-block" id="KeyValueContainer">
+<a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">KeyValueContainer</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">_ImmutableClass</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    A base interface class that provides a factory method for</span>
-<span class="sd">    creating an implementation instance.</span>
+<span class="sd">    A container class that provides methods to retrieve all keys</span>
+<span class="sd">    and values defined in subclasses.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
-
-    <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">Implementation</span>
-    <span class="n">_imp</span><span class="p">:</span> <span class="n">_IMP_CLASS</span>  <span class="c1"># type: ignore</span>
-
-    <span class="c1"># factory method</span>
-<div class="viewcode-block" id="Interface.create_implementation">
-<a class="viewcode-back" href="../../content/interface.html#ioiocore.interface.Interface.create_implementation">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">create_implementation</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="KeyValueContainer.values">
+<a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer.values">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Factory method to create an instance of the implementation</span>
-<span class="sd">        class.</span>
+<span class="sd">        Retrieve all values defined in the class.</span>
 
-<span class="sd">        This method ensures that the implementation instance is only</span>
-<span class="sd">        created once per object.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        **kwargs : dict</span>
-<span class="sd">            Keyword arguments to be passed to the implementation</span>
-<span class="sd">            class constructor.</span>
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of all values in the class that are not</span>
+<span class="sd">            dunder attributes or private attributes.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s1">&#39;_imp&#39;</span><span class="p">):</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_IMP_CLASS</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+        <span class="k">return</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span></div>
+
+
+<div class="viewcode-block" id="KeyValueContainer.keys">
+<a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer.keys">[docs]</a>
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Retrieve all keys defined in the class.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        list</span>
+<span class="sd">            A list of all keys in the class that are not</span>
+<span class="sd">            dunder attributes.</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)]</span></div>
 </div>
 
 </pre></div>
