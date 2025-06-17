@@ -4,6 +4,7 @@ from .i_node import INode
 from .o_node import ONode
 from .i_node import IPort
 from .o_node import OPort
+from .constants import Constants
 
 import ioiocore.imp as imp
 
@@ -23,11 +24,12 @@ class IONode(INode, ONode):
             """
             Keys for the IONode configuration (none except the inherited ones).
             """
-            pass
+            DECIMATION_FACTOR = "decimation_factor"
 
         def __init__(self,
                      input_ports: list = None,
                      output_ports: list = None,
+                     decimation_factor: int = None,
                      **kwargs):
             """
             Initializes the configuration for IONode.
@@ -38,6 +40,8 @@ class IONode(INode, ONode):
                 A list of input port configurations (default is None).
             output_ports : list of OPort.Configuration, optional
                 A list of output port configurations (default is None).
+            decimation_factor : factor by which the output data is decimated
+                (default is 1).
             **kwargs : additional keyword arguments
                 Other configuration options.
             """
@@ -45,14 +49,18 @@ class IONode(INode, ONode):
                 input_ports = [IPort.Configuration()]
             if output_ports is None:
                 output_ports = [OPort.Configuration()]
+            if decimation_factor is None:
+                decimation_factor = 1
 
             INode.Configuration.__init__(self,
                                          input_ports=input_ports,
                                          output_ports=output_ports,
+                                         decimation_factor=decimation_factor,
                                          **kwargs)
             ONode.Configuration.__init__(self,
                                          input_ports=input_ports,
                                          output_ports=output_ports,
+                                         decimation_factor=decimation_factor,
                                          **kwargs)
 
     _IMP_CLASS = imp.IONodeImp
@@ -62,6 +70,7 @@ class IONode(INode, ONode):
     def __init__(self,
                  input_ports: list = None,
                  output_ports: list = None,
+                 decimation_factor: int = None,
                  **kwargs):
         """
         Initializes the IONode.
@@ -72,11 +81,14 @@ class IONode(INode, ONode):
             A list of input port configurations (default is None).
         output_ports : list of OPort.Configuration, optional
             A list of output port configurations (default is None).
+        decimation_factor : factor by which the output data is decimated
+            (default is 1).
         **kwargs : additional keyword arguments
             Other configuration options.
         """
         self.create_config(input_ports=input_ports,
                            output_ports=output_ports,
+                           decimation_factor=decimation_factor,
                            **kwargs)
         self.create_implementation()
         super().__init__(**self.config)
@@ -115,7 +127,25 @@ class IONode(INode, ONode):
         ip_names = [s[self.Configuration.Keys.NAME] for s in ip_config]
         op_config = self.config[self.config.Keys.OUTPUT_PORTS]
         op_names = [s[self.Configuration.Keys.NAME] for s in op_config]
+        M = self.config[self.config.Keys.DECIMATION_FACTOR]
         for ip_name in ip_names:
             for op_name in op_names:
-                port_metadata_out[op_name] = deepcopy(port_metadata_in[ip_name])  # noqa: E501
+                md = deepcopy(port_metadata_in[ip_name])
+                if Constants.Keys.SAMPLING_RATE in md.keys():
+                    md[Constants.Keys.SAMPLING_RATE] /= M
+                port_metadata_out[op_name] = md
         return port_metadata_out
+
+    def _is_output_step(self) -> bool:
+        """
+        Indicates if an output sample is generated at the current
+        execution step. Always true if decimation factor M == 1. True
+        only every Mth sample if M > 1.
+
+        Returns
+        -------
+        bool
+            Logical value indicating if an output sample is generated.
+
+        """
+        return self._imp.is_output_step()

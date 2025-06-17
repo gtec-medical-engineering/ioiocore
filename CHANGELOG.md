@@ -1,5 +1,9 @@
 ## Changelog
 
+### [2.3.1] - 2025-06-16
+- Added multirate support
+- Bugfixing
+
 ### [2.3.0] - 2025-04-16
 - Increase unit test coverage
 - Added support for Python 3.8 and 3.9
