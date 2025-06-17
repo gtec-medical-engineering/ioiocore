@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.io_node &mdash; ioiocore v2.3.0  documentation</title>
+  <title>ioiocore.io_node &mdash; ioiocore v2.3.1  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v2.3.0
+            ioiocore v2.3.1
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -62,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v2.3.0</a>
+          <a href="../../index.html">ioiocore v2.3.1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -87,6 +87,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.o_node</span><span class="w"> </span><span class="kn">import</span> <span class="n">ONode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.i_node</span><span class="w"> </span><span class="kn">import</span> <span class="n">IPort</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.o_node</span><span class="w"> </span><span class="kn">import</span> <span class="n">OPort</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constants</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">ioiocore.imp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">imp</span>
 
@@ -112,7 +113,7 @@
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Keys for the IONode configuration (none except the inherited ones).</span>
 <span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">pass</span></div>
+            <span class="n">DECIMATION_FACTOR</span> <span class="o">=</span> <span class="s2">&quot;decimation_factor&quot;</span></div>
 
 
 <div class="viewcode-block" id="IONode.Configuration.__init__">
@@ -120,6 +121,7 @@
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">input_ports</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="n">output_ports</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="n">decimation_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">            Initializes the configuration for IONode.</span>
@@ -130,6 +132,8 @@
 <span class="sd">                A list of input port configurations (default is None).</span>
 <span class="sd">            output_ports : list of OPort.Configuration, optional</span>
 <span class="sd">                A list of output port configurations (default is None).</span>
+<span class="sd">            decimation_factor : factor by which the output data is decimated</span>
+<span class="sd">                (default is 1).</span>
 <span class="sd">            **kwargs : additional keyword arguments</span>
 <span class="sd">                Other configuration options.</span>
 <span class="sd">            &quot;&quot;&quot;</span>
@@ -137,14 +141,18 @@
                 <span class="n">input_ports</span> <span class="o">=</span> <span class="p">[</span><span class="n">IPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()]</span>
             <span class="k">if</span> <span class="n">output_ports</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">output_ports</span> <span class="o">=</span> <span class="p">[</span><span class="n">OPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()]</span>
+            <span class="k">if</span> <span class="n">decimation_factor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">decimation_factor</span> <span class="o">=</span> <span class="mi">1</span>
 
             <span class="n">INode</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                          <span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
                                          <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
+                                         <span class="n">decimation_factor</span><span class="o">=</span><span class="n">decimation_factor</span><span class="p">,</span>
                                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
             <span class="n">ONode</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                                          <span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
                                          <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
+                                         <span class="n">decimation_factor</span><span class="o">=</span><span class="n">decimation_factor</span><span class="p">,</span>
                                          <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </div>
 
@@ -158,6 +166,7 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">input_ports</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">output_ports</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                 <span class="n">decimation_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initializes the IONode.</span>
@@ -168,11 +177,14 @@
 <span class="sd">            A list of input port configurations (default is None).</span>
 <span class="sd">        output_ports : list of OPort.Configuration, optional</span>
 <span class="sd">            A list of output port configurations (default is None).</span>
+<span class="sd">        decimation_factor : factor by which the output data is decimated</span>
+<span class="sd">            (default is 1).</span>
 <span class="sd">        **kwargs : additional keyword arguments</span>
 <span class="sd">            Other configuration options.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_config</span><span class="p">(</span><span class="n">input_ports</span><span class="o">=</span><span class="n">input_ports</span><span class="p">,</span>
                            <span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
+                           <span class="n">decimation_factor</span><span class="o">=</span><span class="n">decimation_factor</span><span class="p">,</span>
                            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">()</span>
         <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
@@ -214,11 +226,29 @@
         <span class="n">ip_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">NAME</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">ip_config</span><span class="p">]</span>
         <span class="n">op_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">OUTPUT_PORTS</span><span class="p">]</span>
         <span class="n">op_names</span> <span class="o">=</span> <span class="p">[</span><span class="n">s</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">NAME</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">op_config</span><span class="p">]</span>
+        <span class="n">M</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">DECIMATION_FACTOR</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">ip_name</span> <span class="ow">in</span> <span class="n">ip_names</span><span class="p">:</span>
             <span class="k">for</span> <span class="n">op_name</span> <span class="ow">in</span> <span class="n">op_names</span><span class="p">:</span>
-                <span class="n">port_metadata_out</span><span class="p">[</span><span class="n">op_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">port_metadata_in</span><span class="p">[</span><span class="n">ip_name</span><span class="p">])</span>  <span class="c1"># noqa: E501</span>
+                <span class="n">md</span> <span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="n">port_metadata_in</span><span class="p">[</span><span class="n">ip_name</span><span class="p">])</span>
+                <span class="k">if</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">SAMPLING_RATE</span> <span class="ow">in</span> <span class="n">md</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+                    <span class="n">md</span><span class="p">[</span><span class="n">Constants</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">SAMPLING_RATE</span><span class="p">]</span> <span class="o">/=</span> <span class="n">M</span>
+                <span class="n">port_metadata_out</span><span class="p">[</span><span class="n">op_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">md</span>
         <span class="k">return</span> <span class="n">port_metadata_out</span></div>
-</div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="nf">_is_output_step</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Indicates if an output sample is generated at the current</span>
+<span class="sd">        execution step. Always true if decimation factor M == 1. True</span>
+<span class="sd">        only every Mth sample if M &gt; 1.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            Logical value indicating if an output sample is generated.</span>
+
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">is_output_step</span><span class="p">()</span></div>
 
 </pre></div>
 

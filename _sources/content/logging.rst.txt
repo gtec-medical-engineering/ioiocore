@@ -4,7 +4,7 @@ Logging
 Logger
 ~~~~~~
 
-.. autoclass:: ioiocore.logger.Logger
+.. autoclass:: ioiocore.logging.Logger
    :members:
    :undoc-members:
    :special-members: __init__
@@ -13,7 +13,7 @@ Logger
 LogEntry
 ~~~~~~~~
 
-.. autoclass:: ioiocore.logger.LogEntry
+.. autoclass:: ioiocore.logging.LogEntry
    :members:
    :undoc-members:
    :special-members: __init__
@@ -22,7 +22,7 @@ LogEntry
 LogType
 ~~~~~~~
 
-.. autoclass:: ioiocore.logger.LogType
+.. autoclass:: ioiocore.logging.LogType
    :members:
    :undoc-members:
    :special-members: __init__
