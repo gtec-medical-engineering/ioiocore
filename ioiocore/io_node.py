@@ -24,12 +24,11 @@ class IONode(INode, ONode):
             """
             Keys for the IONode configuration (none except the inherited ones).
             """
-            DECIMATION_FACTOR = "decimation_factor"
+            pass
 
         def __init__(self,
                      input_ports: list = None,
                      output_ports: list = None,
-                     decimation_factor: int = None,
                      **kwargs):
             """
             Initializes the configuration for IONode.
@@ -40,8 +39,6 @@ class IONode(INode, ONode):
                 A list of input port configurations (default is None).
             output_ports : list of OPort.Configuration, optional
                 A list of output port configurations (default is None).
-            decimation_factor : factor by which the output data is decimated
-                (default is 1).
             **kwargs : additional keyword arguments
                 Other configuration options.
             """
@@ -49,18 +46,14 @@ class IONode(INode, ONode):
                 input_ports = [IPort.Configuration()]
             if output_ports is None:
                 output_ports = [OPort.Configuration()]
-            if decimation_factor is None:
-                decimation_factor = 1
 
             INode.Configuration.__init__(self,
                                          input_ports=input_ports,
                                          output_ports=output_ports,
-                                         decimation_factor=decimation_factor,
                                          **kwargs)
             ONode.Configuration.__init__(self,
                                          input_ports=input_ports,
                                          output_ports=output_ports,
-                                         decimation_factor=decimation_factor,
                                          **kwargs)
 
     _IMP_CLASS = imp.IONodeImp
@@ -70,7 +63,6 @@ class IONode(INode, ONode):
     def __init__(self,
                  input_ports: list = None,
                  output_ports: list = None,
-                 decimation_factor: int = None,
                  **kwargs):
         """
         Initializes the IONode.
@@ -88,14 +80,13 @@ class IONode(INode, ONode):
         """
         self.create_config(input_ports=input_ports,
                            output_ports=output_ports,
-                           decimation_factor=decimation_factor,
                            **kwargs)
         self.create_implementation()
         super().__init__(**self.config)
 
     def setup(self,
               data: dict,
-              port_metadata_in: dict) -> dict:
+              port_context_in: dict) -> dict:
         """
         Standard implementation of the setup method. Only allowed for
         one input port. If subclasses have more than one input port, they
@@ -105,47 +96,30 @@ class IONode(INode, ONode):
         ----------
         data : dict
             A dictionary containing setup data.
-        port_metadata_in : dict
-            A dictionary containing input port metadata.
+        port_context_in : dict
+            A dictionary containing input port context.
 
         Returns
         -------
         dict
-            A dictionary containing output port metadata.
+            A dictionary containing output port context.
 
         Raises
         ------
         ValueError
             If the number of input ports is not exactly one.
         """
-        if len(port_metadata_in) != 1:
+        if len(port_context_in) != 1:
             raise ValueError("Default implementation of setup() requires "
                              "exactly one input port. Please overload this "
                              "method appropriately.")
-        port_metadata_out: dict = {}
+        port_context_out: dict = {}
         ip_config = self.config[self.config.Keys.INPUT_PORTS]
         ip_names = [s[self.Configuration.Keys.NAME] for s in ip_config]
         op_config = self.config[self.config.Keys.OUTPUT_PORTS]
         op_names = [s[self.Configuration.Keys.NAME] for s in op_config]
-        M = self.config[self.config.Keys.DECIMATION_FACTOR]
         for ip_name in ip_names:
             for op_name in op_names:
-                md = deepcopy(port_metadata_in[ip_name])
-                if Constants.Keys.SAMPLING_RATE in md.keys():
-                    md[Constants.Keys.SAMPLING_RATE] /= M
-                port_metadata_out[op_name] = md
-        return port_metadata_out
-
-    def _is_output_step(self) -> bool:
-        """
-        Indicates if an output sample is generated at the current
-        execution step. Always true if decimation factor M == 1. True
-        only every Mth sample if M > 1.
-
-        Returns
-        -------
-        bool
-            Logical value indicating if an output sample is generated.
-
-        """
-        return self._imp.is_output_step()
+                md = deepcopy(port_context_in[ip_name])
+                port_context_out[op_name] = md
+        return port_context_out

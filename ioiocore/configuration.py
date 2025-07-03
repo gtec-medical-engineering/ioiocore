@@ -8,7 +8,7 @@ class Configuration(dict):
         """
         Reserved keys that cannot be used as configuration fields.
         """
-        METADATA = 'metadata'
+        pass
 
     class Keys:
         """
@@ -16,8 +16,6 @@ class Configuration(dict):
         subclasses.
         """
         pass
-
-    _metadata_set: bool
 
     def __init__(self, **kwargs):
         """
@@ -51,7 +49,6 @@ class Configuration(dict):
             if key in self.keys():
                 if self[key] is not None:
                     raise ValueError(f"Field '{key}' is reserved.")
-        dict.__setitem__(self, Configuration.ReservedKeys.METADATA, None)
         self._metadata_set = False
 
     def __deepcopy__(self, memo):
@@ -89,7 +86,7 @@ class Configuration(dict):
             If an attempt is made to modify the configuration.
         """
         raise ValueError("Configuration object is read-only. To "
-                         "store user data, use set_metadata().")
+                         "store user data, use contexts.")
 
     def delitem(self, key):
         """
@@ -101,38 +98,4 @@ class Configuration(dict):
             If an attempt is made to delete a configuration field.
         """
         raise ValueError("Configuration object is read-only. To "
-                         "store user data, use set_metadata().")
-
-    def set_metadata(self, metadata: dict):
-        """
-        Store metadata in the configuration object.
-
-        Parameters
-        ----------
-        metadata : dict
-            A dictionary containing metadata information.
-        """
-        dict.__setitem__(self, Configuration.ReservedKeys.METADATA, metadata)
-        self._metadata_set = True
-
-    def get_metadata(self) -> dict:
-        """
-        Retrieve the stored metadata.
-
-        Returns
-        -------
-        dict
-            The metadata dictionary.
-        """
-        return self[Configuration.ReservedKeys.METADATA]
-
-    def has_metadata(self) -> bool:
-        """
-        Check if metadata has been set.
-
-        Returns
-        -------
-        bool
-            True if metadata is set, False otherwise.
-        """
-        return self._metadata_set
+                         "store user data, use contexts.")

@@ -7,6 +7,7 @@ from .__version__ import __version__  # noqa: E402
 # allow lazy loading
 from .constants import Constants
 from .configuration import Configuration
+from .context import Context
 from .i_port import IPort
 from .o_port import OPort
 from .node import Node

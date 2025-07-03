@@ -2,6 +2,8 @@ from typing import Any
 from .o_port import OPort
 from .node import Node
 from .i_node import INode
+from copy import deepcopy
+from .constants import Constants
 
 import ioiocore.imp as imp
 
@@ -22,6 +24,7 @@ class ONode(Node):
             Keys for the ONode configuration.
             """
             OUTPUT_PORTS = "output_ports"
+            DECIMATION_FACTOR = Constants.Keys.DECIMATION_FACTOR  # "decimation_factor"  # noqa: E501
 
         def __init__(self, **kwargs):
             """
@@ -38,7 +41,20 @@ class ONode(Node):
             op_key = self.Keys.OUTPUT_PORTS
             output_ports: list = kwargs.pop(op_key,
                                             [OPort.Configuration()])  # noqa: E501
+
+            M_key = self.Keys.DECIMATION_FACTOR
+            decimation_factor: int = kwargs.pop(M_key, 1)
+
+            if decimation_factor is None:
+                decimation_factor = 1
+            if type(decimation_factor) is not int:
+                raise TypeError("decimation_factor must be an integer.")
+            if decimation_factor < 1:
+                raise ValueError("decimation_factor must be an integer "
+                                 "multiple of 1.")
+
             super().__init__(output_ports=output_ports,
+                             decimation_factor=decimation_factor,
                              **kwargs)
 
     _IMP_CLASS = imp.ONodeImp
@@ -47,6 +63,7 @@ class ONode(Node):
 
     def __init__(self,
                  output_ports: list = None,
+                 decimation_factor: int = None,
                  **kwargs):
         """
         Initializes the ONode.
@@ -59,10 +76,7 @@ class ONode(Node):
             Other configuration options.
         """
         self.create_config(output_ports=output_ports,
-                           **kwargs)
-        self.create_implementation()
-        super().__init__(**self.config)
-        self.create_config(output_ports=output_ports,
+                           decimation_factor=decimation_factor,
                            **kwargs)
         self.create_implementation()
         super().__init__(**self.config)
@@ -105,7 +119,7 @@ class ONode(Node):
 
     def setup(self,
               data: dict,
-              port_metadata_in: dict) -> dict:
+              port_context_in: dict) -> dict:
         """
         Sets up the ONode.
 
@@ -113,21 +127,22 @@ class ONode(Node):
         ----------
         data : dict
             A dictionary containing setup data.
-        port_metadata_in : dict
-            A dictionary containing input port metadata.
+        port_context_in : dict
+            A dictionary containing input port context.
 
         Returns
         -------
         dict
-            A dictionary containing output port metadata.
+            A dictionary containing output port context.
         """
-        port_metadata_out: dict = {}
+        port_context_out: dict = {}
         op_config = self.config[self.config.Keys.OUTPUT_PORTS]
-        op_names = [s[self.Configuration.Keys.NAME] for s in op_config]
-        md = self.config.get_metadata()
-        for port_name in op_names:
-            port_metadata_out[port_name] = md
-        return port_metadata_out
+        for port_idx in range(len(op_config)):
+            port_name = op_config[port_idx][self.Configuration.Keys.NAME]
+            port_context_out[port_name] = deepcopy(dict(op_config[port_idx]))
+            del port_context_out[port_name][self.Configuration.Keys.NAME]
+            del port_context_out[port_name][self.Configuration.Keys.ID]
+        return port_context_out
 
     def cycle(self, data: dict = {}):
         """
@@ -140,3 +155,6 @@ class ONode(Node):
             is an empty dictionary).
         """
         self._imp._cycle(data)
+
+    def is_decimation_step(self):
+        return self._imp.is_decimation_step()

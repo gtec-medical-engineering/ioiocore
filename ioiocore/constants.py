@@ -15,12 +15,11 @@ class Constants:
 
     class Keys(KeyValueContainer):
         """
-        Keys used for system configuration and metadata.
+        Keys used for system configuration.
         """
-        SAMPLING_RATE: str = "sampling_rate"
-        CHANNEL_COUNT: str = "channel_count"
         INPUT_PORTS: str = "input_ports"
         OUTPUT_PORTS: str = "output_ports"
+        DECIMATION_FACTOR: str = "decimation_factor"
 
     class Timing(KeyValueContainer):
         """

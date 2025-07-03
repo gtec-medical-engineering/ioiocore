@@ -77,7 +77,7 @@ class INode(Node):
 
     def setup(self,
               data: dict,
-              port_metadata_in: dict) -> dict:
+              port_context_in: dict) -> dict:
         """
         Sets up the INode.
 
@@ -85,8 +85,8 @@ class INode(Node):
         ----------
         data : dict
             A dictionary containing the data.
-        port_metadata_in : dict
-            A dictionary containing port metadata.
+        port_context_in : dict
+            A dictionary containing port context.
 
         Returns
         -------

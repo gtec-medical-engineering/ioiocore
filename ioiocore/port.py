@@ -65,6 +65,7 @@ class Port(Portable):
 
     _IMP_CLASS = imp.PortImp
     _imp: _IMP_CLASS  # for type hinting  # type: ignore
+    config: Configuration  # for type hinting
 
     def __init__(self,
                  name: str = None,

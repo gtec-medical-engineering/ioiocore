@@ -4,6 +4,7 @@ from typing import Any, TYPE_CHECKING
 from .portable import Portable
 from .logging import Logger
 from .constants import Constants
+from .context import Context
 
 import ioiocore.imp as imp  # type: ignore
 
@@ -152,10 +153,17 @@ class Node(ABC, Portable):
         """
         return self._imp.get_state()
 
+    def get_context(self) -> 'Context':
+        return self._imp.get_context()
+
+    @property
+    def logger(self):
+        return self._imp.get_logger()
+
     @abstractmethod
     def setup(self,
               data: dict,
-              port_metadata_in: dict) -> dict:
+              port_context_in: dict) -> dict:
         """
         Abstract method to setup the Node.
 
@@ -166,8 +174,8 @@ class Node(ABC, Portable):
         ----------
         data : dict
             The input data to configure the Node.
-        port_metadata_in : dict
-            Metadata for the input ports.
+        port_context_in : dict
+            Context for the input ports.
 
         Returns
         -------

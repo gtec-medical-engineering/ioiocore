@@ -1,5 +1,9 @@
 ## Changelog
 
+### [3.0.0] - 2025-07-03
+- Moved from metadata to contexts
+- Bugfixing
+
 ### [2.3.1] - 2025-06-16
 - Added multirate support
 - Bugfixing
