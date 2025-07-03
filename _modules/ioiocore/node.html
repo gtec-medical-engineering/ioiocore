@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.node &mdash; ioiocore v2.3.1  documentation</title>
+  <title>ioiocore.node &mdash; ioiocore v3.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v2.3.1
+            ioiocore v3.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -62,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v2.3.1</a>
+          <a href="../../index.html">ioiocore v3.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -87,6 +87,7 @@
 <span class="kn">from</span><span class="w"> </span><span class="nn">.portable</span><span class="w"> </span><span class="kn">import</span> <span class="n">Portable</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">Context</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">ioiocore.imp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">imp</span>  <span class="c1"># type: ignore</span>
 
@@ -270,12 +271,22 @@
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span></div>
 
 
+<div class="viewcode-block" id="Node.get_context">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_context">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Context&#39;</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_context</span><span class="p">()</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">logger</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_logger</span><span class="p">()</span>
+
 <div class="viewcode-block" id="Node.setup">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.setup">[docs]</a>
     <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
-              <span class="n">port_metadata_in</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+              <span class="n">port_context_in</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Abstract method to setup the Node.</span>
 
@@ -286,8 +297,8 @@
 <span class="sd">        ----------</span>
 <span class="sd">        data : dict</span>
 <span class="sd">            The input data to configure the Node.</span>
-<span class="sd">        port_metadata_in : dict</span>
-<span class="sd">            Metadata for the input ports.</span>
+<span class="sd">        port_context_in : dict</span>
+<span class="sd">            Context for the input ports.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>

@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Node &mdash; ioiocore v2.3.1  documentation</title>
+  <title>Node &mdash; ioiocore v3.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v2.3.1
+            ioiocore v3.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -65,7 +65,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v2.3.1</a>
+          <a href="../index.html">ioiocore v3.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -195,6 +195,16 @@ implementation, logger, and state.</p>
 <dd></dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.node.Node.get_context">
+<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.get_context" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.node.Node.get_counter">
 <span class="sig-name descname"><span class="pre">get_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.get_counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.get_counter" title="Link to this definition"></a></dt>
 <dd><p>Get the current counter value of the Node.</p>
@@ -250,6 +260,11 @@ implementation, logger, and state.</p>
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="ioiocore.node.Node.logger">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">logger</span></span><a class="headerlink" href="#ioiocore.node.Node.logger" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.node.Node.set_logger">
 <span class="sig-name descname"><span class="pre">set_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.set_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.set_logger" title="Link to this definition"></a></dt>
@@ -263,7 +278,7 @@ implementation, logger, and state.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.node.Node.setup">
-<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port_metadata_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.setup" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">abstract</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port_context_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.setup" title="Link to this definition"></a></dt>
 <dd><p>Abstract method to setup the Node.</p>
 <p>This method should be implemented to define the setup logic for the
 Node.</p>
@@ -271,7 +286,7 @@ Node.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>data</strong> (<em>dict</em>) – The input data to configure the Node.</p></li>
-<li><p><strong>port_metadata_in</strong> (<em>dict</em>) – Metadata for the input ports.</p></li>
+<li><p><strong>port_context_in</strong> (<em>dict</em>) – Context for the input ports.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
