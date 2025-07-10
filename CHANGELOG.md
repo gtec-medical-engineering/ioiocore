@@ -1,5 +1,9 @@
 ## Changelog
 
+### [4.0.0] - 2025-07-10
+- Updated interface
+- Improved logging
+
 ### [3.0.0] - 2025-07-03
 - Moved from metadata to contexts
 - Bugfixing

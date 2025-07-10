@@ -37,94 +37,10 @@ class Pipeline(Interface):
         """
         self._imp.add_node(node)
 
-    def remove_node(self, node: Node):
-        """
-        Removes a node from the pipeline.
-
-        Parameters
-        ----------
-        node : Node
-            The node to remove from the pipeline.
-        """
-        self._imp.remove_node(node)
-
-    def connect_ports(self,
-                      output_node: ONode,
-                      output_node_port: str,
-                      input_node: INode,
-                      input_node_port: str):
-        """
-        Connects output and input ports of nodes in the pipeline.
-
-        Parameters
-        ----------
-        output_node : ONode
-            The node providing the output port.
-        output_node_port : str
-            The name of the output port.
-        input_node : INode
-            The node receiving the input port.
-        input_node_port : str
-            The name of the input port.
-        """
-        self._imp.connect_ports(output_node,
-                                output_node_port,
-                                input_node,
-                                input_node_port)
-
     def connect(self,
-                output_node: ONode,
-                input_node: INode):
-        """
-        Connects output and input nodes in the pipeline.
-
-        Parameters
-        ----------
-        output_node : ONode
-            The node providing the output.
-        input_node : INode
-            The node receiving the input.
-        """
-        self._imp.connect(output_node, input_node)
-
-    def disconnect_ports(self,
-                         output_node: ONode,
-                         output_node_port: str,
-                         input_node: INode,
-                         input_node_port: str):
-        """
-        Disconnects output and input ports of nodes in the pipeline.
-
-        Parameters
-        ----------
-        output_node : ONode
-            The node providing the output port.
-        output_node_port : str
-            The name of the output port.
-        input_node : INode
-            The node receiving the input port.
-        input_node_port : str
-            The name of the input port.
-        """
-        self._imp.disconnect_ports(output_node,
-                                   output_node_port,
-                                   input_node,
-                                   input_node_port)
-
-    def disconnect(self,
-                   output_node: ONode,
-                   input_node: INode):
-        """
-        Disconnects output and input nodes in the pipeline.
-
-        Parameters
-        ----------
-        output_node : ONode
-            The node providing the output.
-        input_node : INode
-            The node receiving the input.
-        """
-        self._imp.disconnect(output_node, input_node)
+                source: 'ONode | dict',
+                target: 'INode | dict'):
+        self._imp.connect(source, target)
 
     def start(self):
         """
@@ -221,7 +137,7 @@ class Pipeline(Interface):
         """
         return imp.PipelineImp.deserialize(data)
 
-    def write_log(self, entry: str):
+    def log(self, msg: str, type: Constants.LogTypes = None):
         """
         Writes a log entry to the pipeline.
 
@@ -230,4 +146,4 @@ class Pipeline(Interface):
         entry : str
             The log entry to write.
         """
-        self._imp.write_log(entry)
+        self._imp.log(msg=msg, type=type)

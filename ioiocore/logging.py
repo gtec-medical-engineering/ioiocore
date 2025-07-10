@@ -4,14 +4,7 @@ from typing import Optional
 import ioiocore.imp as imp
 from .interface import Interface
 
-
-class LogType(Enum):
-    """
-    Enumeration of log message types.
-    """
-    INFO = "INFO"
-    WARNING = "WARNING"
-    ERROR = "ERROR"
+from .constants import Constants
 
 
 class LogEntry(Interface):
@@ -22,7 +15,7 @@ class LogEntry(Interface):
     _IMP_CLASS = imp.LogEntryImp
     _imp: _IMP_CLASS  # for type hinting  # type: ignore
 
-    def __init__(self, type: LogType, stack: str, message: str):
+    def __init__(self, type: Constants.LogTypes, stack: str, message: str):
         """
         Initialize a log entry.
 
@@ -136,7 +129,7 @@ class Logger(Interface):
         """
         self.create_implementation(directory=directory)
 
-    def write(self, type: LogType, message: str) -> LogEntry:
+    def write(self, type: Constants.LogTypes, message: str) -> LogEntry:
         """
         Write a log entry.
 
@@ -171,7 +164,7 @@ class Logger(Interface):
         """
         return self._imp.get_all()
 
-    def get_by_type(self, type: LogType) -> list:
+    def get_by_type(self, type: Constants.LogTypes) -> list:
         """
         Retrieve log entries of a specific type.
 
@@ -187,7 +180,7 @@ class Logger(Interface):
         """
         return self._imp.get_by_type(type)
 
-    def has_entries(self, type: LogType = None) -> bool:
+    def has_entries(self, type: Constants.LogTypes = None) -> bool:
         """
         Check if there are log entries of a specific type.
 
@@ -214,7 +207,8 @@ class Logger(Interface):
         """
         return self._imp.get_last_error()
 
-    def get_file_name(self) -> str:
+    @property
+    def file_name(self) -> str:
         """
         Retrieve the log file name.
 
@@ -223,4 +217,4 @@ class Logger(Interface):
         str
             The log file name.
         """
-        return self._imp.get_file_name()
+        return self._imp.file_name

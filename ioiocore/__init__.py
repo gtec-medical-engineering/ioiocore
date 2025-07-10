@@ -14,7 +14,7 @@ from .node import Node
 from .i_node import INode
 from .o_node import ONode
 from .io_node import IONode
-from .logging import Logger, LogType, LogEntry
+from .logging import Logger, LogEntry
 from .pipeline import Pipeline
 from .portable import Portable
 

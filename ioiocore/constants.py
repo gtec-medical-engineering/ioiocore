@@ -42,3 +42,11 @@ class Constants:
         """
         HEALTHY: str = "Healthy"
         ERROR: str = "Error"
+
+    class LogTypes(KeyValueContainer):
+        """
+        Log message types.
+        """
+        INFO: str = "INFO"
+        WARNING: str = "WARNING"
+        ERROR: str = "ERROR"

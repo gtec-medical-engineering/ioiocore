@@ -78,8 +78,8 @@ class Node(ABC, Portable):
         """
         self.create_config(name=name, **kwargs)
         self.create_implementation()
-        self._imp.set_setup_handler(self.setup)
-        self._imp.set_step_handler(self.step)
+        self._imp.setup_handler = self.setup
+        self._imp.step_handler = self.step
         super().__init__(**self.config)
 
     def start(self):
@@ -99,26 +99,14 @@ class Node(ABC, Portable):
         self._imp.stop()
 
     def set_logger(self, logger: Logger):
-        """
-        Set the logger for the Node.
-
-        Parameters
-        ----------
-        logger : Logger
-            The Logger instance to set for the Node.
-        """
         self._imp.set_logger(logger)
 
-    def get_name(self) -> str:
-        """
-        Get the name of the Node.
+    def log(self, msg: str, type: Constants.LogTypes = None):
+        self._imp.log(msg=msg, type=type)
 
-        Returns
-        -------
-        str
-            The name of the Node.
-        """
-        return self._imp.get_name()
+    @property
+    def name(self) -> str:
+        return self._imp.name
 
     def get_load(self) -> float:
         """
@@ -156,9 +144,8 @@ class Node(ABC, Portable):
     def get_context(self) -> 'Context':
         return self._imp.get_context()
 
-    @property
-    def logger(self):
-        return self._imp.get_logger()
+    def __getitem__(self, port_name: str):
+        return {"node": self, "port": port_name}
 
     @abstractmethod
     def setup(self,
