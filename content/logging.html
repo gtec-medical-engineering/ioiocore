@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logging &mdash; ioiocore v3.0.0  documentation</title>
+  <title>Logging &mdash; ioiocore v4.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -31,7 +31,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v3.0.0
+            ioiocore v4.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -64,7 +64,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v3.0.0</a>
+          <a href="../index.html">ioiocore v4.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -107,6 +107,20 @@
 </dl>
 </dd></dl>
 
+<dl class="py property">
+<dt class="sig sig-object py" id="ioiocore.logging.Logger.file_name">
+<em class="property"><span class="pre">property</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">file_name</span></span><em class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></em><a class="headerlink" href="#ioiocore.logging.Logger.file_name" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the log file name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The log file name.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p>str</p>
+</dd>
+</dl>
+</dd></dl>
+
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.logging.Logger.flush">
 <span class="sig-name descname"><span class="pre">flush</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#Logger.flush"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.Logger.flush" title="Link to this definition"></a></dt>
@@ -133,27 +147,13 @@
 <dd><p>Retrieve log entries of a specific type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>type</strong> (<a class="reference internal" href="#ioiocore.logging.LogType" title="ioiocore.logging.LogType"><em>LogType</em></a>) – The log type to filter by.</p>
+<dd class="field-odd"><p><strong>type</strong> (<em>LogType</em>) – The log type to filter by.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A list of matching log entries.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p>list</p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.logging.Logger.get_file_name">
-<span class="sig-name descname"><span class="pre">get_file_name</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#Logger.get_file_name"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.Logger.get_file_name" title="Link to this definition"></a></dt>
-<dd><p>Retrieve the log file name.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The log file name.</p>
-</dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
 </dd>
 </dl>
 </dd></dl>
@@ -178,7 +178,7 @@
 <dd><p>Check if there are log entries of a specific type.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>type</strong> (<a class="reference internal" href="#ioiocore.logging.LogType" title="ioiocore.logging.LogType"><em>LogType</em></a><em>, </em><em>optional</em>) – The log type to check, by default None.</p>
+<dd class="field-odd"><p><strong>type</strong> (<em>LogType</em><em>, </em><em>optional</em>) – The log type to check, by default None.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>True if there are matching log entries, False otherwise.</p>
@@ -196,7 +196,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type</strong> (<a class="reference internal" href="#ioiocore.logging.LogType" title="ioiocore.logging.LogType"><em>LogType</em></a>) – Type of the log entry.</p></li>
+<li><p><strong>type</strong> (<em>LogType</em>) – Type of the log entry.</p></li>
 <li><p><strong>message</strong> (<em>str</em>) – Log message.</p></li>
 </ul>
 </dd>
@@ -222,7 +222,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type</strong> (<a class="reference internal" href="#ioiocore.logging.LogType" title="ioiocore.logging.LogType"><em>LogType</em></a>)</p></li>
+<li><p><strong>type</strong> (<a class="reference internal" href="constants.html#ioiocore.constants.Constants.LogTypes" title="ioiocore.constants.Constants.LogTypes"><em>LogTypes</em></a>)</p></li>
 <li><p><strong>stack</strong> (<em>str</em>)</p></li>
 <li><p><strong>message</strong> (<em>str</em>)</p></li>
 </ul>
@@ -235,7 +235,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>type</strong> (<a class="reference internal" href="#ioiocore.logging.LogType" title="ioiocore.logging.LogType"><em>LogType</em></a>) – Type of the log entry.</p></li>
+<li><p><strong>type</strong> (<em>LogType</em>) – Type of the log entry.</p></li>
 <li><p><strong>stack</strong> (<em>str</em>) – Stack trace information.</p></li>
 <li><p><strong>message</strong> (<em>str</em>) – Log message.</p></li>
 </ul>
@@ -290,28 +290,6 @@
 </section>
 <section id="logtype">
 <h2>LogType<a class="headerlink" href="#logtype" title="Link to this heading"></a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="ioiocore.logging.LogType">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.logging.</span></span><span class="sig-name descname"><span class="pre">LogType</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#LogType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.LogType" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Enum</span></code></p>
-<p>Enumeration of log message types.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ioiocore.logging.LogType.ERROR">
-<span class="sig-name descname"><span class="pre">ERROR</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'ERROR'</span></em><a class="headerlink" href="#ioiocore.logging.LogType.ERROR" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ioiocore.logging.LogType.INFO">
-<span class="sig-name descname"><span class="pre">INFO</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'INFO'</span></em><a class="headerlink" href="#ioiocore.logging.LogType.INFO" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ioiocore.logging.LogType.WARNING">
-<span class="sig-name descname"><span class="pre">WARNING</span></span><em class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'WARNING'</span></em><a class="headerlink" href="#ioiocore.logging.LogType.WARNING" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
 </section>
 </section>
 

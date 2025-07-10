@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.pipeline &mdash; ioiocore v3.0.0  documentation</title>
+  <title>ioiocore.pipeline &mdash; ioiocore v4.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v3.0.0
+            ioiocore v4.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -62,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v3.0.0</a>
+          <a href="../../index.html">ioiocore v4.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -128,108 +128,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Pipeline.remove_node">
-<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.remove_node">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">remove_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Removes a node from the pipeline.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        node : Node</span>
-<span class="sd">            The node to remove from the pipeline.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">remove_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Pipeline.connect_ports">
-<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.connect_ports">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">connect_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                      <span class="n">output_node</span><span class="p">:</span> <span class="n">ONode</span><span class="p">,</span>
-                      <span class="n">output_node_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                      <span class="n">input_node</span><span class="p">:</span> <span class="n">INode</span><span class="p">,</span>
-                      <span class="n">input_node_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Connects output and input ports of nodes in the pipeline.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        output_node : ONode</span>
-<span class="sd">            The node providing the output port.</span>
-<span class="sd">        output_node_port : str</span>
-<span class="sd">            The name of the output port.</span>
-<span class="sd">        input_node : INode</span>
-<span class="sd">            The node receiving the input port.</span>
-<span class="sd">        input_node_port : str</span>
-<span class="sd">            The name of the input port.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">connect_ports</span><span class="p">(</span><span class="n">output_node</span><span class="p">,</span>
-                                <span class="n">output_node_port</span><span class="p">,</span>
-                                <span class="n">input_node</span><span class="p">,</span>
-                                <span class="n">input_node_port</span><span class="p">)</span></div>
-
-
 <div class="viewcode-block" id="Pipeline.connect">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.connect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                <span class="n">output_node</span><span class="p">:</span> <span class="n">ONode</span><span class="p">,</span>
-                <span class="n">input_node</span><span class="p">:</span> <span class="n">INode</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Connects output and input nodes in the pipeline.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        output_node : ONode</span>
-<span class="sd">            The node providing the output.</span>
-<span class="sd">        input_node : INode</span>
-<span class="sd">            The node receiving the input.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">output_node</span><span class="p">,</span> <span class="n">input_node</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Pipeline.disconnect_ports">
-<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.disconnect_ports">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect_ports</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                         <span class="n">output_node</span><span class="p">:</span> <span class="n">ONode</span><span class="p">,</span>
-                         <span class="n">output_node_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
-                         <span class="n">input_node</span><span class="p">:</span> <span class="n">INode</span><span class="p">,</span>
-                         <span class="n">input_node_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Disconnects output and input ports of nodes in the pipeline.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        output_node : ONode</span>
-<span class="sd">            The node providing the output port.</span>
-<span class="sd">        output_node_port : str</span>
-<span class="sd">            The name of the output port.</span>
-<span class="sd">        input_node : INode</span>
-<span class="sd">            The node receiving the input port.</span>
-<span class="sd">        input_node_port : str</span>
-<span class="sd">            The name of the input port.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">disconnect_ports</span><span class="p">(</span><span class="n">output_node</span><span class="p">,</span>
-                                   <span class="n">output_node_port</span><span class="p">,</span>
-                                   <span class="n">input_node</span><span class="p">,</span>
-                                   <span class="n">input_node_port</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Pipeline.disconnect">
-<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.disconnect">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">disconnect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                   <span class="n">output_node</span><span class="p">:</span> <span class="n">ONode</span><span class="p">,</span>
-                   <span class="n">input_node</span><span class="p">:</span> <span class="n">INode</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Disconnects output and input nodes in the pipeline.</span>
-
-<span class="sd">        Parameters</span>
-<span class="sd">        ----------</span>
-<span class="sd">        output_node : ONode</span>
-<span class="sd">            The node providing the output.</span>
-<span class="sd">        input_node : INode</span>
-<span class="sd">            The node receiving the input.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">output_node</span><span class="p">,</span> <span class="n">input_node</span><span class="p">)</span></div>
+                <span class="n">source</span><span class="p">:</span> <span class="s1">&#39;ONode | dict&#39;</span><span class="p">,</span>
+                <span class="n">target</span><span class="p">:</span> <span class="s1">&#39;INode | dict&#39;</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.start">
@@ -354,9 +258,9 @@
         <span class="k">return</span> <span class="n">imp</span><span class="o">.</span><span class="n">PipelineImp</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="Pipeline.write_log">
-<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.write_log">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">write_log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">entry</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<div class="viewcode-block" id="Pipeline.log">
+<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.log">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Writes a log entry to the pipeline.</span>
 
@@ -365,7 +269,7 @@
 <span class="sd">        entry : str</span>
 <span class="sd">            The log entry to write.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">write_log</span><span class="p">(</span><span class="n">entry</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">)</span></div>
 </div>
 
 </pre></div>

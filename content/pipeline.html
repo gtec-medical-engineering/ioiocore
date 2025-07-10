@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline &mdash; ioiocore v3.0.0  documentation</title>
+  <title>Pipeline &mdash; ioiocore v4.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v3.0.0
+            ioiocore v4.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -65,7 +65,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v3.0.0</a>
+          <a href="../index.html">ioiocore v4.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -120,29 +120,12 @@ Manages nodes and their connections within the pipeline.</p>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.connect">
-<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.connect" title="Link to this definition"></a></dt>
-<dd><p>Connects output and input nodes in the pipeline.</p>
-<dl class="field-list simple">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.connect" title="Link to this definition"></a></dt>
+<dd><dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>output_node</strong> (<a class="reference internal" href="o_node.html#ioiocore.o_node.ONode" title="ioiocore.o_node.ONode"><em>ONode</em></a>) – The node providing the output.</p></li>
-<li><p><strong>input_node</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a>) – The node receiving the input.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.connect_ports">
-<span class="sig-name descname"><span class="pre">connect_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_node_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_node_port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.connect_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.connect_ports" title="Link to this definition"></a></dt>
-<dd><p>Connects output and input ports of nodes in the pipeline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>output_node</strong> (<a class="reference internal" href="o_node.html#ioiocore.o_node.ONode" title="ioiocore.o_node.ONode"><em>ONode</em></a>) – The node providing the output port.</p></li>
-<li><p><strong>output_node_port</strong> (<em>str</em>) – The name of the output port.</p></li>
-<li><p><strong>input_node</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a>) – The node receiving the input port.</p></li>
-<li><p><strong>input_node_port</strong> (<em>str</em>) – The name of the input port.</p></li>
+<li><p><strong>source</strong> (<a class="reference internal" href="o_node.html#ioiocore.o_node.ONode" title="ioiocore.o_node.ONode"><em>ONode</em></a><em> | </em><em>dict</em>)</p></li>
+<li><p><strong>target</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a><em> | </em><em>dict</em>)</p></li>
 </ul>
 </dd>
 </dl>
@@ -161,36 +144,6 @@ Manages nodes and their connections within the pipeline.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
 <dd class="field-odd"><p><a class="reference internal" href="#ioiocore.pipeline.Pipeline" title="ioiocore.pipeline.Pipeline">Pipeline</a></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.disconnect">
-<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.disconnect" title="Link to this definition"></a></dt>
-<dd><p>Disconnects output and input nodes in the pipeline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>output_node</strong> (<a class="reference internal" href="o_node.html#ioiocore.o_node.ONode" title="ioiocore.o_node.ONode"><em>ONode</em></a>) – The node providing the output.</p></li>
-<li><p><strong>input_node</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a>) – The node receiving the input.</p></li>
-</ul>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.disconnect_ports">
-<span class="sig-name descname"><span class="pre">disconnect_ports</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_node_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_node</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_node_port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.disconnect_ports"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.disconnect_ports" title="Link to this definition"></a></dt>
-<dd><p>Disconnects output and input ports of nodes in the pipeline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><ul class="simple">
-<li><p><strong>output_node</strong> (<a class="reference internal" href="o_node.html#ioiocore.o_node.ONode" title="ioiocore.o_node.ONode"><em>ONode</em></a>) – The node providing the output port.</p></li>
-<li><p><strong>output_node_port</strong> (<em>str</em>) – The name of the output port.</p></li>
-<li><p><strong>input_node</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a>) – The node receiving the input port.</p></li>
-<li><p><strong>input_node_port</strong> (<em>str</em>) – The name of the input port.</p></li>
-</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -266,12 +219,16 @@ Manages nodes and their connections within the pipeline.</p>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.remove_node">
-<span class="sig-name descname"><span class="pre">remove_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.remove_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.remove_node" title="Link to this definition"></a></dt>
-<dd><p>Removes a node from the pipeline.</p>
+<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.log">
+<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.log" title="Link to this definition"></a></dt>
+<dd><p>Writes a log entry to the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="node.html#ioiocore.node.Node" title="ioiocore.node.Node"><em>Node</em></a>) – The node to remove from the pipeline.</p>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>entry</strong> (<em>str</em>) – The log entry to write.</p></li>
+<li><p><strong>msg</strong> (<em>str</em>)</p></li>
+<li><p><strong>type</strong> (<a class="reference internal" href="constants.html#ioiocore.constants.Constants.LogTypes" title="ioiocore.constants.Constants.LogTypes"><em>LogTypes</em></a><em> | </em><em>None</em>)</p></li>
+</ul>
 </dd>
 </dl>
 </dd></dl>
@@ -300,17 +257,6 @@ Manages nodes and their connections within the pipeline.</p>
 <dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.stop">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.stop" title="Link to this definition"></a></dt>
 <dd><p>Stops the pipeline.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.write_log">
-<span class="sig-name descname"><span class="pre">write_log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">entry</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.write_log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.write_log" title="Link to this definition"></a></dt>
-<dd><p>Writes a log entry to the pipeline.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>entry</strong> (<em>str</em>) – The log entry to write.</p>
-</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>
