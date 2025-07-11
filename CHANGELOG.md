@@ -1,5 +1,9 @@
 ## Changelog
 
+### [4.0.1] - 2025-07-11
+- Minor bugfixes
+- Improved logging & exception handling
+
 ### [4.0.0] - 2025-07-10
 - Updated interface
 - Improved logging

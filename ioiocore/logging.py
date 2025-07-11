@@ -1,21 +1,20 @@
 from enum import Enum
-from typing import Optional
+from typing import Optional, Union
 
 import ioiocore.imp as imp
 from .interface import Interface
-
 from .constants import Constants
 
 
 class LogEntry(Interface):
     """
-    Represents a log entry containing type, stack trace, and message.
+    Represents a log entry containing type, source trace, and message.
     """
 
     _IMP_CLASS = imp.LogEntryImp
     _imp: _IMP_CLASS  # for type hinting  # type: ignore
 
-    def __init__(self, type: Constants.LogTypes, stack: str, message: str):
+    def __init__(self, type: Constants.LogTypes, source: dict, message: str):
         """
         Initialize a log entry.
 
@@ -23,13 +22,13 @@ class LogEntry(Interface):
         ----------
         type : LogType
             Type of the log entry.
-        stack : str
-            Stack trace information.
+        source : str
+            source trace information.
         message : str
             Log message.
         """
         self.create_implementation(type=type,
-                                   stack=stack,
+                                   source=source,
                                    message=message)
 
     def __getitem__(self, key):
@@ -129,7 +128,9 @@ class Logger(Interface):
         """
         self.create_implementation(directory=directory)
 
-    def write(self, type: Constants.LogTypes, message: str) -> LogEntry:
+    def write(self,
+              type: Constants.LogTypes,
+              message: Union[str, Exception]) -> LogEntry:
         """
         Write a log entry.
 
