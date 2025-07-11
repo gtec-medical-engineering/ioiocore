@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logging &mdash; ioiocore v4.0.0  documentation</title>
+  <title>Logging &mdash; ioiocore v4.0.1  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -31,7 +31,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v4.0.0
+            ioiocore v4.0.1
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -64,7 +64,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v4.0.0</a>
+          <a href="../index.html">ioiocore v4.0.1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -216,27 +216,27 @@
 <h2>LogEntry<a class="headerlink" href="#logentry" title="Link to this heading"></a></h2>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.logging.LogEntry">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.logging.</span></span><span class="sig-name descname"><span class="pre">LogEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#LogEntry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.LogEntry" title="Link to this definition"></a></dt>
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">ioiocore.logging.</span></span><span class="sig-name descname"><span class="pre">LogEntry</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#LogEntry"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.LogEntry" title="Link to this definition"></a></dt>
 <dd><p>Bases: <a class="reference internal" href="interface.html#ioiocore.interface.Interface" title="ioiocore.interface.Interface"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interface</span></code></a></p>
-<p>Represents a log entry containing type, stack trace, and message.</p>
+<p>Represents a log entry containing type, source trace, and message.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>type</strong> (<a class="reference internal" href="constants.html#ioiocore.constants.Constants.LogTypes" title="ioiocore.constants.Constants.LogTypes"><em>LogTypes</em></a>)</p></li>
-<li><p><strong>stack</strong> (<em>str</em>)</p></li>
+<li><p><strong>source</strong> (<em>dict</em>)</p></li>
 <li><p><strong>message</strong> (<em>str</em>)</p></li>
 </ul>
 </dd>
 </dl>
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.logging.LogEntry.__init__">
-<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">stack</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#LogEntry.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.LogEntry.__init__" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">message</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#LogEntry.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.LogEntry.__init__" title="Link to this definition"></a></dt>
 <dd><p>Initialize a log entry.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>type</strong> (<em>LogType</em>) – Type of the log entry.</p></li>
-<li><p><strong>stack</strong> (<em>str</em>) – Stack trace information.</p></li>
+<li><p><strong>source</strong> (<em>str</em>) – source trace information.</p></li>
 <li><p><strong>message</strong> (<em>str</em>) – Log message.</p></li>
 </ul>
 </dd>

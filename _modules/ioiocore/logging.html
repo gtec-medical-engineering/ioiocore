@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.logging &mdash; ioiocore v4.0.0  documentation</title>
+  <title>ioiocore.logging &mdash; ioiocore v4.0.1  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v4.0.0
+            ioiocore v4.0.1
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -62,7 +62,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v4.0.0</a>
+          <a href="../../index.html">ioiocore v4.0.1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -82,11 +82,10 @@
              
   <h1>Source code for ioiocore.logging</h1><div class="highlight"><pre>
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">enum</span><span class="w"> </span><span class="kn">import</span> <span class="n">Enum</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Optional</span><span class="p">,</span> <span class="n">Union</span>
 
 <span class="kn">import</span><span class="w"> </span><span class="nn">ioiocore.imp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">imp</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.interface</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interface</span>
-
 <span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constants</span>
 
 
@@ -94,7 +93,7 @@
 <a class="viewcode-back" href="../../content/logging.html#ioiocore.logging.LogEntry">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">LogEntry</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Represents a log entry containing type, stack trace, and message.</span>
+<span class="sd">    Represents a log entry containing type, source trace, and message.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
     <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">LogEntryImp</span>
@@ -102,7 +101,7 @@
 
 <div class="viewcode-block" id="LogEntry.__init__">
 <a class="viewcode-back" href="../../content/logging.html#ioiocore.logging.LogEntry.__init__">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span><span class="p">,</span> <span class="n">stack</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span><span class="p">,</span> <span class="n">source</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Initialize a log entry.</span>
 
@@ -110,13 +109,13 @@
 <span class="sd">        ----------</span>
 <span class="sd">        type : LogType</span>
 <span class="sd">            Type of the log entry.</span>
-<span class="sd">        stack : str</span>
-<span class="sd">            Stack trace information.</span>
+<span class="sd">        source : str</span>
+<span class="sd">            source trace information.</span>
 <span class="sd">        message : str</span>
 <span class="sd">            Log message.</span>
 <span class="sd">        &quot;&quot;&quot;</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span>
-                                   <span class="n">stack</span><span class="o">=</span><span class="n">stack</span><span class="p">,</span>
+                                   <span class="n">source</span><span class="o">=</span><span class="n">source</span><span class="p">,</span>
                                    <span class="n">message</span><span class="o">=</span><span class="n">message</span><span class="p">)</span></div>
 
 
@@ -234,7 +233,9 @@
 
 <div class="viewcode-block" id="Logger.write">
 <a class="viewcode-back" href="../../content/logging.html#ioiocore.logging.Logger.write">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">LogEntry</span><span class="p">:</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">write</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+              <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span><span class="p">,</span>
+              <span class="n">message</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="n">LogEntry</span><span class="p">:</span>
 <span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">        Write a log entry.</span>
 
