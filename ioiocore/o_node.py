@@ -158,3 +158,11 @@ class ONode(Node):
 
     def is_decimation_step(self):
         return self._imp.is_decimation_step()
+
+    @property
+    def source_delay(self) -> float:
+        return self._imp.source_delay
+
+    @source_delay.setter
+    def source_delay(self, value: float):
+        self._imp.source_delay = value

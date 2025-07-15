@@ -1,5 +1,8 @@
 ## Changelog
 
+### [4.0.2] - 2025-07-11
+- Source delay handling implemented
+
 ### [4.0.1] - 2025-07-11
 - Minor bugfixes
 - Improved logging & exception handling
