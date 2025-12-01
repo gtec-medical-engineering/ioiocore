@@ -197,16 +197,23 @@ class Logger(Interface):
         """
         return self._imp.has_entries(type)
 
-    def get_last_error(self) -> Optional[LogEntry]:
+    def get_last(self, type: Constants.LogTypes, opaque: bool = False) -> Optional[LogEntry]:
         """
-        Retrieve the last logged error entry.
+        Retrieve the last logged entry of a specific type.
+
+        Parameters
+        ----------
+        type : LogType
+            The log type to filter by.
+        opaque : bool, optional
+            Whether to return last log entry only once (returning None by repeating).
 
         Returns
         -------
         Optional[LogEntry]
-            The last error log entry, if available.
+            The last log entry of the specified type, if available.
         """
-        return self._imp.get_last_error()
+        return self._imp.get_last(type=type, opaque=opaque)
 
     @property
     def file_name(self) -> str:

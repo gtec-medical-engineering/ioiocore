@@ -1,5 +1,8 @@
 ## Changelog
 
+### [4.0.3] - 2025-12-01
+- Asynchronous data propagation improved
+
 ### [4.0.2] - 2025-07-11
 - Source delay handling implemented
 

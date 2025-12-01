@@ -41,6 +41,7 @@ class Constants:
         System conditions indicating operational status.
         """
         HEALTHY: str = "Healthy"
+        WARNING: str = "Warning"
         ERROR: str = "Error"
 
     class LogTypes(KeyValueContainer):
