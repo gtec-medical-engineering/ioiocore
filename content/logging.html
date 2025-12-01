@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Logging &mdash; ioiocore v4.0.2  documentation</title>
+  <title>Logging &mdash; ioiocore v4.0.3  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
 
@@ -31,7 +31,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v4.0.2
+            ioiocore v4.0.3
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -64,7 +64,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v4.0.2</a>
+          <a href="../index.html">ioiocore v4.0.3</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -159,15 +159,21 @@
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.logging.Logger.get_last_error">
-<span class="sig-name descname"><span class="pre">get_last_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#Logger.get_last_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.Logger.get_last_error" title="Link to this definition"></a></dt>
-<dd><p>Retrieve the last logged error entry.</p>
+<dt class="sig sig-object py" id="ioiocore.logging.Logger.get_last">
+<span class="sig-name descname"><span class="pre">get_last</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">type</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">opaque</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">False</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/logging.html#Logger.get_last"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.logging.Logger.get_last" title="Link to this definition"></a></dt>
+<dd><p>Retrieve the last logged entry of a specific type.</p>
 <dl class="field-list simple">
-<dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The last error log entry, if available.</p>
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>type</strong> (<em>LogType</em>) – The log type to filter by.</p></li>
+<li><p><strong>opaque</strong> (<em>bool</em><em>, </em><em>optional</em>) – Whether to return last log entry only once (returning None by repeating).</p></li>
+</ul>
 </dd>
-<dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>Optional[<a class="reference internal" href="#ioiocore.logging.LogEntry" title="ioiocore.logging.LogEntry">LogEntry</a>]</p>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The last log entry of the specified type, if available.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Optional[<a class="reference internal" href="#ioiocore.logging.LogEntry" title="ioiocore.logging.LogEntry">LogEntry</a>]</p>
 </dd>
 </dl>
 </dd></dl>
