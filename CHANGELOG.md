@@ -1,5 +1,8 @@
 ## Changelog
 
+### [4.0.4] - 2026-01-07
+- Asynchronous/synchronous data propagation decoupled in step() function
+
 ### [4.0.3] - 2025-12-01
 - Asynchronous data propagation improved
 
