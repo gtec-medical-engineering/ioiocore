@@ -1,5 +1,8 @@
 ## Changelog
 
+### [4.0.5] - 2026-01-14
+- Fixed some bugs in the de/serialization procedure
+
 ### [4.0.4] - 2026-01-07
 - Asynchronous/synchronous data propagation decoupled in step() function
 
