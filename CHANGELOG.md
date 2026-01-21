@@ -1,5 +1,9 @@
 ## Changelog
 
+### [4.0.6] - 2026-01-21
+- Made put/get at port level thread-safe
+- Fixed bug in data availability condition
+
 ### [4.0.5] - 2026-01-14
 - Fixed some bugs in the de/serialization procedure
 
