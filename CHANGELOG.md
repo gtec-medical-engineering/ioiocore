@@ -1,5 +1,11 @@
 ## Changelog
 
+### [4.0.7] - 2026-02-20
+- Fixed reference leakage in context propagation
+- Added direct execution policy in consecutive nodes
+- Removed pipeline load monitoring (not accurate)
+- Added support for macOS 14+
+
 ### [4.0.6] - 2026-01-21
 - Made put/get at port level thread-safe
 - Fixed bug in data availability condition

@@ -98,17 +98,6 @@ class Pipeline(Interface):
         """
         return self._imp.get_elapsed_time()
 
-    def get_load(self) -> float:
-        """
-        Returns the current load of the pipeline.
-
-        Returns
-        -------
-        float
-            The current load as a percentage.
-        """
-        return self._imp.get_load()
-
     def serialize(self) -> dict:
         """
         Serializes the pipeline to a dictionary.

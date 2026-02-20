@@ -108,17 +108,6 @@ class Node(ABC, Portable):
     def name(self) -> str:
         return self._imp.name
 
-    def get_load(self) -> float:
-        """
-        Get the current load of the Node.
-
-        Returns
-        -------
-        float
-            The load value of the Node.
-        """
-        return self._imp.get_load()
-
     def get_counter(self) -> int:
         """
         Get the current counter value of the Node.
