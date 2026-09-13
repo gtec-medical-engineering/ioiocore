@@ -1,0 +1,350 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ioiocore.processing_element &mdash; ioiocore v5.0.0  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            ioiocore v5.0.0
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/context.html">Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/processing_element.html">ProcessingElement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_chain.html">IOChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ioiocore v5.0.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">ioiocore.processing_element</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for ioiocore.processing_element</h1><div class="highlight"><pre>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">TYPE_CHECKING</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">.portable</span><span class="w"> </span><span class="kn">import</span> <span class="n">Portable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constants</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">Context</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">ioiocore.imp</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">imp</span>
+
+
+<div class="viewcode-block" id="ProcessingElement">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">ProcessingElement</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Portable</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Abstract base class for all processing elements in a pipeline.</span>
+
+<span class="sd">    This is the common base for both Node (concrete processing nodes)</span>
+<span class="sd">    and Chain (containers of nodes). It provides the shared interface</span>
+<span class="sd">    that Pipeline uses to manage elements.</span>
+
+<span class="sd">    Attributes</span>
+<span class="sd">    ----------</span>
+<span class="sd">    _IMP_CLASS : type</span>
+<span class="sd">        The implementation class for the ProcessingElement.</span>
+<span class="sd">    _imp : _IMP_CLASS</span>
+<span class="sd">        The instance of the implementation class.</span>
+<span class="sd">    config : Configuration</span>
+<span class="sd">        The configuration object for the ProcessingElement.</span>
+<span class="sd">    """</span>
+
+    <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">ProcessingElementImp</span>
+
+<div class="viewcode-block" id="ProcessingElement.Configuration">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.Configuration">[docs]</a>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">Portable</span><span class="o">.</span><span class="n">Configuration</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Configuration class for the ProcessingElement.</span>
+
+<span class="sd">        Attributes</span>
+<span class="sd">        ----------</span>
+<span class="sd">        Keys</span>
+<span class="sd">            The configuration keys.</span>
+<span class="sd">        """</span>
+
+<div class="viewcode-block" id="ProcessingElement.Configuration.Keys">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.Configuration.Keys">[docs]</a>
+        <span class="k">class</span><span class="w"> </span><span class="nc">Keys</span><span class="p">(</span><span class="n">Portable</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">"""Configuration keys."""</span>
+            <span class="n">NAME</span> <span class="o">=</span> <span class="s2">"name"</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.Configuration.__init__">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.Configuration.__init__">[docs]</a>
+        <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                     <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
+                     <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">"""</span>
+<span class="sd">            Initialize the ProcessingElement configuration.</span>
+
+<span class="sd">            Parameters</span>
+<span class="sd">            ----------</span>
+<span class="sd">            name : str, optional</span>
+<span class="sd">                The name of the ProcessingElement (default is the class name).</span>
+<span class="sd">            kwargs : additional keyword arguments</span>
+<span class="sd">                Other configuration parameters passed to the base class.</span>
+<span class="sd">            """</span>
+            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__qualname__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">'.'</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+            <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+</div>
+
+
+    <span class="n">_imp</span><span class="p">:</span> <span class="n">_IMP_CLASS</span>  <span class="c1"># for type hinting  # type: ignore</span>
+    <span class="n">config</span><span class="p">:</span> <span class="n">Configuration</span>  <span class="c1"># for type hinting</span>
+
+<div class="viewcode-block" id="ProcessingElement.create_config">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.create_config">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_config</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Factory method to create the configuration for the ProcessingElement.</span>
+
+<span class="sd">        Sets name to the interface class name if not provided. This ensures</span>
+<span class="sd">        that concrete subclasses that don't define their own Configuration</span>
+<span class="sd">        class still get the correct name (e.g., a concrete OChain subclass</span>
+<span class="sd">        will be named after itself, not "OChain").</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        **kwargs</span>
+<span class="sd">            Additional keyword arguments for configuring the ProcessingElement.</span>
+<span class="sd">        """</span>
+        <span class="k">if</span> <span class="s1">'name'</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">or</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">)</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+            <span class="n">kwargs</span><span class="p">[</span><span class="s1">'name'</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">create_config</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.start">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.start">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Start the processing element."""</span>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.stop">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.stop">[docs]</a>
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Stop the processing element."""</span>
+        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.set_logger">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.set_logger">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">set_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Set the logger for this processing element."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">set_logger</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.log">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.log">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Write a log message."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">)</span></div>
+
+
+    <span class="nd">@property</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Get the name of this processing element."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">name</span>
+
+<div class="viewcode-block" id="ProcessingElement.get_counter">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.get_counter">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Get the current counter value.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The counter value.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_counter</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.get_state">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.get_state">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Constants.States'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Get the current state.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Constants.States</span>
+<span class="sd">            The current state.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.get_condition">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.get_condition">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Constants.Conditions'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Get the current condition.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Constants.Conditions</span>
+<span class="sd">            HEALTHY, WARNING or ERROR. An element sets ERROR on itself</span>
+<span class="sd">            when its setup or its step raises, and only</span>
+<span class="sd">            reset_run_state() clears it again.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_condition</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.setup_failed">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.setup_failed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">setup_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Whether setup() raised, as opposed to a later cycle.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if this element's setup() raised. Reported apart from</span>
+<span class="sd">            the condition because the two mean different things to a</span>
+<span class="sd">            caller: a step that raises is a run that died, while a setup</span>
+<span class="sd">            that raises is an element that was never viable -- which the</span>
+<span class="sd">            start() the caller is still inside can still refuse.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">setup_failed</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.failure">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.failure">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">failure</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="ne">Exception</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        The exception this element raised, kept whole.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        Exception</span>
+<span class="sd">            What setup() or a cycle raised, or None if nothing did.</span>
+
+<span class="sd">            Reported alongside the log entry rather than instead of it,</span>
+<span class="sd">            because the two serve different readers. The log is what a</span>
+<span class="sd">            running system writes down; this is what a caller needs to</span>
+<span class="sd">            raise `from`, so the element's own frames end up in front of</span>
+<span class="sd">            the user instead of a sentence quoting them.</span>
+
+<span class="sd">            The first failure is kept. A node that fails during setup</span>
+<span class="sd">            returns from every later cycle without processing, and the</span>
+<span class="sd">            condition it leaves behind makes the next cycle look like a</span>
+<span class="sd">            fresh failure -- so overwriting would replace the cause with</span>
+<span class="sd">            its consequence.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">failure</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="ProcessingElement.get_context">
+<a class="viewcode-back" href="../../content/processing_element.html#ioiocore.processing_element.ProcessingElement.get_context">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Context'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Get the context of this processing element."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_context</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""Access a port by name for use in Pipeline.connect()."""</span>
+        <span class="k">return</span> <span class="p">{</span><span class="s2">"node"</span><span class="p">:</span> <span class="bp">self</span><span class="p">,</span> <span class="s2">"port"</span><span class="p">:</span> <span class="n">port_name</span><span class="p">}</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

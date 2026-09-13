@@ -1,0 +1,168 @@
+Migration Guide (4.x to 5.0.0)
+==============================
+
+ioiocore 5.0.0 is a major release. This guide lists the breaking changes and
+what downstream code (for example, node libraries built on ioiocore) must do
+to upgrade. Items are ordered roughly by how likely they are to affect you.
+
+Class source is no longer transported in serialization
+------------------------------------------------------
+
+Serialized payloads no longer carry class source code, and deserialization no
+longer executes any ``source`` field. Node classes are resolved by importing
+their module and looking them up by name.
+
+**What to do**
+
+- Make sure every custom node class is importable on the host that
+  deserializes the pipeline (install or ship its package). A class that is not
+  importable now raises a clear ``TypeError`` instead of silently running
+  embedded source.
+- ``Portable.add_preinstalled_module()`` still exists but is a no-op; you can
+  remove calls to it.
+- If you relied on shipping node code inside the payload, ship the package
+  instead (e.g. bundle and unpack it onto ``sys.path`` before deserializing).
+
+Constructors must not pass a config field both explicitly and via kwargs
+------------------------------------------------------------------------
+
+Deserialization rebuilds a node with ``cls(**config)``, where ``config``
+already contains ``input_ports`` / ``output_ports`` / ``name`` / ... A
+constructor written like this collides on the round trip::
+
+    # BROKEN on deserialize: 'input_ports' passed twice
+    def __init__(self, **kwargs):
+        super().__init__(input_ports=[IPort.Configuration()], **kwargs)
+
+**What to do** — default into ``kwargs`` instead of passing alongside it:
+
+.. code-block:: python
+
+    def __init__(self, **kwargs):
+        kwargs.setdefault("input_ports", [IPort.Configuration()])
+        super().__init__(**kwargs)
+
+If you get it wrong, deserialization now raises an actionable ``TypeError``
+naming the class and the fix, instead of Python's opaque duplicate-keyword
+error.
+
+The data path copies on push
+----------------------------
+
+``OPort.push()`` now gives each connected input port its own deep copy, and
+consumers no longer copy on receive.
+
+**What to do** — usually nothing. Producers may now safely reuse a
+preallocated output buffer between cycles, and fan-out consumers each receive
+an independent snapshot. Do not assume two consumers share the same object.
+
+``Pipeline.start()`` auto-resets after an error
+-----------------------------------------------
+
+Previously, once any node errored the pipeline was permanently unstartable.
+Now ``start()`` clears the error and resets per-node run state (counter,
+context, queued data), so the pipeline can run again. The recovery is logged.
+
+**What to do** — put retry policy (backoff, maximum attempts) in your
+supervisor. ioiocore does not throttle a ``start()`` / error / ``start()``
+loop, so a persistent fault could otherwise be retried indefinitely.
+
+The pipeline stops on excessive input backlog
+---------------------------------------------
+
+A consumer that cannot keep up used to grow memory without bound. The monitor
+now logs a warning past ``ConstantsImp.BACKLOG_WARNING`` queued items and
+stops the pipeline (logging an error) past ``ConstantsImp.BACKLOG_ERROR``.
+
+**What to do** — tune those thresholds to your block rate if the defaults
+(1000 / 10000 items) do not fit, and inspect ``Pipeline.get_backlog()`` if you
+monitor pipeline health yourself.
+
+``source_delay`` has been removed
+---------------------------------
+
+``ONode.source_delay`` and the pipeline's source-delay equalization are gone;
+the value was never applied. Remove any use of ``source_delay``.
+
+Node authorization is gone; a consumer installs a provider
+----------------------------------------------------------
+
+``NodeImp.add_authorization_key()`` and the module-level
+``AUTHORIZED_NODES`` set are removed. A node no longer authorizes
+itself, so a node author has nothing to call: with no provider
+installed, every node starts.
+
+**What to do**
+
+- Remove any ``add_authorization_key()`` call and any reference to
+  ``AUTHORIZED_NODES``. Nothing replaces them at the node level.
+- A *consuming package* that must gate execution installs an
+  authorization provider instead -- any object with
+  ``is_authorized(key) -> bool``. It is asked once per node
+  ``start()``, never per cycle, and receives the node's concrete
+  type. Registration is one-way, so a permissive provider installed
+  first cannot defeat a real one; treat a failed registration as
+  fatal rather than continuing ungated.
+
+Chains derive their ports from their boundary nodes
+---------------------------------------------------
+
+A chain exposes its boundary node's ports. Passing ``input_ports`` /
+``output_ports`` to a chain whose names do not match the boundary node now
+raises at construction instead of silently discarding them. Configure the
+boundary node's ports instead of the chain's.
+
+Port accessors: ``get_port()`` is deprecated
+--------------------------------------------
+
+Use the direction-explicit accessors, available on every input/output-capable
+node and chain:
+
+.. code-block:: python
+
+    node.get_input_port("in")
+    node.get_output_port("out")
+    chain.get_input_port("in")
+    chain.get_output_port("out")
+
+``Chain.get_port()`` still works but emits a ``DeprecationWarning`` and will be
+removed in a future release.
+
+Chain ``get_counter()`` / ``get_context()`` now delegate
+--------------------------------------------------------
+
+They now report the chain's last internal node instead of always returning
+``0`` / ``None``, so a chain behaves like a node for liveness and context.
+
+Release logging resources with ``close()``
+------------------------------------------
+
+The logger's writer thread and file handle are released when the pipeline is
+disposed, not on every ``stop()``. Call ``Pipeline.close()`` when you are done
+with a pipeline, or use it as a context manager:
+
+.. code-block:: python
+
+    with ioc.Pipeline() as pipeline:
+        pipeline.start()
+        ...
+        pipeline.stop()
+    # logger flushed, file closed, thread joined on exit
+
+If the log directory cannot be created the pipeline now runs with in-memory
+logging only and reports it via ``Pipeline.is_logging_persistent()`` and a
+startup message.
+
+Optional configuration keys
+---------------------------
+
+Any key declared in a ``Configuration.Keys`` class is **required**. For values
+that may be absent, declare them in a ``Configuration.OptionalKeys`` class
+instead; they are validated when present but never required. The
+required-field error now names the declaring class.
+
+Linux support
+-------------
+
+The package now imports on Linux (the default log directory is resolved
+lazily using the XDG path), in addition to Windows and macOS.

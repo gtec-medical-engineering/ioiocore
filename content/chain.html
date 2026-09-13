@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Chain &mdash; ioiocore v5.0.0  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IChain" href="i_chain.html" />
+    <link rel="prev" title="IONode" href="io_node.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ioiocore v5.0.0
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migration Guide (4.x to 5.0.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ioiocore v5.0.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Chain</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/content/chain.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="chain">
+<h1>Chain<a class="headerlink" href="#chain" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ioiocore.chain.</span></span><span class="sig-name descname"><span class="pre">Chain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="processing_element.html#ioiocore.processing_element.ProcessingElement" title="ioiocore.processing_element.ProcessingElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingElement</span></code></a></p>
+<p>Base class for all chain types.</p>
+<p>A chain is a processing element that contains a sequence of
+internal nodes connected together. Chains expose ports from
+their boundary nodes (first and/or last) to the outside world.</p>
+<p>Subclasses:
+- IChain: Input chain (exposes input ports from first node)
+- OChain: Output chain (exposes output ports from last node)
+- IOChain: Input/Output chain (exposes both)</p>
+<p>Inheriting classes must implement:
+- create_internal_nodes(): Returns the list of internal nodes</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.Configuration">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.Configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.Configuration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="processing_element.html#ioiocore.processing_element.ProcessingElement.Configuration" title="ioiocore.processing_element.ProcessingElement.Configuration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Configuration</span></code></a></p>
+<p>Configuration class for Chain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>name</strong> (<em>str</em>)</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.Configuration.Keys">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Keys</span></span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.Configuration.Keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.Configuration.Keys" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="processing_element.html#id0" title="ioiocore.processing_element.ProcessingElement.Configuration.Keys"><code class="xref py py-class docutils literal notranslate"><span class="pre">Keys</span></code></a></p>
+<p>Keys for the Chain configuration.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.INTERNALS_ARE_DERIVED">
+<span class="sig-name descname"><span class="pre">INTERNALS_ARE_DERIVED</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">bool</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">True</span></span><a class="headerlink" href="#ioiocore.chain.Chain.INTERNALS_ARE_DERIVED" title="Link to this definition"></a></dt>
+<dd><p>Whether the internal nodes are <em>derived</em> from this chain’s
+configuration rather than being state of their own.</p>
+<p>When True – the default – <code class="docutils literal notranslate"><span class="pre">serialize()</span></code> omits them and a
+loader rebuilds them with <code class="docutils literal notranslate"><span class="pre">create_internal_nodes()</span></code>. That is the
+honest description of a chain whose composition is a function of
+its configuration, and it is the only arrangement that lets the
+<em>loading</em> process decide the composition.</p>
+<p>Why that matters: a chain may legitimately build itself
+differently depending on where it is running. A consuming package
+that splits one pipeline across two hosts builds an acquisition
+node on the host that has the device and a network bridge on the
+host that does not. Embedding the internals defeats it exactly:
+the receiving side restores the sender’s composition and rebuilds
+the sender’s half, so the two ends are copies rather than
+complements.</p>
+<p>Set it False on a chain whose internals cannot be rebuilt from
+configuration alone – one whose <code class="docutils literal notranslate"><span class="pre">create_internal_nodes</span></code> is not
+a function of <code class="docutils literal notranslate"><span class="pre">config</span></code>. Then the internals travel, and the
+loading process’s own view is overridden, which is the trade.</p>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.config">
+<span class="sig-name descname"><span class="pre">config</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#ioiocore.chain.Chain.Configuration" title="ioiocore.chain.Chain.Configuration"><span class="pre">Configuration</span></a></span><a class="headerlink" href="#ioiocore.chain.Chain.config" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.create_implementation">
+<span class="sig-name descname"><span class="pre">create_implementation</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.create_implementation"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.create_implementation" title="Link to this definition"></a></dt>
+<dd><p>Create the chain implementation with internal nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.create_internal_nodes">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">create_internal_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.create_internal_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.create_internal_nodes" title="Link to this definition"></a></dt>
+<dd><p>Create and return the list of internal nodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of internal nodes forming the processing chain.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="node.html#ioiocore.node.Node" title="ioiocore.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py property">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.internal_nodes">
+<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">internal_nodes</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="node.html#ioiocore.node.Node" title="ioiocore.node.Node"><span class="pre">Node</span></a><span class="p"><span class="pre">]</span></span></span><a class="headerlink" href="#ioiocore.chain.Chain.internal_nodes" title="Link to this definition"></a></dt>
+<dd><p>Get the list of internal nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.serialize">
+<span class="sig-name descname"><span class="pre">serialize</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.serialize"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.serialize" title="Link to this definition"></a></dt>
+<dd><p>Serialize the chain.</p>
+<p>The internal nodes are included only when this chain declares
+that they are <em>not</em> derived from its configuration – see
+<a class="reference internal" href="#ioiocore.chain.Chain.INTERNALS_ARE_DERIVED" title="ioiocore.chain.Chain.INTERNALS_ARE_DERIVED"><code class="xref py py-attr docutils literal notranslate"><span class="pre">INTERNALS_ARE_DERIVED</span></code></a>. Omitting them is what lets the
+loading process build the composition it needs rather than
+replaying the writer’s.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The serialized chain.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.start">
+<span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.start" title="Link to this definition"></a></dt>
+<dd><p>Start the chain and all internal nodes.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.chain.Chain.stop">
+<span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.stop" title="Link to this definition"></a></dt>
+<dd><p>Stop the chain and all internal nodes.</p>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="io_node.html" class="btn btn-neutral float-left" title="IONode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="i_chain.html" class="btn btn-neutral float-right" title="IChain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

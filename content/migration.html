@@ -1,0 +1,270 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Migration Guide (4.x to 5.0.0) &mdash; ioiocore v5.0.0  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Constants" href="constants.html" />
+    <link rel="prev" title="ioiocore" href="../index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ioiocore v5.0.0
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Migration Guide (4.x to 5.0.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ioiocore v5.0.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Migration Guide (4.x to 5.0.0)</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/content/migration.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="migration-guide-4-x-to-5-0-0">
+<h1>Migration Guide (4.x to 5.0.0)<a class="headerlink" href="#migration-guide-4-x-to-5-0-0" title="Link to this heading"></a></h1>
+<p>ioiocore 5.0.0 is a major release. This guide lists the breaking changes and
+what downstream code (for example, node libraries built on ioiocore) must do
+to upgrade. Items are ordered roughly by how likely they are to affect you.</p>
+<section id="class-source-is-no-longer-transported-in-serialization">
+<h2>Class source is no longer transported in serialization<a class="headerlink" href="#class-source-is-no-longer-transported-in-serialization" title="Link to this heading"></a></h2>
+<p>Serialized payloads no longer carry class source code, and deserialization no
+longer executes any <code class="docutils literal notranslate"><span class="pre">source</span></code> field. Node classes are resolved by importing
+their module and looking them up by name.</p>
+<p><strong>What to do</strong></p>
+<ul class="simple">
+<li><p>Make sure every custom node class is importable on the host that
+deserializes the pipeline (install or ship its package). A class that is not
+importable now raises a clear <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> instead of silently running
+embedded source.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Portable.add_preinstalled_module()</span></code> still exists but is a no-op; you can
+remove calls to it.</p></li>
+<li><p>If you relied on shipping node code inside the payload, ship the package
+instead (e.g. bundle and unpack it onto <code class="docutils literal notranslate"><span class="pre">sys.path</span></code> before deserializing).</p></li>
+</ul>
+</section>
+<section id="constructors-must-not-pass-a-config-field-both-explicitly-and-via-kwargs">
+<h2>Constructors must not pass a config field both explicitly and via kwargs<a class="headerlink" href="#constructors-must-not-pass-a-config-field-both-explicitly-and-via-kwargs" title="Link to this heading"></a></h2>
+<p>Deserialization rebuilds a node with <code class="docutils literal notranslate"><span class="pre">cls(**config)</span></code>, where <code class="docutils literal notranslate"><span class="pre">config</span></code>
+already contains <code class="docutils literal notranslate"><span class="pre">input_ports</span></code> / <code class="docutils literal notranslate"><span class="pre">output_ports</span></code> / <code class="docutils literal notranslate"><span class="pre">name</span></code> / … A
+constructor written like this collides on the round trip:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># BROKEN on deserialize: 'input_ports' passed twice</span>
+<span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">input_ports</span><span class="o">=</span><span class="p">[</span><span class="n">IPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><strong>What to do</strong> — default into <code class="docutils literal notranslate"><span class="pre">kwargs</span></code> instead of passing alongside it:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s2">"input_ports"</span><span class="p">,</span> <span class="p">[</span><span class="n">IPort</span><span class="o">.</span><span class="n">Configuration</span><span class="p">()])</span>
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If you get it wrong, deserialization now raises an actionable <code class="docutils literal notranslate"><span class="pre">TypeError</span></code>
+naming the class and the fix, instead of Python’s opaque duplicate-keyword
+error.</p>
+</section>
+<section id="the-data-path-copies-on-push">
+<h2>The data path copies on push<a class="headerlink" href="#the-data-path-copies-on-push" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">OPort.push()</span></code> now gives each connected input port its own deep copy, and
+consumers no longer copy on receive.</p>
+<p><strong>What to do</strong> — usually nothing. Producers may now safely reuse a
+preallocated output buffer between cycles, and fan-out consumers each receive
+an independent snapshot. Do not assume two consumers share the same object.</p>
+</section>
+<section id="pipeline-start-auto-resets-after-an-error">
+<h2><code class="docutils literal notranslate"><span class="pre">Pipeline.start()</span></code> auto-resets after an error<a class="headerlink" href="#pipeline-start-auto-resets-after-an-error" title="Link to this heading"></a></h2>
+<p>Previously, once any node errored the pipeline was permanently unstartable.
+Now <code class="docutils literal notranslate"><span class="pre">start()</span></code> clears the error and resets per-node run state (counter,
+context, queued data), so the pipeline can run again. The recovery is logged.</p>
+<p><strong>What to do</strong> — put retry policy (backoff, maximum attempts) in your
+supervisor. ioiocore does not throttle a <code class="docutils literal notranslate"><span class="pre">start()</span></code> / error / <code class="docutils literal notranslate"><span class="pre">start()</span></code>
+loop, so a persistent fault could otherwise be retried indefinitely.</p>
+</section>
+<section id="the-pipeline-stops-on-excessive-input-backlog">
+<h2>The pipeline stops on excessive input backlog<a class="headerlink" href="#the-pipeline-stops-on-excessive-input-backlog" title="Link to this heading"></a></h2>
+<p>A consumer that cannot keep up used to grow memory without bound. The monitor
+now logs a warning past <code class="docutils literal notranslate"><span class="pre">ConstantsImp.BACKLOG_WARNING</span></code> queued items and
+stops the pipeline (logging an error) past <code class="docutils literal notranslate"><span class="pre">ConstantsImp.BACKLOG_ERROR</span></code>.</p>
+<p><strong>What to do</strong> — tune those thresholds to your block rate if the defaults
+(1000 / 10000 items) do not fit, and inspect <code class="docutils literal notranslate"><span class="pre">Pipeline.get_backlog()</span></code> if you
+monitor pipeline health yourself.</p>
+</section>
+<section id="source-delay-has-been-removed">
+<h2><code class="docutils literal notranslate"><span class="pre">source_delay</span></code> has been removed<a class="headerlink" href="#source-delay-has-been-removed" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">ONode.source_delay</span></code> and the pipeline’s source-delay equalization are gone;
+the value was never applied. Remove any use of <code class="docutils literal notranslate"><span class="pre">source_delay</span></code>.</p>
+</section>
+<section id="node-authorization-is-gone-a-consumer-installs-a-provider">
+<h2>Node authorization is gone; a consumer installs a provider<a class="headerlink" href="#node-authorization-is-gone-a-consumer-installs-a-provider" title="Link to this heading"></a></h2>
+<p><code class="docutils literal notranslate"><span class="pre">NodeImp.add_authorization_key()</span></code> and the module-level
+<code class="docutils literal notranslate"><span class="pre">AUTHORIZED_NODES</span></code> set are removed. A node no longer authorizes
+itself, so a node author has nothing to call: with no provider
+installed, every node starts.</p>
+<p><strong>What to do</strong></p>
+<ul class="simple">
+<li><p>Remove any <code class="docutils literal notranslate"><span class="pre">add_authorization_key()</span></code> call and any reference to
+<code class="docutils literal notranslate"><span class="pre">AUTHORIZED_NODES</span></code>. Nothing replaces them at the node level.</p></li>
+<li><p>A <em>consuming package</em> that must gate execution installs an
+authorization provider instead – any object with
+<code class="docutils literal notranslate"><span class="pre">is_authorized(key)</span> <span class="pre">-&gt;</span> <span class="pre">bool</span></code>. It is asked once per node
+<code class="docutils literal notranslate"><span class="pre">start()</span></code>, never per cycle, and receives the node’s concrete
+type. Registration is one-way, so a permissive provider installed
+first cannot defeat a real one; treat a failed registration as
+fatal rather than continuing ungated.</p></li>
+</ul>
+</section>
+<section id="chains-derive-their-ports-from-their-boundary-nodes">
+<h2>Chains derive their ports from their boundary nodes<a class="headerlink" href="#chains-derive-their-ports-from-their-boundary-nodes" title="Link to this heading"></a></h2>
+<p>A chain exposes its boundary node’s ports. Passing <code class="docutils literal notranslate"><span class="pre">input_ports</span></code> /
+<code class="docutils literal notranslate"><span class="pre">output_ports</span></code> to a chain whose names do not match the boundary node now
+raises at construction instead of silently discarding them. Configure the
+boundary node’s ports instead of the chain’s.</p>
+</section>
+<section id="port-accessors-get-port-is-deprecated">
+<h2>Port accessors: <code class="docutils literal notranslate"><span class="pre">get_port()</span></code> is deprecated<a class="headerlink" href="#port-accessors-get-port-is-deprecated" title="Link to this heading"></a></h2>
+<p>Use the direction-explicit accessors, available on every input/output-capable
+node and chain:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">node</span><span class="o">.</span><span class="n">get_input_port</span><span class="p">(</span><span class="s2">"in"</span><span class="p">)</span>
+<span class="n">node</span><span class="o">.</span><span class="n">get_output_port</span><span class="p">(</span><span class="s2">"out"</span><span class="p">)</span>
+<span class="n">chain</span><span class="o">.</span><span class="n">get_input_port</span><span class="p">(</span><span class="s2">"in"</span><span class="p">)</span>
+<span class="n">chain</span><span class="o">.</span><span class="n">get_output_port</span><span class="p">(</span><span class="s2">"out"</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><code class="docutils literal notranslate"><span class="pre">Chain.get_port()</span></code> still works but emits a <code class="docutils literal notranslate"><span class="pre">DeprecationWarning</span></code> and will be
+removed in a future release.</p>
+</section>
+<section id="chain-get-counter-get-context-now-delegate">
+<h2>Chain <code class="docutils literal notranslate"><span class="pre">get_counter()</span></code> / <code class="docutils literal notranslate"><span class="pre">get_context()</span></code> now delegate<a class="headerlink" href="#chain-get-counter-get-context-now-delegate" title="Link to this heading"></a></h2>
+<p>They now report the chain’s last internal node instead of always returning
+<code class="docutils literal notranslate"><span class="pre">0</span></code> / <code class="docutils literal notranslate"><span class="pre">None</span></code>, so a chain behaves like a node for liveness and context.</p>
+</section>
+<section id="release-logging-resources-with-close">
+<h2>Release logging resources with <code class="docutils literal notranslate"><span class="pre">close()</span></code><a class="headerlink" href="#release-logging-resources-with-close" title="Link to this heading"></a></h2>
+<p>The logger’s writer thread and file handle are released when the pipeline is
+disposed, not on every <code class="docutils literal notranslate"><span class="pre">stop()</span></code>. Call <code class="docutils literal notranslate"><span class="pre">Pipeline.close()</span></code> when you are done
+with a pipeline, or use it as a context manager:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">with</span> <span class="n">ioc</span><span class="o">.</span><span class="n">Pipeline</span><span class="p">()</span> <span class="k">as</span> <span class="n">pipeline</span><span class="p">:</span>
+    <span class="n">pipeline</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="o">...</span>
+    <span class="n">pipeline</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>
+<span class="c1"># logger flushed, file closed, thread joined on exit</span>
+</pre></div>
+</div>
+<p>If the log directory cannot be created the pipeline now runs with in-memory
+logging only and reports it via <code class="docutils literal notranslate"><span class="pre">Pipeline.is_logging_persistent()</span></code> and a
+startup message.</p>
+</section>
+<section id="optional-configuration-keys">
+<h2>Optional configuration keys<a class="headerlink" href="#optional-configuration-keys" title="Link to this heading"></a></h2>
+<p>Any key declared in a <code class="docutils literal notranslate"><span class="pre">Configuration.Keys</span></code> class is <strong>required</strong>. For values
+that may be absent, declare them in a <code class="docutils literal notranslate"><span class="pre">Configuration.OptionalKeys</span></code> class
+instead; they are validated when present but never required. The
+required-field error now names the declaring class.</p>
+</section>
+<section id="linux-support">
+<h2>Linux support<a class="headerlink" href="#linux-support" title="Link to this heading"></a></h2>
+<p>The package now imports on Linux (the default log directory is resolved
+lazily using the XDG path), in addition to Windows and macOS.</p>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../index.html" class="btn btn-neutral float-left" title="ioiocore" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

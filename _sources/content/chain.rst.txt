@@ -1,7 +1,7 @@
-Interface
----------
+Chain
+-----
 
-.. autoclass:: ioiocore.interface.Interface
+.. autoclass:: ioiocore.chain.Chain
    :members:
    :undoc-members:
    :special-members: __init__

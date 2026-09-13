@@ -5,22 +5,30 @@
    :maxdepth: 1
    :caption: Programming Reference
 
+   content/migration
+
    content/constants
    content/configuration
-   content/interface
+   content/context
    content/portable
-   
+
    content/port
    content/i_port
    content/o_port
 
+   content/processing_element
    content/node
    content/i_node
    content/o_node
    content/io_node
 
+   content/chain
+   content/i_chain
+   content/o_chain
+   content/io_chain
+
    content/pipeline
-   
+
    content/logging
 
 

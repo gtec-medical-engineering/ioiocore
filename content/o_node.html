@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ONode &mdash; ioiocore v4.0.7  documentation</title>
+  <title>ONode &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -44,17 +44,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
@@ -65,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v4.0.7</a>
+          <a href="../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -140,7 +146,7 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>output_ports</strong> (<em>list</em><em> of </em><a class="reference internal" href="o_port.html#ioiocore.o_port.OPort.Configuration" title="ioiocore.o_port.OPort.Configuration"><em>OPort.Configuration</em></a><em>, </em><em>optional</em>) – A list of output port configurations (default is None).</p></li>
+<li><p><strong>output_ports</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span>) – A list of output port configurations (default is None).</p></li>
 <li><p><strong>**kwargs</strong> (<em>additional keyword arguments</em>) – Other configuration options.</p></li>
 <li><p><strong>decimation_factor</strong> (<em>int</em>)</p></li>
 </ul>
@@ -160,9 +166,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>output_port</strong> (<em>str</em>) – The name of the output port.</p></li>
-<li><p><strong>target</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a>) – The target node to which the output port will be connected.</p></li>
-<li><p><strong>input_port</strong> (<em>str</em>) – The name of the input port on the target node.</p></li>
+<li><p><strong>output_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the output port.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><code class="xref py py-class docutils literal notranslate"><span class="pre">INode</span></code></a></span>) – The target node to which the output port will be connected.</p></li>
+<li><p><strong>input_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the input port on the target node.</p></li>
 </ul>
 </dd>
 </dl>
@@ -170,11 +176,11 @@
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.o_node.ONode.cycle">
-<span class="sig-name descname"><span class="pre">cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">{}</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_node.html#ONode.cycle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_node.ONode.cycle" title="Link to this definition"></a></dt>
+<span class="sig-name descname"><span class="pre">cycle</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_node.html#ONode.cycle"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_node.ONode.cycle" title="Link to this definition"></a></dt>
 <dd><p>Performs a cycle operation on the ONode.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em><em>, </em><em>optional</em>) – A dictionary containing the data for the cycle operation (default
+<dd class="field-odd"><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – A dictionary containing the data for the cycle operation (default
 is an empty dictionary).</p>
 </dd>
 </dl>
@@ -187,10 +193,21 @@ is an empty dictionary).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>output_port</strong> (<em>str</em>) – The name of the output port.</p></li>
-<li><p><strong>target</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a>) – The target node from which the output port will be disconnected.</p></li>
-<li><p><strong>input_port</strong> (<em>str</em>) – The name of the input port on the target node.</p></li>
+<li><p><strong>output_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the output port.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><code class="xref py py-class docutils literal notranslate"><span class="pre">INode</span></code></a></span>) – The target node from which the output port will be disconnected.</p></li>
+<li><p><strong>input_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the input port on the target node.</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_node.ONode.get_output_port">
+<span class="sig-name descname"><span class="pre">get_output_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_node.html#ONode.get_output_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_node.ONode.get_output_port" title="Link to this definition"></a></dt>
+<dd><p>Get an output port by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>port_name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the output port.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -207,23 +224,18 @@ is an empty dictionary).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>dict</em>) – A dictionary containing setup data.</p></li>
-<li><p><strong>port_context_in</strong> (<em>dict</em>) – A dictionary containing input port context.</p></li>
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – A dictionary containing setup data.</p></li>
+<li><p><strong>port_context_in</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – A dictionary containing input port context.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>A dictionary containing output port context.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
-
-<dl class="py property">
-<dt class="sig sig-object py" id="ioiocore.o_node.ONode.source_delay">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">source_delay</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">float</span></span><a class="headerlink" href="#ioiocore.o_node.ONode.source_delay" title="Link to this definition"></a></dt>
-<dd></dd></dl>
 
 </dd></dl>
 

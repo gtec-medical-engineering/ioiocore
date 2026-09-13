@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Configuration &mdash; ioiocore v4.0.7  documentation</title>
+  <title>Configuration &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Interface" href="interface.html" />
+    <link rel="next" title="Context" href="context.html" />
     <link rel="prev" title="Constants" href="constants.html" /> 
 </head>
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -44,17 +44,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
@@ -65,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v4.0.7</a>
+          <a href="../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -95,8 +101,20 @@ reserved metadata handling.</p>
 <dt class="sig sig-object py" id="ioiocore.configuration.Configuration.Keys">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Keys</span></span><a class="reference internal" href="../_modules/ioiocore/configuration.html#Configuration.Keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.configuration.Configuration.Keys" title="Link to this definition"></a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
-<p>Placeholder for configuration keys. Should be extended by
-subclasses.</p>
+<p>Required configuration keys. Every key declared here must be
+present, not None and not empty, otherwise construction fails.
+Subclasses extend this class.</p>
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.configuration.Configuration.OptionalKeys">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">OptionalKeys</span></span><a class="reference internal" href="../_modules/ioiocore/configuration.html#Configuration.OptionalKeys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.configuration.Configuration.OptionalKeys" title="Link to this definition"></a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Optional configuration keys. Keys declared here may be absent;
+when present they are validated (must not be empty) but are never
+required. Use this instead of declaring optional values in
+<code class="xref py py-class docutils literal notranslate"><span class="pre">Keys</span></code> (which would make them mandatory). Subclasses extend
+this class.</p>
 </dd></dl>
 
 <dl class="py class">
@@ -123,7 +141,8 @@ subclasses.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.configuration.Configuration.delitem">
 <span class="sig-name descname"><span class="pre">delitem</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">key</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/configuration.html#Configuration.delitem"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.configuration.Configuration.delitem" title="Link to this definition"></a></dt>
-<dd><p>Prevent deletion of configuration fields.</p>
+<dd><p>Prevent deletion of configuration fields (legacy alias of
+<code class="docutils literal notranslate"><span class="pre">__delitem__</span></code>).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Raises<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>ValueError</strong> – If an attempt is made to delete a configuration field.</p>
@@ -140,7 +159,7 @@ subclasses.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="constants.html" class="btn btn-neutral float-left" title="Constants" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="interface.html" class="btn btn-neutral float-right" title="Interface" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="context.html" class="btn btn-neutral float-right" title="Context" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

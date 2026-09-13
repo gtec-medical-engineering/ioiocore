@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>OPort &mdash; ioiocore v4.0.7  documentation</title>
+  <title>OPort &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -19,7 +19,7 @@
     <script src="../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="next" title="Node" href="node.html" />
+    <link rel="next" title="ProcessingElement" href="processing_element.html" />
     <link rel="prev" title="IPort" href="i_port.html" /> 
 </head>
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -44,17 +44,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
@@ -65,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v4.0.7</a>
+          <a href="../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -127,9 +133,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the port (default is Constants.Defaults.PORT_OUT).</p></li>
-<li><p><strong>type</strong> (<em>str</em><em>, </em><em>optional</em>) – The type of the port (default is <cite>‘Any’</cite>).</p></li>
-<li><p><strong>timing</strong> (<a class="reference internal" href="constants.html#ioiocore.constants.Constants.Timing" title="ioiocore.constants.Constants.Timing"><em>Constants.Timing</em></a><em>, </em><em>optional</em>) – The timing of the port (default is Constants.Timing.SYNC).</p></li>
+<li><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the port (default is Constants.Defaults.PORT_OUT).</p></li>
+<li><p><strong>type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The type of the port (default is <cite>‘Any’</cite>).</p></li>
+<li><p><strong>timing</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="constants.html#ioiocore.constants.Constants.Timing" title="ioiocore.constants.Constants.Timing"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timing</span></code></a></span>) – The timing of the port (default is Constants.Timing.SYNC).</p></li>
 <li><p><strong>**kwargs</strong> (<em>additional keyword arguments</em>) – Other configuration options.</p></li>
 </ul>
 </dd>
@@ -148,9 +154,9 @@
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the port (default is <cite>Constants.Defaults.PORT_OUT</cite>).</p></li>
-<li><p><strong>type</strong> (<em>str</em><em>, </em><em>optional</em>) – The type of the port (default is <cite>‘Any’</cite>).</p></li>
-<li><p><strong>timing</strong> (<a class="reference internal" href="constants.html#ioiocore.constants.Constants.Timing" title="ioiocore.constants.Constants.Timing"><em>Constants.Timing</em></a><em>, </em><em>optional</em>) – The timing of the port (default is <cite>Constants.Timing.SYNC</cite>).</p></li>
+<li><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the port (default is <cite>Constants.Defaults.PORT_OUT</cite>).</p></li>
+<li><p><strong>type</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The type of the port (default is <cite>‘Any’</cite>).</p></li>
+<li><p><strong>timing</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="constants.html#ioiocore.constants.Constants.Timing" title="ioiocore.constants.Constants.Timing"><code class="xref py py-class docutils literal notranslate"><span class="pre">Timing</span></code></a></span>) – The timing of the port (default is <cite>Constants.Timing.SYNC</cite>).</p></li>
 <li><p><strong>**kwargs</strong> (<em>additional keyword arguments</em>) – Other configuration options.</p></li>
 </ul>
 </dd>
@@ -171,7 +177,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="i_port.html" class="btn btn-neutral float-left" title="IPort" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="node.html" class="btn btn-neutral float-right" title="Node" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="processing_element.html" class="btn btn-neutral float-right" title="ProcessingElement" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

@@ -19,12 +19,3 @@ LogEntry
    :special-members: __init__
    :show-inheritance:
 
-LogType
-~~~~~~~
-
-.. autoclass:: ioiocore.logging.LogType
-   :members:
-   :undoc-members:
-   :special-members: __init__
-   :show-inheritance:
-

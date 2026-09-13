@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.utilities &mdash; ioiocore v4.0.7  documentation</title>
+  <title>ioiocore.utilities &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -41,17 +41,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
@@ -62,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v4.0.7</a>
+          <a href="../../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -83,21 +89,21 @@
   <h1>Source code for ioiocore.utilities</h1><div class="highlight"><pre>
 <span></span><span class="k">class</span><span class="w"> </span><span class="nc">_ImmutableClass</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
     <span class="k">def</span><span class="w"> </span><span class="fm">__setattr__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">):</span>
-        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Cannot modify constant &#39;</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">&#39;&quot;</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Cannot modify constant '</span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">'"</span><span class="p">)</span>
 
 
 <div class="viewcode-block" id="KeyValueContainer">
 <a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">KeyValueContainer</span><span class="p">(</span><span class="n">metaclass</span><span class="o">=</span><span class="n">_ImmutableClass</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A container class that provides methods to retrieve all keys</span>
 <span class="sd">    and values defined in subclasses.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 <div class="viewcode-block" id="KeyValueContainer.values">
 <a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer.values">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">values</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve all values defined in the class.</span>
 
 <span class="sd">        Returns</span>
@@ -105,16 +111,16 @@
 <span class="sd">        list</span>
 <span class="sd">            A list of all values in the class that are not</span>
 <span class="sd">            dunder attributes or private attributes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="p">[</span><span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
-                <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;_&quot;</span><span class="p">)]</span></div>
+                <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"_"</span><span class="p">)]</span></div>
 
 
 <div class="viewcode-block" id="KeyValueContainer.keys">
 <a class="viewcode-back" href="../../content/constants.html#ioiocore.constants.KeyValueContainer.keys">[docs]</a>
     <span class="nd">@classmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">keys</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Retrieve all keys defined in the class.</span>
 
 <span class="sd">        Returns</span>
@@ -122,8 +128,8 @@
 <span class="sd">        list</span>
 <span class="sd">            A list of all keys in the class that are not</span>
 <span class="sd">            dunder attributes.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">&quot;__&quot;</span><span class="p">)]</span></div>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="nb">vars</span><span class="p">(</span><span class="bp">cls</span><span class="p">)</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="ow">not</span> <span class="n">k</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)]</span></div>
 </div>
 
 </pre></div>

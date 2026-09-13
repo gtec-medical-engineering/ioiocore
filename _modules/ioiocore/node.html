@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.node &mdash; ioiocore v4.0.7  documentation</title>
+  <title>ioiocore.node &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -41,17 +41,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
@@ -62,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v4.0.7</a>
+          <a href="../../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -84,7 +90,7 @@
 <span></span><span class="kn">from</span><span class="w"> </span><span class="nn">abc</span><span class="w"> </span><span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Any</span><span class="p">,</span> <span class="n">TYPE_CHECKING</span>
 
-<span class="kn">from</span><span class="w"> </span><span class="nn">.portable</span><span class="w"> </span><span class="kn">import</span> <span class="n">Portable</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.processing_element</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessingElement</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.logging</span><span class="w"> </span><span class="kn">import</span> <span class="n">Logger</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.context</span><span class="w"> </span><span class="kn">import</span> <span class="n">Context</span>
@@ -94,13 +100,12 @@
 
 <div class="viewcode-block" id="Node">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node">[docs]</a>
-<span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">(</span><span class="n">ABC</span><span class="p">,</span> <span class="n">Portable</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">    Abstract base class representing a node in a signal processing pipeline.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Node</span><span class="p">(</span><span class="n">ProcessingElement</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""</span>
+<span class="sd">    Abstract base class representing a concrete processing node in a pipeline.</span>
 
-<span class="sd">    Inherits from ABC and Portable, and provides the core structure for</span>
-<span class="sd">    setting up and running the Node, including managing its configuration,</span>
-<span class="sd">    implementation, logger, and state.</span>
+<span class="sd">    Extends ProcessingElement with setup() and step() methods that define</span>
+<span class="sd">    the node's initialization and processing logic.</span>
 
 <span class="sd">    Attributes</span>
 <span class="sd">    ----------</span>
@@ -110,27 +115,27 @@
 <span class="sd">        The instance of the implementation class for the Node.</span>
 <span class="sd">    config : Configuration</span>
 <span class="sd">        The configuration object for the Node.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
     <span class="n">_IMP_CLASS</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">NodeImp</span>
 
 <div class="viewcode-block" id="Node.Configuration">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.Configuration">[docs]</a>
-    <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">Portable</span><span class="o">.</span><span class="n">Configuration</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">ProcessingElement</span><span class="o">.</span><span class="n">Configuration</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Configuration class for the Node</span>
 
 <span class="sd">        Attributes</span>
 <span class="sd">        ----------</span>
 <span class="sd">        Keys</span>
 <span class="sd">            The configuration keys.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
 <div class="viewcode-block" id="Node.Configuration.Keys">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.Configuration.Keys">[docs]</a>
-        <span class="k">class</span><span class="w"> </span><span class="nc">Keys</span><span class="p">(</span><span class="n">Portable</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;Configuration keys.&quot;&quot;&quot;</span>
-            <span class="n">NAME</span> <span class="o">=</span> <span class="s2">&quot;name&quot;</span></div>
+        <span class="k">class</span><span class="w"> </span><span class="nc">Keys</span><span class="p">(</span><span class="n">ProcessingElement</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">):</span>
+<span class="w">            </span><span class="sd">"""Configuration keys."""</span>
+            <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="Node.Configuration.__init__">
@@ -138,7 +143,7 @@
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                      <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">"""</span>
 <span class="sd">            Initialize the Node configuration.</span>
 
 <span class="sd">            Parameters</span>
@@ -147,9 +152,7 @@
 <span class="sd">                The name of the Node (default is the class name).</span>
 <span class="sd">            kwargs : additional keyword arguments</span>
 <span class="sd">                Other configuration parameters passed to the base class.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="k">if</span> <span class="n">name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
-                <span class="n">name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__qualname__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+<span class="sd">            """</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 </div>
 
@@ -162,7 +165,7 @@
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initialize the Node.</span>
 
 <span class="sd">        Parameters</span>
@@ -171,88 +174,60 @@
 <span class="sd">            The name of the Node (default is None).</span>
 <span class="sd">        kwargs : additional keyword arguments</span>
 <span class="sd">            Other parameters passed to create the Node configuration.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_config</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_implementation</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">setup_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">setup</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">step_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">step</span>
-        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">**</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">pre_setup_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_setup</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">pre_step_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">pre_step</span>
+
+        <span class="c1"># A node declares which execution modes it supports by which of</span>
+        <span class="c1"># the two it overrides -- step() for a frame at a time, process()</span>
+        <span class="c1"># for the whole record at once. Derived from structure rather than</span>
+        <span class="c1"># from a flag, so a node cannot claim a mode it has no body for.</span>
+        <span class="c1">#</span>
+        <span class="c1"># step() is bound either way, because it is the default path and</span>
+        <span class="c1"># the base implementation raises a message naming the class and</span>
+        <span class="c1"># the mode -- a better failure than calling None. process() is</span>
+        <span class="c1"># bound only when it is declared, because that is exactly what</span>
+        <span class="c1"># the implementation asks in order to dispatch: a handler bound</span>
+        <span class="c1"># to the raising base would send every node down the batch path.</span>
+        <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">Node</span><span class="o">.</span><span class="n">process</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">process_handler</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">process</span>
+
+        <span class="k">if</span> <span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">step</span> <span class="ow">is</span> <span class="n">Node</span><span class="o">.</span><span class="n">step</span>
+                <span class="ow">and</span> <span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">process</span> <span class="ow">is</span> <span class="n">Node</span><span class="o">.</span><span class="n">process</span><span class="p">):</span>
+            <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
+                <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> implements neither step() nor "</span>
+                <span class="sa">f</span><span class="s2">"process(). A node needs step() to run in a realtime "</span>
+                <span class="sa">f</span><span class="s2">"pipeline, process() to run in a batch pipeline, or "</span>
+                <span class="sa">f</span><span class="s2">"both."</span>
+            <span class="p">)</span>
+        <span class="c1"># Record this node's concrete type so start() can hand it to an</span>
+        <span class="c1"># authorization provider, if a consuming package installed one.</span>
+        <span class="c1"># Recorded rather than derived at start() so no call-stack walk is</span>
+        <span class="c1"># needed. Note this identifies the node; it does not authorize it.</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">_auth_key</span> <span class="o">=</span> <span class="nb">repr</span><span class="p">(</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">))</span></div>
 
 
 <div class="viewcode-block" id="Node.start">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.start">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Start the Node.</span>
-
-<span class="sd">        Starts the internal implementation of the Node.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Node.stop">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.stop">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Stop the Node.</span>
-
-<span class="sd">        Stops the internal implementation of the Node.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
-
-<div class="viewcode-block" id="Node.set_logger">
-<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.set_logger">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">set_logger</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">logger</span><span class="p">:</span> <span class="n">Logger</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">set_logger</span><span class="p">(</span><span class="n">logger</span><span class="p">)</span></div>
-
-
-<div class="viewcode-block" id="Node.log">
-<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.log">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">)</span></div>
-
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">name</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">name</span>
-
-<div class="viewcode-block" id="Node.get_counter">
-<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_counter">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_counter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the current counter value of the Node.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        int</span>
-<span class="sd">            The counter value of the Node.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_counter</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="Node.get_state">
-<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_state">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Constants.States&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Get the current state of the Node.</span>
-
-<span class="sd">        Returns</span>
-<span class="sd">        -------</span>
-<span class="sd">        Constants.States</span>
-<span class="sd">            The current state of the Node.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span></div>
-
-
-<div class="viewcode-block" id="Node.get_context">
-<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.get_context">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_context</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Context&#39;</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_context</span><span class="p">()</span></div>
-
-
-    <span class="k">def</span><span class="w"> </span><span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-        <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;node&quot;</span><span class="p">:</span> <span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;port&quot;</span><span class="p">:</span> <span class="n">port_name</span><span class="p">}</span>
 
 <div class="viewcode-block" id="Node.setup">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.setup">[docs]</a>
@@ -260,7 +235,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
               <span class="n">port_context_in</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Abstract method to setup the Node.</span>
 
 <span class="sd">        This method should be implemented to define the setup logic for the</span>
@@ -277,19 +252,141 @@
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
 <span class="sd">            The configuration of the output ports.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
+
+
+<div class="viewcode-block" id="Node.is_externally_fed">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.is_externally_fed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_externally_fed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Report whether this node's inputs come from outside the pipeline.</span>
+
+<span class="sd">        A chain refuses an IONode at its inlet, because an IONode there</span>
+<span class="sd">        would leave its input ports with nothing connected to them and</span>
+<span class="sd">        the chain could never be fed. That is the right default: it</span>
+<span class="sd">        catches a real authoring mistake.</span>
+
+<span class="sd">        It is wrong for one kind of node -- one whose input is satisfied</span>
+<span class="sd">        from outside the graph entirely, such as a bridge receiving from</span>
+<span class="sd">        a socket. Its unconnected input port is not a dangling port; it</span>
+<span class="sd">        is the point where external data arrives. Such a node says so by</span>
+<span class="sd">        returning True here, and the chain then admits it.</span>
+
+<span class="sd">        Declared rather than inferred, and False by default, so nothing</span>
+<span class="sd">        existing changes and no mistake is silently accepted.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the inputs are satisfied externally.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Node.is_externally_drained">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.is_externally_drained">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_externally_drained</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Report whether this node's outputs leave the pipeline.</span>
+
+<span class="sd">        The outlet counterpart of :meth:`is_externally_fed`: a chain</span>
+<span class="sd">        refuses an IONode at its outlet because its output would be</span>
+<span class="sd">        silently dropped. A node that sends its output somewhere outside</span>
+<span class="sd">        the graph returns True, and the chain admits it.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            True if the outputs are consumed externally.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="kc">False</span></div>
+
+
+<div class="viewcode-block" id="Node.pre_setup">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.pre_setup">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span> <span class="n">port_context_in</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Adapt the input contexts before setup() sees them.</span>
+
+<span class="sd">        Called once, immediately before ``setup``, with the input port</span>
+<span class="sd">        contexts that ``setup`` is about to receive. Modify them in</span>
+<span class="sd">        place; the return value is ignored.</span>
+
+<span class="sd">        The setup-time counterpart of :meth:`pre_step`. Together they let</span>
+<span class="sd">        a consuming package present every node with uniform inputs: this</span>
+<span class="sd">        one settles what the inputs *are* -- how many channels, at what</span>
+<span class="sd">        rate, with what timing -- and ``pre_step`` supplies frames that</span>
+<span class="sd">        match on every cycle. Adapting only the frames would not be</span>
+<span class="sd">        enough, because a node decides its own output shape here, from</span>
+<span class="sd">        exactly these contexts.</span>
+
+<span class="sd">        The default does nothing.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            Initial data, as passed to ``setup``.</span>
+<span class="sd">        port_context_in : dict</span>
+<span class="sd">            Input port contexts keyed by port name, to be modified in</span>
+<span class="sd">            place.</span>
+<span class="sd">        """</span>
+        <span class="k">pass</span></div>
+
+
+<div class="viewcode-block" id="Node.pre_step">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.pre_step">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">pre_step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Adapt the input frames before step() sees them.</span>
+
+<span class="sd">        Called once per cycle, immediately before ``step``, with the</span>
+<span class="sd">        dictionary that ``step`` is about to receive. Modify it in place.</span>
+
+<span class="sd">        Return True to withhold the cycle: ``step`` is not called and</span>
+<span class="sd">        nothing is emitted. A hook that holds frames back needs this --</span>
+<span class="sd">        without it, the only way to keep the cycle going is to fabricate</span>
+<span class="sd">        a frame, which puts invented samples at the head of the stream</span>
+<span class="sd">        and shifts every later one by however many were held. Returning</span>
+<span class="sd">        None or False runs the cycle as usual, which is what every hook</span>
+<span class="sd">        that does not hold anything back does.</span>
+
+<span class="sd">        This exists so that a consuming package can make the inputs of</span>
+<span class="sd">        *every* node uniform without every node author having to know</span>
+<span class="sd">        about it. The engine deliberately holds no opinion about what</span>
+<span class="sd">        "uniform" means: it delivers whatever arrived, and this is where</span>
+<span class="sd">        a domain layer may reshape it -- resample a stream that arrives</span>
+<span class="sd">        irregularly onto the grid of one that does not, substitute a</span>
+<span class="sd">        value for a port that produced nothing, or reject a combination</span>
+<span class="sd">        it cannot express.</span>
+
+<span class="sd">        The default does nothing, which is the behaviour of every node</span>
+<span class="sd">        that does not override it.</span>
+
+<span class="sd">        Notes</span>
+<span class="sd">        -----</span>
+<span class="sd">        This runs on the per-cycle path, so an override should do as</span>
+<span class="sd">        little as possible and decide as much as it can once, in</span>
+<span class="sd">        ``setup``, rather than on every frame.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            Input frames keyed by port name, to be modified in place. A</span>
+<span class="sd">            port that produced nothing this cycle may be absent.</span>
+<span class="sd">        """</span>
+        <span class="k">pass</span></div>
 
 
 <div class="viewcode-block" id="Node.step">
 <a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.step">[docs]</a>
-    <span class="nd">@abstractmethod</span>
     <span class="k">def</span><span class="w"> </span><span class="nf">step</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Abstract method for the Node&#39;s step function.</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Process one frame. Override for a node that runs in realtime.</span>
 
-<span class="sd">        This method should be implemented to define the processing logic for</span>
-<span class="sd">        each step of the Node.</span>
+<span class="sd">        Not abstract, because a node may instead implement</span>
+<span class="sd">        :meth:`process` and run only in a batch pipeline. Exactly one of</span>
+<span class="sd">        the two is required, checked in ``__init__``.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
@@ -300,8 +397,52 @@
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
 <span class="sd">            The processed data after applying the step logic.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
-        <span class="k">pass</span>  <span class="c1"># pragma: no cover</span></div>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        NotImplementedError</span>
+<span class="sd">            If the node implements only :meth:`process`. Reaching this</span>
+<span class="sd">            means a batch-only node was driven frame by frame.</span>
+<span class="sd">        """</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> implements process() and not step(), "</span>
+            <span class="sa">f</span><span class="s2">"so it can only run in a batch pipeline, where the whole "</span>
+            <span class="sa">f</span><span class="s2">"record arrives in one call."</span>
+        <span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Node.process">
+<a class="viewcode-back" href="../../content/node.html#ioiocore.node.Node.process">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">process</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Process the whole record at once. Override for a batch node.</span>
+
+<span class="sd">        Called once, with every sample the node will ever see, in place</span>
+<span class="sd">        of :meth:`step`. This is what a non-causal operation needs -- a</span>
+<span class="sd">        zero-phase filter, a whole-record statistic -- and it is why the</span>
+<span class="sd">        node needs no buffering of its own: a batch pipeline delivers one</span>
+<span class="sd">        block.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        data : dict</span>
+<span class="sd">            The complete input data, keyed by port name.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        dict</span>
+<span class="sd">            The processed data.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        NotImplementedError</span>
+<span class="sd">            If the node implements only :meth:`step`. Reaching this means</span>
+<span class="sd">            the caller asked for whole-record processing from a node that</span>
+<span class="sd">            declares none, which the pipeline should have refused first.</span>
+<span class="sd">        """</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span>
+            <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2"> implements step() and not process()."</span>
+        <span class="p">)</span></div>
 </div>
 
 </pre></div>

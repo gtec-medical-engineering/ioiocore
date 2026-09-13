@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.o_node &mdash; ioiocore v4.0.7  documentation</title>
+  <title>ioiocore.o_node &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -41,17 +41,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
@@ -62,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v4.0.7</a>
+          <a href="../../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -95,38 +101,38 @@
 <a class="viewcode-back" href="../../content/o_node.html#ioiocore.o_node.ONode">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">ONode</span><span class="p">(</span><span class="n">Node</span><span class="p">):</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A class representing an output node, inheriting from Node.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="ONode.Configuration">
 <a class="viewcode-back" href="../../content/o_node.html#ioiocore.o_node.ONode.Configuration">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">Node</span><span class="o">.</span><span class="n">Configuration</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Configuration class for ONode.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
 <div class="viewcode-block" id="ONode.Configuration.Keys">
 <a class="viewcode-back" href="../../content/o_node.html#ioiocore.o_node.ONode.Configuration.Keys">[docs]</a>
         <span class="k">class</span><span class="w"> </span><span class="nc">Keys</span><span class="p">(</span><span class="n">Node</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">"""</span>
 <span class="sd">            Keys for the ONode configuration.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
-            <span class="n">OUTPUT_PORTS</span> <span class="o">=</span> <span class="s2">&quot;output_ports&quot;</span>
-            <span class="n">DECIMATION_FACTOR</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">DECIMATION_FACTOR</span>  <span class="c1"># &quot;decimation_factor&quot;  # noqa: E501</span></div>
+<span class="sd">            """</span>
+            <span class="n">OUTPUT_PORTS</span> <span class="o">=</span> <span class="s2">"output_ports"</span>
+            <span class="n">DECIMATION_FACTOR</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">DECIMATION_FACTOR</span>  <span class="c1"># "decimation_factor"  # noqa: E501</span></div>
 
 
 <div class="viewcode-block" id="ONode.Configuration.__init__">
 <a class="viewcode-back" href="../../content/o_node.html#ioiocore.o_node.ONode.Configuration.__init__">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">"""</span>
 <span class="sd">            Initializes the configuration for ONode.</span>
 
 <span class="sd">            Parameters</span>
 <span class="sd">            ----------</span>
 <span class="sd">            **kwargs : additional keyword arguments</span>
 <span class="sd">                Other configuration options, including output ports.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
             <span class="c1"># remove output_ports from kwargs;</span>
             <span class="c1"># if not present, assign a default value. This avoids errors when</span>
             <span class="c1"># deserialization is performed.</span>
@@ -140,10 +146,10 @@
             <span class="k">if</span> <span class="n">decimation_factor</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
                 <span class="n">decimation_factor</span> <span class="o">=</span> <span class="mi">1</span>
             <span class="k">if</span> <span class="nb">type</span><span class="p">(</span><span class="n">decimation_factor</span><span class="p">)</span> <span class="ow">is</span> <span class="ow">not</span> <span class="nb">int</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">&quot;decimation_factor must be an integer.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span><span class="s2">"decimation_factor must be an integer."</span><span class="p">)</span>
             <span class="k">if</span> <span class="n">decimation_factor</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;decimation_factor must be an integer &quot;</span>
-                                 <span class="s2">&quot;multiple of 1.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"decimation_factor must be an integer "</span>
+                                 <span class="s2">"multiple of 1."</span><span class="p">)</span>
 
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
                              <span class="n">decimation_factor</span><span class="o">=</span><span class="n">decimation_factor</span><span class="p">,</span>
@@ -161,7 +167,7 @@
                  <span class="n">output_ports</span><span class="p">:</span> <span class="nb">list</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="n">decimation_factor</span><span class="p">:</span> <span class="nb">int</span> <span class="o">=</span> <span class="kc">None</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initializes the ONode.</span>
 
 <span class="sd">        Parameters</span>
@@ -170,7 +176,7 @@
 <span class="sd">            A list of output port configurations (default is None).</span>
 <span class="sd">        **kwargs : additional keyword arguments</span>
 <span class="sd">            Other configuration options.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_config</span><span class="p">(</span><span class="n">output_ports</span><span class="o">=</span><span class="n">output_ports</span><span class="p">,</span>
                            <span class="n">decimation_factor</span><span class="o">=</span><span class="n">decimation_factor</span><span class="p">,</span>
                            <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
@@ -184,7 +190,7 @@
                 <span class="n">output_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                 <span class="n">target</span><span class="p">:</span> <span class="n">INode</span><span class="p">,</span>
                 <span class="n">input_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Connects an output port to an input port of a target node.</span>
 
 <span class="sd">        Parameters</span>
@@ -195,7 +201,7 @@
 <span class="sd">            The target node to which the output port will be connected.</span>
 <span class="sd">        input_port : str</span>
 <span class="sd">            The name of the input port on the target node.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">output_port</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">_imp</span><span class="p">,</span> <span class="n">input_port</span><span class="p">)</span></div>
 
 
@@ -205,7 +211,7 @@
                    <span class="n">output_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
                    <span class="n">target</span><span class="p">:</span> <span class="n">INode</span><span class="p">,</span>
                    <span class="n">input_port</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Disconnects an output port from an input port of a target node.</span>
 
 <span class="sd">        Parameters</span>
@@ -216,7 +222,7 @@
 <span class="sd">            The target node from which the output port will be disconnected.</span>
 <span class="sd">        input_port : str</span>
 <span class="sd">            The name of the input port on the target node.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">disconnect</span><span class="p">(</span><span class="n">output_port</span><span class="p">,</span> <span class="n">target</span><span class="o">.</span><span class="n">_imp</span><span class="p">,</span> <span class="n">input_port</span><span class="p">)</span></div>
 
 
@@ -225,7 +231,7 @@
     <span class="k">def</span><span class="w"> </span><span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
               <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">,</span>
               <span class="n">port_context_in</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Sets up the ONode.</span>
 
 <span class="sd">        Parameters</span>
@@ -239,7 +245,7 @@
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
 <span class="sd">            A dictionary containing output port context.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="n">port_context_out</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}</span>
         <span class="n">op_config</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">config</span><span class="o">.</span><span class="n">Keys</span><span class="o">.</span><span class="n">OUTPUT_PORTS</span><span class="p">]</span>
         <span class="k">for</span> <span class="n">port_idx</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">op_config</span><span class="p">)):</span>
@@ -252,8 +258,8 @@
 
 <div class="viewcode-block" id="ONode.cycle">
 <a class="viewcode-back" href="../../content/o_node.html#ioiocore.o_node.ONode.cycle">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="p">{}):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">cycle</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">data</span><span class="p">:</span> <span class="nb">dict</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Performs a cycle operation on the ONode.</span>
 
 <span class="sd">        Parameters</span>
@@ -261,23 +267,29 @@
 <span class="sd">        data : dict, optional</span>
 <span class="sd">            A dictionary containing the data for the cycle operation (default</span>
 <span class="sd">            is an empty dictionary).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">_cycle</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="ONode.get_output_port">
+<a class="viewcode-back" href="../../content/o_node.html#ioiocore.o_node.ONode.get_output_port">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_output_port</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">port_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Get an output port by name.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        port_name : str</span>
+<span class="sd">            The name of the output port.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_output_port</span><span class="p">(</span><span class="n">port_name</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="ONode.is_decimation_step">
 <a class="viewcode-back" href="../../content/o_node.html#ioiocore.o_node.ONode.is_decimation_step">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">is_decimation_step</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">is_decimation_step</span><span class="p">()</span></div>
-
-
-    <span class="nd">@property</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">source_delay</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">source_delay</span>
-
-    <span class="nd">@source_delay</span><span class="o">.</span><span class="n">setter</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">source_delay</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">value</span><span class="p">:</span> <span class="nb">float</span><span class="p">):</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">source_delay</span> <span class="o">=</span> <span class="n">value</span></div>
+</div>
 
 </pre></div>
 

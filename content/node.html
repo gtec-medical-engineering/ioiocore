@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Node &mdash; ioiocore v4.0.7  documentation</title>
+  <title>Node &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="INode" href="i_node.html" />
-    <link rel="prev" title="OPort" href="o_port.html" /> 
+    <link rel="prev" title="ProcessingElement" href="processing_element.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -44,17 +44,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
@@ -65,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v4.0.7</a>
+          <a href="../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -88,11 +94,10 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.node.Node">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ioiocore.node.</span></span><span class="sig-name descname"><span class="pre">Node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node" title="Link to this definition"></a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ABC</span></code>, <a class="reference internal" href="portable.html#ioiocore.portable.Portable" title="ioiocore.portable.Portable"><code class="xref py py-class docutils literal notranslate"><span class="pre">Portable</span></code></a></p>
-<p>Abstract base class representing a node in a signal processing pipeline.</p>
-<p>Inherits from ABC and Portable, and provides the core structure for
-setting up and running the Node, including managing its configuration,
-implementation, logger, and state.</p>
+<dd><p>Bases: <a class="reference internal" href="processing_element.html#ioiocore.processing_element.ProcessingElement" title="ioiocore.processing_element.ProcessingElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingElement</span></code></a></p>
+<p>Abstract base class representing a concrete processing node in a pipeline.</p>
+<p>Extends ProcessingElement with setup() and step() methods that define
+the node’s initialization and processing logic.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>name</strong> (<em>str</em>)</p>
@@ -134,7 +139,7 @@ implementation, logger, and state.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.node.Node.Configuration">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">name</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.Configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.Configuration" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="portable.html#ioiocore.portable.Portable.Configuration" title="ioiocore.portable.Portable.Configuration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Configuration</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="processing_element.html#ioiocore.processing_element.ProcessingElement.Configuration" title="ioiocore.processing_element.ProcessingElement.Configuration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Configuration</span></code></a></p>
 <p>Configuration class for the Node</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
@@ -150,13 +155,8 @@ implementation, logger, and state.</p>
 <dl class="py class">
 <dt class="sig sig-object py" id="id0">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Keys</span></span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.Configuration.Keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#id0" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="portable.html#ioiocore.portable.Portable.Configuration.Keys" title="ioiocore.portable.Portable.Configuration.Keys"><code class="xref py py-class docutils literal notranslate"><span class="pre">Keys</span></code></a></p>
+<dd><p>Bases: <a class="reference internal" href="processing_element.html#id0" title="ioiocore.processing_element.ProcessingElement.Configuration.Keys"><code class="xref py py-class docutils literal notranslate"><span class="pre">Keys</span></code></a></p>
 <p>Configuration keys.</p>
-<dl class="py attribute">
-<dt class="sig sig-object py" id="ioiocore.node.Node.Configuration.Keys.NAME">
-<span class="sig-name descname"><span class="pre">NAME</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'name'</span></span><a class="headerlink" href="#ioiocore.node.Node.Configuration.Keys.NAME" title="Link to this definition"></a></dt>
-<dd></dd></dl>
-
 </dd></dl>
 
 <dl class="py method">
@@ -166,7 +166,7 @@ implementation, logger, and state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the Node (default is the class name).</p></li>
+<li><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Node (default is the class name).</p></li>
 <li><p><strong>kwargs</strong> (<em>additional keyword arguments</em>) – Other configuration parameters passed to the base class.</p></li>
 </ul>
 </dd>
@@ -182,7 +182,7 @@ implementation, logger, and state.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>name</strong> (<em>str</em><em>, </em><em>optional</em>) – The name of the Node (default is None).</p></li>
+<li><p><strong>name</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the Node (default is None).</p></li>
 <li><p><strong>kwargs</strong> (<em>additional keyword arguments</em>) – Other parameters passed to create the Node configuration.</p></li>
 </ul>
 </dd>
@@ -195,67 +195,138 @@ implementation, logger, and state.</p>
 <dd></dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.node.Node.get_context">
-<span class="sig-name descname"><span class="pre">get_context</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.get_context"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.get_context" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">Context</span></code></span></p>
-</dd>
-</dl>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.node.Node.get_counter">
-<span class="sig-name descname"><span class="pre">get_counter</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.get_counter"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.get_counter" title="Link to this definition"></a></dt>
-<dd><p>Get the current counter value of the Node.</p>
+<dt class="sig sig-object py" id="ioiocore.node.Node.is_externally_drained">
+<span class="sig-name descname"><span class="pre">is_externally_drained</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.is_externally_drained"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.is_externally_drained" title="Link to this definition"></a></dt>
+<dd><p>Report whether this node’s outputs leave the pipeline.</p>
+<p>The outlet counterpart of <a class="reference internal" href="#ioiocore.node.Node.is_externally_fed" title="ioiocore.node.Node.is_externally_fed"><code class="xref py py-meth docutils literal notranslate"><span class="pre">is_externally_fed()</span></code></a>: a chain
+refuses an IONode at its outlet because its output would be
+silently dropped. A node that sends its output somewhere outside
+the graph returns True, and the chain admits it.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The counter value of the Node.</p>
+<dd class="field-odd"><p>True if the outputs are consumed externally.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>int</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.node.Node.get_state">
-<span class="sig-name descname"><span class="pre">get_state</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.get_state"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.get_state" title="Link to this definition"></a></dt>
-<dd><p>Get the current state of the Node.</p>
+<dt class="sig sig-object py" id="ioiocore.node.Node.is_externally_fed">
+<span class="sig-name descname"><span class="pre">is_externally_fed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.is_externally_fed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.is_externally_fed" title="Link to this definition"></a></dt>
+<dd><p>Report whether this node’s inputs come from outside the pipeline.</p>
+<p>A chain refuses an IONode at its inlet, because an IONode there
+would leave its input ports with nothing connected to them and
+the chain could never be fed. That is the right default: it
+catches a real authoring mistake.</p>
+<p>It is wrong for one kind of node – one whose input is satisfied
+from outside the graph entirely, such as a bridge receiving from
+a socket. Its unconnected input port is not a dangling port; it
+is the point where external data arrives. Such a node says so by
+returning True here, and the chain then admits it.</p>
+<p>Declared rather than inferred, and False by default, so nothing
+existing changes and no mistake is silently accepted.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The current state of the Node.</p>
+<dd class="field-odd"><p>True if the inputs are satisfied externally.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="constants.html#ioiocore.constants.Constants.States" title="ioiocore.constants.Constants.States">Constants.States</a></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.node.Node.log">
-<span class="sig-name descname"><span class="pre">log</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">msg</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">type</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.log"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.log" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="ioiocore.node.Node.pre_setup">
+<span class="sig-name descname"><span class="pre">pre_setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">port_context_in</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.pre_setup"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.pre_setup" title="Link to this definition"></a></dt>
+<dd><p>Adapt the input contexts before setup() sees them.</p>
+<p>Called once, immediately before <code class="docutils literal notranslate"><span class="pre">setup</span></code>, with the input port
+contexts that <code class="docutils literal notranslate"><span class="pre">setup</span></code> is about to receive. Modify them in
+place; the return value is ignored.</p>
+<p>The setup-time counterpart of <a class="reference internal" href="#ioiocore.node.Node.pre_step" title="ioiocore.node.Node.pre_step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">pre_step()</span></code></a>. Together they let
+a consuming package present every node with uniform inputs: this
+one settles what the inputs <em>are</em> – how many channels, at what
+rate, with what timing – and <code class="docutils literal notranslate"><span class="pre">pre_step</span></code> supplies frames that
+match on every cycle. Adapting only the frames would not be
+enough, because a node decides its own output shape here, from
+exactly these contexts.</p>
+<p>The default does nothing.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>msg</strong> (<em>str</em>)</p></li>
-<li><p><strong>type</strong> (<a class="reference internal" href="constants.html#ioiocore.constants.Constants.LogTypes" title="ioiocore.constants.Constants.LogTypes"><em>LogTypes</em></a>)</p></li>
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – Initial data, as passed to <code class="docutils literal notranslate"><span class="pre">setup</span></code>.</p></li>
+<li><p><strong>port_context_in</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – Input port contexts keyed by port name, to be modified in
+place.</p></li>
 </ul>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
 
-<dl class="py property">
-<dt class="sig sig-object py" id="ioiocore.node.Node.name">
-<span class="property"><span class="k"><span class="pre">property</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">name</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="pre">str</span></span><a class="headerlink" href="#ioiocore.node.Node.name" title="Link to this definition"></a></dt>
-<dd></dd></dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.node.Node.pre_step">
+<span class="sig-name descname"><span class="pre">pre_step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.pre_step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.pre_step" title="Link to this definition"></a></dt>
+<dd><p>Adapt the input frames before step() sees them.</p>
+<p>Called once per cycle, immediately before <code class="docutils literal notranslate"><span class="pre">step</span></code>, with the
+dictionary that <code class="docutils literal notranslate"><span class="pre">step</span></code> is about to receive. Modify it in place.</p>
+<p>Return True to withhold the cycle: <code class="docutils literal notranslate"><span class="pre">step</span></code> is not called and
+nothing is emitted. A hook that holds frames back needs this –
+without it, the only way to keep the cycle going is to fabricate
+a frame, which puts invented samples at the head of the stream
+and shifts every later one by however many were held. Returning
+None or False runs the cycle as usual, which is what every hook
+that does not hold anything back does.</p>
+<p>This exists so that a consuming package can make the inputs of
+<em>every</em> node uniform without every node author having to know
+about it. The engine deliberately holds no opinion about what
+“uniform” means: it delivers whatever arrived, and this is where
+a domain layer may reshape it – resample a stream that arrives
+irregularly onto the grid of one that does not, substitute a
+value for a port that produced nothing, or reject a combination
+it cannot express.</p>
+<p>The default does nothing, which is the behaviour of every node
+that does not override it.</p>
+<p class="rubric">Notes</p>
+<p>This runs on the per-cycle path, so an override should do as
+little as possible and decide as much as it can once, in
+<code class="docutils literal notranslate"><span class="pre">setup</span></code>, rather than on every frame.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – Input frames keyed by port name, to be modified in place. A
+port that produced nothing this cycle may be absent.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
+</dd>
+</dl>
+</dd></dl>
 
 <dl class="py method">
-<dt class="sig sig-object py" id="ioiocore.node.Node.set_logger">
-<span class="sig-name descname"><span class="pre">set_logger</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">logger</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.set_logger"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.set_logger" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dt class="sig sig-object py" id="ioiocore.node.Node.process">
+<span class="sig-name descname"><span class="pre">process</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.process"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.process" title="Link to this definition"></a></dt>
+<dd><p>Process the whole record at once. Override for a batch node.</p>
+<p>Called once, with every sample the node will ever see, in place
+of <a class="reference internal" href="#ioiocore.node.Node.step" title="ioiocore.node.Node.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>. This is what a non-causal operation needs – a
+zero-phase filter, a whole-record statistic – and it is why the
+node needs no buffering of its own: a batch pipeline delivers one
+block.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>logger</strong> (<a class="reference internal" href="logging.html#ioiocore.logging.Logger" title="ioiocore.logging.Logger"><em>Logger</em></a>)</p>
+<dd class="field-odd"><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – The complete input data, keyed by port name.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The processed data.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – If the node implements only <a class="reference internal" href="#ioiocore.node.Node.step" title="ioiocore.node.Node.step"><code class="xref py py-meth docutils literal notranslate"><span class="pre">step()</span></code></a>. Reaching this means
+    the caller asked for whole-record processing from a node that
+    declares none, which the pipeline should have refused first.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -269,15 +340,15 @@ Node.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>data</strong> (<em>dict</em>) – The input data to configure the Node.</p></li>
-<li><p><strong>port_context_in</strong> (<em>dict</em>) – Context for the input ports.</p></li>
+<li><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – The input data to configure the Node.</p></li>
+<li><p><strong>port_context_in</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – Context for the input ports.</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The configuration of the output ports.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -286,24 +357,28 @@ Node.</p>
 <dt class="sig sig-object py" id="ioiocore.node.Node.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.start" title="Link to this definition"></a></dt>
 <dd><p>Start the Node.</p>
-<p>Starts the internal implementation of the Node.</p>
 </dd></dl>
 
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.node.Node.step">
-<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.step" title="Link to this definition"></a></dt>
-<dd><p>Abstract method for the Node’s step function.</p>
-<p>This method should be implemented to define the processing logic for
-each step of the Node.</p>
+<span class="sig-name descname"><span class="pre">step</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">data</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.step"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.step" title="Link to this definition"></a></dt>
+<dd><p>Process one frame. Override for a node that runs in realtime.</p>
+<p>Not abstract, because a node may instead implement
+<a class="reference internal" href="#ioiocore.node.Node.process" title="ioiocore.node.Node.process"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process()</span></code></a> and run only in a batch pipeline. Exactly one of
+the two is required, checked in <code class="docutils literal notranslate"><span class="pre">__init__</span></code>.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – The input data to process.</p>
+<dd class="field-odd"><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – The input data to process.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The processed data after applying the step logic.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p>dict</p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>NotImplementedError</strong> – If the node implements only <a class="reference internal" href="#ioiocore.node.Node.process" title="ioiocore.node.Node.process"><code class="xref py py-meth docutils literal notranslate"><span class="pre">process()</span></code></a>. Reaching this
+    means a batch-only node was driven frame by frame.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -312,7 +387,6 @@ each step of the Node.</p>
 <dt class="sig sig-object py" id="ioiocore.node.Node.stop">
 <span class="sig-name descname"><span class="pre">stop</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/node.html#Node.stop"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.node.Node.stop" title="Link to this definition"></a></dt>
 <dd><p>Stop the Node.</p>
-<p>Stops the internal implementation of the Node.</p>
 </dd></dl>
 
 </dd></dl>
@@ -323,7 +397,7 @@ each step of the Node.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="o_port.html" class="btn btn-neutral float-left" title="OPort" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="processing_element.html" class="btn btn-neutral float-left" title="ProcessingElement" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="i_node.html" class="btn btn-neutral float-right" title="INode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

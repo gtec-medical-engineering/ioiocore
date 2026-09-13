@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.pipeline &mdash; ioiocore v4.0.7  documentation</title>
+  <title>ioiocore.pipeline &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -41,17 +41,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
@@ -62,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v4.0.7</a>
+          <a href="../../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -81,9 +87,11 @@
            <div itemprop="articleBody">
              
   <h1>Source code for ioiocore.pipeline</h1><div class="highlight"><pre>
-<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
+<span></span><span class="kn">from</span><span class="w"> </span><span class="nn">typing</span><span class="w"> </span><span class="kn">import</span> <span class="n">Union</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.node</span><span class="w"> </span><span class="kn">import</span> <span class="n">Node</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.o_node</span><span class="w"> </span><span class="kn">import</span> <span class="n">ONode</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.i_node</span><span class="w"> </span><span class="kn">import</span> <span class="n">INode</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">.processing_element</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProcessingElement</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.constants</span><span class="w"> </span><span class="kn">import</span> <span class="n">Constants</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.interface</span><span class="w"> </span><span class="kn">import</span> <span class="n">Interface</span>
 
@@ -93,142 +101,262 @@
 <div class="viewcode-block" id="Pipeline">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">Pipeline</span><span class="p">(</span><span class="n">Interface</span><span class="p">):</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A class representing a pipeline, inheriting from Interface.</span>
 <span class="sd">    Manages nodes and their connections within the pipeline.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+
+<span class="sd">    Supports both Node types (INode, ONode, IONode) and Chain types</span>
+<span class="sd">    (IChain, OChain, IOChain).</span>
+<span class="sd">    """</span>
 
     <span class="n">_imp</span><span class="p">:</span> <span class="n">imp</span><span class="o">.</span><span class="n">PipelineImp</span>  <span class="c1"># for type hinting</span>
 
 <div class="viewcode-block" id="Pipeline.__init__">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initializes the pipeline.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        directory : str, optional</span>
 <span class="sd">            Directory to be used for the pipeline (default is None).</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span> <span class="o">=</span> <span class="n">imp</span><span class="o">.</span><span class="n">PipelineImp</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="n">directory</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.add_node">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.add_node">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">Node</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Adds a node to the pipeline.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_node</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">node</span><span class="p">:</span> <span class="n">ProcessingElement</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Adds a node or chain to the pipeline.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
-<span class="sd">        node : Node</span>
-<span class="sd">            The node to add to the pipeline.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        node : ProcessingElement</span>
+<span class="sd">            The node or chain to add to the pipeline.</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">add_node</span><span class="p">(</span><span class="n">node</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.connect">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.connect">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
-                <span class="n">source</span><span class="p">:</span> <span class="s1">&#39;ONode | dict&#39;</span><span class="p">,</span>
-                <span class="n">target</span><span class="p">:</span> <span class="s1">&#39;INode | dict&#39;</span><span class="p">):</span>
+                <span class="n">source</span><span class="p">:</span> <span class="s1">'ONode | dict'</span><span class="p">,</span>
+                <span class="n">target</span><span class="p">:</span> <span class="s1">'INode | dict'</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Connect a source element to a target element.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        source : ONode, OChain, IOChain, or dict</span>
+<span class="sd">            The source element with output ports, or a dict with</span>
+<span class="sd">            'node' and 'port' keys.</span>
+<span class="sd">        target : INode, IChain, IOChain, or dict</span>
+<span class="sd">            The target element with input ports, or a dict with</span>
+<span class="sd">            'node' and 'port' keys.</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">source</span><span class="p">,</span> <span class="n">target</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.start">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.start">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">start</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Starts the pipeline.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.stop">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.stop">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">stop</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Stops the pipeline.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span></div>
 
+
+<div class="viewcode-block" id="Pipeline.close">
+<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.close">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Dispose the pipeline and release logging resources.</span>
+
+<span class="sd">        Stops the pipeline if it is still running, then shuts down the</span>
+<span class="sd">        logger (flushing pending entries, closing the log file and joining</span>
+<span class="sd">        its writer thread). The logger survives ordinary start()/stop()</span>
+<span class="sd">        cycles, so call close() (or use the pipeline as a context manager)</span>
+<span class="sd">        once the pipeline is no longer needed. Safe to call more than once.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">close</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.is_logging_persistent">
+<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.is_logging_persistent">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">is_logging_persistent</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Whether the pipeline writes a persistent log file.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        bool</span>
+<span class="sd">            False if the log file could not be created and logging is</span>
+<span class="sd">            in-memory only (no persistent audit trail).</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">is_logging_persistent</span><span class="p">()</span></div>
+
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__enter__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Pipeline'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Enter the runtime context, returning the pipeline itself."""</span>
+        <span class="k">return</span> <span class="bp">self</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__exit__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">exc_type</span><span class="p">,</span> <span class="n">exc_val</span><span class="p">,</span> <span class="n">exc_tb</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""Exit the runtime context, disposing the pipeline."""</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">return</span> <span class="kc">False</span>
 
 <div class="viewcode-block" id="Pipeline.get_state">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.get_state">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_state</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Constants</span><span class="o">.</span><span class="n">States</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the current state of the pipeline.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Constants.States</span>
 <span class="sd">            The current state of the pipeline.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_state</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.get_condition">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.get_condition">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Conditions</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the current condition of the pipeline.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        Constants.Conditions</span>
 <span class="sd">            The current condition of the pipeline.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_condition</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.get_last_error">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.get_last_error">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">get_last_error</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">        Returns the last error message from the pipeline.</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_last_error</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Returns the last error recorded by the pipeline.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
-<span class="sd">        str</span>
-<span class="sd">            The last error message.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        LogEntry or None</span>
+<span class="sd">            The failing entry, carrying the message, the node and the</span>
+<span class="sd">            source location, or None if nothing has failed. Note this is</span>
+<span class="sd">            an entry rather than a string: the annotation previously said</span>
+<span class="sd">            `str`, which was wrong and hid the node and location a reader</span>
+<span class="sd">            needs.</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_last_error</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.add_error_handler">
+<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.add_error_handler">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">add_error_handler</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">handler</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Register a callable invoked once when the run fails.</span>
+
+<span class="sd">        A failure is detected asynchronously, after `start()` has already</span>
+<span class="sd">        returned, so there is nothing for `start()` to raise. Without a</span>
+<span class="sd">        handler the only report is printed to the console -- which a GUI</span>
+<span class="sd">        application may never show. Use this to put the failure in front</span>
+<span class="sd">        of the user, and `raise_if_failed()` where an exception is wanted</span>
+<span class="sd">        instead.</span>
+
+<span class="sd">        The handler runs on the monitoring thread, so it should hand the</span>
+<span class="sd">        news to whatever owns the user interface rather than doing work</span>
+<span class="sd">        itself. An exception raised inside it is logged and swallowed:</span>
+<span class="sd">        that thread is the only channel that reports failures and must</span>
+<span class="sd">        not die reporting one.</span>
+
+<span class="sd">        Parameters</span>
+<span class="sd">        ----------</span>
+<span class="sd">        handler : Callable</span>
+<span class="sd">            Called with the failing log entry.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">add_error_handler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.raise_if_failed">
+<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.raise_if_failed">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">raise_if_failed</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Raise if the run has failed, naming the node and the cause.</span>
+
+<span class="sd">        For a script that would otherwise carry on past a dead pipeline.</span>
+
+<span class="sd">        Raises</span>
+<span class="sd">        ------</span>
+<span class="sd">        RuntimeError</span>
+<span class="sd">            If the pipeline is in an error condition.</span>
+<span class="sd">        """</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">raise_if_failed</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.get_elapsed_time">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.get_elapsed_time">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">get_elapsed_time</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Returns the elapsed time since the pipeline started.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        float</span>
 <span class="sd">            The elapsed time in seconds.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_elapsed_time</span><span class="p">()</span></div>
+
+
+<div class="viewcode-block" id="Pipeline.get_backlog">
+<a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.get_backlog">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="nf">get_backlog</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">int</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
+<span class="sd">        Returns the maximum input-queue backlog across the pipeline.</span>
+
+<span class="sd">        This is the number of items queued on the most-backed-up input</span>
+<span class="sd">        port of any element (including nodes inside chains). A steadily</span>
+<span class="sd">        growing value indicates a consumer that cannot keep up with its</span>
+<span class="sd">        input rate.</span>
+
+<span class="sd">        Returns</span>
+<span class="sd">        -------</span>
+<span class="sd">        int</span>
+<span class="sd">            The maximum number of queued items on any input port.</span>
+<span class="sd">        """</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">get_backlog</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.serialize">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.serialize">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="nf">serialize</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">dict</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Serializes the pipeline to a dictionary.</span>
 
 <span class="sd">        Returns</span>
 <span class="sd">        -------</span>
 <span class="sd">        dict</span>
 <span class="sd">            A dictionary representing the serialized pipeline.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">serialize</span><span class="p">()</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.deserialize">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.deserialize">[docs]</a>
     <span class="nd">@staticmethod</span>
-    <span class="k">def</span><span class="w"> </span><span class="nf">deserialize</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">&#39;Pipeline&#39;</span><span class="p">:</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">deserialize</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">dict</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Pipeline'</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Deserializes the pipeline from a dictionary.</span>
 
 <span class="sd">        Parameters</span>
@@ -240,21 +368,22 @@
 <span class="sd">        -------</span>
 <span class="sd">        Pipeline</span>
 <span class="sd">            The deserialized pipeline object.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="k">return</span> <span class="n">imp</span><span class="o">.</span><span class="n">PipelineImp</span><span class="o">.</span><span class="n">deserialize</span><span class="p">(</span><span class="n">data</span><span class="p">)</span></div>
 
 
 <div class="viewcode-block" id="Pipeline.log">
 <a class="viewcode-back" href="../../content/pipeline.html#ioiocore.pipeline.Pipeline.log">[docs]</a>
-    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">msg</span><span class="p">:</span> <span class="n">Union</span><span class="p">[</span><span class="nb">str</span><span class="p">,</span> <span class="ne">Exception</span><span class="p">],</span>
+            <span class="nb">type</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">LogTypes</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Writes a log entry to the pipeline.</span>
 
 <span class="sd">        Parameters</span>
 <span class="sd">        ----------</span>
 <span class="sd">        entry : str</span>
 <span class="sd">            The log entry to write.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">_imp</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">msg</span><span class="o">=</span><span class="n">msg</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">)</span></div>
 </div>
 

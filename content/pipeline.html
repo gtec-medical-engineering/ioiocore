@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline &mdash; ioiocore v4.0.7  documentation</title>
+  <title>Pipeline &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -20,7 +20,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Logging" href="logging.html" />
-    <link rel="prev" title="IONode" href="io_node.html" /> 
+    <link rel="prev" title="IOChain" href="io_chain.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -44,17 +44,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
 </ul>
@@ -65,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v4.0.7</a>
+          <a href="../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -88,9 +94,11 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ioiocore.pipeline.</span></span><span class="sig-name descname"><span class="pre">Pipeline</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">directory</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline" title="Link to this definition"></a></dt>
-<dd><p>Bases: <a class="reference internal" href="interface.html#ioiocore.interface.Interface" title="ioiocore.interface.Interface"><code class="xref py py-class docutils literal notranslate"><span class="pre">Interface</span></code></a></p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Interface</span></code></p>
 <p>A class representing a pipeline, inheriting from Interface.
 Manages nodes and their connections within the pipeline.</p>
+<p>Supports both Node types (INode, ONode, IONode) and Chain types
+(IChain, OChain, IOChain).</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>directory</strong> (<em>str</em>)</p>
@@ -102,7 +110,32 @@ Manages nodes and their connections within the pipeline.</p>
 <dd><p>Initializes the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>directory</strong> (<em>str</em><em>, </em><em>optional</em>) – Directory to be used for the pipeline (default is None).</p>
+<dd class="field-odd"><p><strong>directory</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – Directory to be used for the pipeline (default is None).</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.add_error_handler">
+<span class="sig-name descname"><span class="pre">add_error_handler</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">handler</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.add_error_handler"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.add_error_handler" title="Link to this definition"></a></dt>
+<dd><p>Register a callable invoked once when the run fails.</p>
+<p>A failure is detected asynchronously, after <cite>start()</cite> has already
+returned, so there is nothing for <cite>start()</cite> to raise. Without a
+handler the only report is printed to the console – which a GUI
+application may never show. Use this to put the failure in front
+of the user, and <cite>raise_if_failed()</cite> where an exception is wanted
+instead.</p>
+<p>The handler runs on the monitoring thread, so it should hand the
+news to whatever owns the user interface rather than doing work
+itself. An exception raised inside it is logged and swallowed:
+that thread is the only channel that reports failures and must
+not die reporting one.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>handler</strong> (<em>Callable</em>) – Called with the failing log entry.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -110,22 +143,36 @@ Manages nodes and their connections within the pipeline.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.add_node">
 <span class="sig-name descname"><span class="pre">add_node</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">node</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.add_node"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.add_node" title="Link to this definition"></a></dt>
-<dd><p>Adds a node to the pipeline.</p>
+<dd><p>Adds a node or chain to the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>node</strong> (<a class="reference internal" href="node.html#ioiocore.node.Node" title="ioiocore.node.Node"><em>Node</em></a>) – The node to add to the pipeline.</p>
+<dd class="field-odd"><p><strong>node</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="processing_element.html#ioiocore.processing_element.ProcessingElement" title="ioiocore.processing_element.ProcessingElement"><code class="xref py py-class docutils literal notranslate"><span class="pre">ProcessingElement</span></code></a></span>) – The node or chain to add to the pipeline.</p>
 </dd>
 </dl>
 </dd></dl>
 
 <dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.close">
+<span class="sig-name descname"><span class="pre">close</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.close"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.close" title="Link to this definition"></a></dt>
+<dd><p>Dispose the pipeline and release logging resources.</p>
+<p>Stops the pipeline if it is still running, then shuts down the
+logger (flushing pending entries, closing the log file and joining
+its writer thread). The logger survives ordinary start()/stop()
+cycles, so call close() (or use the pipeline as a context manager)
+once the pipeline is no longer needed. Safe to call more than once.</p>
+</dd></dl>
+
+<dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.connect">
 <span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">source</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.connect" title="Link to this definition"></a></dt>
-<dd><dl class="field-list simple">
+<dd><p>Connect a source element to a target element.</p>
+<dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>source</strong> (<a class="reference internal" href="o_node.html#ioiocore.o_node.ONode" title="ioiocore.o_node.ONode"><em>ONode</em></a><em> | </em><em>dict</em>)</p></li>
-<li><p><strong>target</strong> (<a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><em>INode</em></a><em> | </em><em>dict</em>)</p></li>
+<li><p><strong>source</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="o_node.html#ioiocore.o_node.ONode" title="ioiocore.o_node.ONode"><code class="xref py py-class docutils literal notranslate"><span class="pre">ONode</span></code></a> | <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – The source element with output ports, or a dict with
+‘node’ and ‘port’ keys.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><code class="xref py py-class docutils literal notranslate"><span class="pre">INode</span></code></a> | <code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – The target element with input ports, or a dict with
+‘node’ and ‘port’ keys.</p></li>
 </ul>
 </dd>
 </dl>
@@ -137,13 +184,31 @@ Manages nodes and their connections within the pipeline.</p>
 <dd><p>Deserializes the pipeline from a dictionary.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>data</strong> (<em>dict</em>) – A dictionary containing the serialized pipeline data.</p>
+<dd class="field-odd"><p><strong>data</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span>) – A dictionary containing the serialized pipeline data.</p>
 </dd>
 <dt class="field-even">Returns<span class="colon">:</span></dt>
 <dd class="field-even"><p>The deserialized pipeline object.</p>
 </dd>
 <dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#ioiocore.pipeline.Pipeline" title="ioiocore.pipeline.Pipeline">Pipeline</a></p>
+<dd class="field-odd"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="#ioiocore.pipeline.Pipeline" title="ioiocore.pipeline.Pipeline"><code class="xref py py-class docutils literal notranslate"><span class="pre">Pipeline</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.get_backlog">
+<span class="sig-name descname"><span class="pre">get_backlog</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.get_backlog"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.get_backlog" title="Link to this definition"></a></dt>
+<dd><p>Returns the maximum input-queue backlog across the pipeline.</p>
+<p>This is the number of items queued on the most-backed-up input
+port of any element (including nodes inside chains). A steadily
+growing value indicates a consumer that cannot keep up with its
+input rate.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>The maximum number of queued items on any input port.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">int</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -157,7 +222,7 @@ Manages nodes and their connections within the pipeline.</p>
 <dd class="field-odd"><p>The current condition of the pipeline.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="constants.html#ioiocore.constants.Constants.Conditions" title="ioiocore.constants.Constants.Conditions">Constants.Conditions</a></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="constants.html#ioiocore.constants.Constants.Conditions" title="ioiocore.constants.Constants.Conditions"><code class="xref py py-class docutils literal notranslate"><span class="pre">Conditions</span></code></a></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -171,7 +236,7 @@ Manages nodes and their connections within the pipeline.</p>
 <dd class="field-odd"><p>The elapsed time in seconds.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>float</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">float</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -179,13 +244,17 @@ Manages nodes and their connections within the pipeline.</p>
 <dl class="py method">
 <dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.get_last_error">
 <span class="sig-name descname"><span class="pre">get_last_error</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.get_last_error"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.get_last_error" title="Link to this definition"></a></dt>
-<dd><p>Returns the last error message from the pipeline.</p>
+<dd><p>Returns the last error recorded by the pipeline.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The last error message.</p>
+<dd class="field-odd"><p>The failing entry, carrying the message, the node and the
+source location, or None if nothing has failed. Note this is
+an entry rather than a string: the annotation previously said
+<cite>str</cite>, which was wrong and hid the node and location a reader
+needs.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>str</p>
+<dd class="field-even"><p><a class="reference internal" href="logging.html#ioiocore.logging.LogEntry" title="ioiocore.logging.LogEntry">LogEntry</a> or None</p>
 </dd>
 </dl>
 </dd></dl>
@@ -199,7 +268,22 @@ Manages nodes and their connections within the pipeline.</p>
 <dd class="field-odd"><p>The current state of the pipeline.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p><a class="reference internal" href="constants.html#ioiocore.constants.Constants.States" title="ioiocore.constants.Constants.States">Constants.States</a></p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="constants.html#ioiocore.constants.Constants.States" title="ioiocore.constants.Constants.States"><code class="xref py py-class docutils literal notranslate"><span class="pre">States</span></code></a></span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.is_logging_persistent">
+<span class="sig-name descname"><span class="pre">is_logging_persistent</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.is_logging_persistent"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.is_logging_persistent" title="Link to this definition"></a></dt>
+<dd><p>Whether the pipeline writes a persistent log file.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>False if the log file could not be created and logging is
+in-memory only (no persistent audit trail).</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">bool</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -212,9 +296,24 @@ Manages nodes and their connections within the pipeline.</p>
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>entry</strong> (<em>str</em>) – The log entry to write.</p></li>
-<li><p><strong>msg</strong> (<em>str</em>)</p></li>
+<li><p><strong>msg</strong> (<em>str</em><em> | </em><em>Exception</em>)</p></li>
 <li><p><strong>type</strong> (<a class="reference internal" href="constants.html#ioiocore.constants.Constants.LogTypes" title="ioiocore.constants.Constants.LogTypes"><em>LogTypes</em></a>)</p></li>
 </ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.pipeline.Pipeline.raise_if_failed">
+<span class="sig-name descname"><span class="pre">raise_if_failed</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/pipeline.html#Pipeline.raise_if_failed"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.pipeline.Pipeline.raise_if_failed" title="Link to this definition"></a></dt>
+<dd><p>Raise if the run has failed, naming the node and the cause.</p>
+<p>For a script that would otherwise carry on past a dead pipeline.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>RuntimeError</strong> – If the pipeline is in an error condition.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-obj docutils literal notranslate"><span class="pre">None</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -228,7 +327,7 @@ Manages nodes and their connections within the pipeline.</p>
 <dd class="field-odd"><p>A dictionary representing the serialized pipeline.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></span></p>
 </dd>
 </dl>
 </dd></dl>
@@ -253,7 +352,7 @@ Manages nodes and their connections within the pipeline.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="io_node.html" class="btn btn-neutral float-left" title="IONode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="io_chain.html" class="btn btn-neutral float-left" title="IOChain" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="logging.html" class="btn btn-neutral float-right" title="Logging" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 

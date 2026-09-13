@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore.o_port &mdash; ioiocore v4.0.7  documentation</title>
+  <title>ioiocore.o_port &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
 
@@ -29,7 +29,7 @@
           
           
           <a href="../../index.html" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
@@ -41,17 +41,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../../content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../content/io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../content/logging.html">Logging</a></li>
 </ul>
@@ -62,7 +68,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../../index.html">ioiocore v4.0.7</a>
+          <a href="../../index.html">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -90,23 +96,23 @@
 <a class="viewcode-back" href="../../content/o_port.html#ioiocore.o_port.OPort">[docs]</a>
 <span class="k">class</span><span class="w"> </span><span class="nc">OPort</span><span class="p">(</span><span class="n">Port</span><span class="p">):</span>
 
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">    </span><span class="sd">"""</span>
 <span class="sd">    A class representing an output port, inheriting from Port.</span>
-<span class="sd">    &quot;&quot;&quot;</span>
+<span class="sd">    """</span>
 
 <div class="viewcode-block" id="OPort.Configuration">
 <a class="viewcode-back" href="../../content/o_port.html#ioiocore.o_port.OPort.Configuration">[docs]</a>
     <span class="k">class</span><span class="w"> </span><span class="nc">Configuration</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">Configuration</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Configuration class for OPort.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
 
 <div class="viewcode-block" id="OPort.Configuration.Keys">
 <a class="viewcode-back" href="../../content/o_port.html#ioiocore.o_port.OPort.Configuration.Keys">[docs]</a>
         <span class="k">class</span><span class="w"> </span><span class="nc">Keys</span><span class="p">(</span><span class="n">Port</span><span class="o">.</span><span class="n">Configuration</span><span class="o">.</span><span class="n">Keys</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">"""</span>
 <span class="sd">            Keys for the OPort configuration (none).</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
             <span class="k">pass</span></div>
 
 
@@ -114,10 +120,10 @@
 <a class="viewcode-back" href="../../content/o_port.html#ioiocore.o_port.OPort.Configuration.__init__">[docs]</a>
         <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                      <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Defaults</span><span class="o">.</span><span class="n">PORT_OUT</span><span class="p">,</span>
-                     <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Any&#39;</span><span class="p">,</span>
+                     <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'Any'</span><span class="p">,</span>
                      <span class="n">timing</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Timing</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Timing</span><span class="o">.</span><span class="n">SYNC</span><span class="p">,</span>
                      <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">            </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">            </span><span class="sd">"""</span>
 <span class="sd">            Initializes the configuration for OPort.</span>
 
 <span class="sd">            Parameters</span>
@@ -125,7 +131,7 @@
 <span class="sd">            name : str, optional</span>
 <span class="sd">                The name of the port (default is Constants.Defaults.PORT_OUT).</span>
 <span class="sd">            type : str, optional</span>
-<span class="sd">                The type of the port (default is `&#39;Any&#39;`).</span>
+<span class="sd">                The type of the port (default is `'Any'`).</span>
 <span class="sd">            timing : Constants.Timing, optional</span>
 <span class="sd">                The timing of the port (default is Constants.Timing.SYNC).</span>
 <span class="sd">            **kwargs : additional keyword arguments</span>
@@ -135,9 +141,9 @@
 <span class="sd">            ------</span>
 <span class="sd">            ValueError</span>
 <span class="sd">                If the timing is set to Constants.Timing.INHERITED.</span>
-<span class="sd">            &quot;&quot;&quot;</span>
+<span class="sd">            """</span>
             <span class="k">if</span> <span class="n">timing</span> <span class="o">==</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Timing</span><span class="o">.</span><span class="n">INHERITED</span><span class="p">:</span>
-                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;OPort does not support inherited timing.&quot;</span><span class="p">)</span>
+                <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"OPort does not support inherited timing."</span><span class="p">)</span>
             <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                              <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span>
                              <span class="n">timing</span><span class="o">=</span><span class="n">timing</span><span class="p">,</span>
@@ -153,10 +159,10 @@
 <a class="viewcode-back" href="../../content/o_port.html#ioiocore.o_port.OPort.__init__">[docs]</a>
     <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
                  <span class="n">name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Defaults</span><span class="o">.</span><span class="n">PORT_OUT</span><span class="p">,</span>
-                 <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">&#39;Any&#39;</span><span class="p">,</span>
+                 <span class="nb">type</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s1">'Any'</span><span class="p">,</span>
                  <span class="n">timing</span><span class="p">:</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Timing</span> <span class="o">=</span> <span class="n">Constants</span><span class="o">.</span><span class="n">Timing</span><span class="o">.</span><span class="n">SYNC</span><span class="p">,</span>
                  <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-<span class="w">        </span><span class="sd">&quot;&quot;&quot;</span>
+<span class="w">        </span><span class="sd">"""</span>
 <span class="sd">        Initializes the OPort.</span>
 
 <span class="sd">        Parameters</span>
@@ -164,12 +170,12 @@
 <span class="sd">        name : str, optional</span>
 <span class="sd">            The name of the port (default is `Constants.Defaults.PORT_OUT`).</span>
 <span class="sd">        type : str, optional</span>
-<span class="sd">            The type of the port (default is `&#39;Any&#39;`).</span>
+<span class="sd">            The type of the port (default is `'Any'`).</span>
 <span class="sd">        timing : Constants.Timing, optional</span>
 <span class="sd">            The timing of the port (default is `Constants.Timing.SYNC`).</span>
 <span class="sd">        **kwargs : additional keyword arguments</span>
 <span class="sd">            Other configuration options.</span>
-<span class="sd">        &quot;&quot;&quot;</span>
+<span class="sd">        """</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">create_config</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">name</span><span class="p">,</span>
                            <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">,</span>
                            <span class="n">timing</span><span class="o">=</span><span class="n">timing</span><span class="p">,</span>

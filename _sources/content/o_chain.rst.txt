@@ -1,0 +1,8 @@
+OChain
+------
+
+.. autoclass:: ioiocore.o_chain.OChain
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:

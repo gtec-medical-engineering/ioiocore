@@ -1,0 +1,281 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>OChain &mdash; ioiocore v5.0.0  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="IOChain" href="io_chain.html" />
+    <link rel="prev" title="IChain" href="i_chain.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            ioiocore v5.0.0
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="migration.html">Migration Guide (4.x to 5.0.0)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="constants.html">Constants</a></li>
+<li class="toctree-l1"><a class="reference internal" href="configuration.html">Configuration</a></li>
+<li class="toctree-l1"><a class="reference internal" href="context.html">Context</a></li>
+<li class="toctree-l1"><a class="reference internal" href="portable.html">Portable</a></li>
+<li class="toctree-l1"><a class="reference internal" href="port.html">Port</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_port.html">IPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="processing_element.html">ProcessingElement</a></li>
+<li class="toctree-l1"><a class="reference internal" href="node.html">Node</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_node.html">INode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="o_node.html">ONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="i_chain.html">IChain</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="io_chain.html">IOChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="pipeline.html">Pipeline</a></li>
+<li class="toctree-l1"><a class="reference internal" href="logging.html">Logging</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ioiocore v5.0.0</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">OChain</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/content/o_chain.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="ochain">
+<h1>OChain<a class="headerlink" href="#ochain" title="Link to this heading"></a></h1>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">ioiocore.o_chain.</span></span><span class="sig-name descname"><span class="pre">OChain</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="chain.html#ioiocore.chain.Chain" title="ioiocore.chain.Chain"><code class="xref py py-class docutils literal notranslate"><span class="pre">Chain</span></code></a></p>
+<p>A chain that generates output through a sequence of internal nodes.</p>
+<p>Structure: ONode =&gt; IONode =&gt; … =&gt; IONode =&gt; &lt;output&gt;</p>
+<p>The output ports are exposed from the last internal node,
+making this chain usable anywhere an output element is expected.</p>
+<p>Inheriting classes must implement <code class="docutils literal notranslate"><span class="pre">create_internal_nodes()</span></code>, which
+returns the list of internal nodes.</p>
+<p class="rubric">Example</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MyGenerator</span><span class="p">(</span><span class="n">OChain</span><span class="p">):</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">create_internal_nodes</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">List</span><span class="p">[</span><span class="n">Node</span><span class="p">]:</span>
+        <span class="k">return</span> <span class="p">[</span>
+            <span class="n">SourceNode</span><span class="p">(),</span>    <span class="c1"># ONode (generator)</span>
+            <span class="n">FilterNode</span><span class="p">(),</span>    <span class="c1"># IONode</span>
+            <span class="n">TransformNode</span><span class="p">()</span>  <span class="c1"># IONode (output exposed)</span>
+        <span class="p">]</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_ports</strong> (<em>list</em>)</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.Configuration">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Configuration</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.Configuration"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.Configuration" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="chain.html#ioiocore.chain.Chain.Configuration" title="ioiocore.chain.Chain.Configuration"><code class="xref py py-class docutils literal notranslate"><span class="pre">Configuration</span></code></a></p>
+<p>Configuration class for OChain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>output_ports</strong> (<em>list</em>)</p>
+</dd>
+</dl>
+<dl class="py class">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.Configuration.Keys">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">Keys</span></span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.Configuration.Keys"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.Configuration.Keys" title="Link to this definition"></a></dt>
+<dd><p>Bases: <a class="reference internal" href="chain.html#ioiocore.chain.Chain.Configuration.Keys" title="ioiocore.chain.Chain.Configuration.Keys"><code class="xref py py-class docutils literal notranslate"><span class="pre">Keys</span></code></a></p>
+<p>Keys for the OChain configuration.</p>
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.Configuration.Keys.OUTPUT_PORTS">
+<span class="sig-name descname"><span class="pre">OUTPUT_PORTS</span></span><span class="property"><span class="w"> </span><span class="p"><span class="pre">=</span></span><span class="w"> </span><span class="pre">'output_ports'</span></span><a class="headerlink" href="#ioiocore.o_chain.OChain.Configuration.Keys.OUTPUT_PORTS" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.Configuration.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.Configuration.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.Configuration.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the OChain configuration.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_ports</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span>) – A list of output port configurations. If None, ports
+will be inherited from the last internal node.</p></li>
+<li><p><strong>**kwargs</strong> (<em>additional keyword arguments</em>) – Other configuration options.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.__init__">
+<span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_ports</span></span><span class="o"><span class="pre">=</span></span><span class="default_value"><span class="pre">None</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.__init__"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.__init__" title="Link to this definition"></a></dt>
+<dd><p>Initialize the OChain.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_ports</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">list</span></code></span>) – A list of output port configurations (default is None).</p></li>
+<li><p><strong>**kwargs</strong> (<em>additional keyword arguments</em>) – Other configuration options.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py attribute">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.config">
+<span class="sig-name descname"><span class="pre">config</span></span><span class="property"><span class="p"><span class="pre">:</span></span><span class="w"> </span><a class="reference internal" href="#ioiocore.o_chain.OChain.Configuration" title="ioiocore.o_chain.OChain.Configuration"><span class="pre">Configuration</span></a></span><a class="headerlink" href="#ioiocore.o_chain.OChain.config" title="Link to this definition"></a></dt>
+<dd></dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.connect">
+<span class="sig-name descname"><span class="pre">connect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.connect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.connect" title="Link to this definition"></a></dt>
+<dd><p>Connect an output port to an input port of a target node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the output port on this chain.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><code class="xref py py-class docutils literal notranslate"><span class="pre">INode</span></code></a></span>) – The target node to connect to.</p></li>
+<li><p><strong>input_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the input port on the target node.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.create_internal_nodes">
+<span class="property"><span class="k"><span class="pre">abstractmethod</span></span><span class="w"> </span></span><span class="sig-name descname"><span class="pre">create_internal_nodes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.create_internal_nodes"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.create_internal_nodes" title="Link to this definition"></a></dt>
+<dd><p>Create and return the list of internal nodes.</p>
+<p>The first node must be an ONode.
+The last node must have output ports (ONode or IONode).
+Intermediate nodes should be IONodes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Returns<span class="colon">:</span></dt>
+<dd class="field-odd"><p>List of internal nodes forming the processing chain.</p>
+</dd>
+<dt class="field-even">Return type<span class="colon">:</span></dt>
+<dd class="field-even"><p><span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">List</span></code>[<a class="reference internal" href="node.html#ioiocore.node.Node" title="ioiocore.node.Node"><code class="xref py py-class docutils literal notranslate"><span class="pre">Node</span></code></a>]</span></p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.disconnect">
+<span class="sig-name descname"><span class="pre">disconnect</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">output_port</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">target</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">input_port</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.disconnect"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.disconnect" title="Link to this definition"></a></dt>
+<dd><p>Disconnect an output port from an input port of a target node.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>output_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the output port on this chain.</p></li>
+<li><p><strong>target</strong> (<span class="sphinx_autodoc_typehints-type"><a class="reference internal" href="i_node.html#ioiocore.i_node.INode" title="ioiocore.i_node.INode"><code class="xref py py-class docutils literal notranslate"><span class="pre">INode</span></code></a></span>) – The target node to disconnect from.</p></li>
+<li><p><strong>input_port</strong> (<span class="sphinx_autodoc_typehints-type"><code class="xref py py-class docutils literal notranslate"><span class="pre">str</span></code></span>) – The name of the input port on the target node.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.get_output_port">
+<span class="sig-name descname"><span class="pre">get_output_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.get_output_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.get_output_port" title="Link to this definition"></a></dt>
+<dd><p>Get an output port by name.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>port_name</strong> (<em>str</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="ioiocore.o_chain.OChain.get_port">
+<span class="sig-name descname"><span class="pre">get_port</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">port_name</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/o_chain.html#OChain.get_port"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.o_chain.OChain.get_port" title="Link to this definition"></a></dt>
+<dd><p>Deprecated: use <a class="reference internal" href="#ioiocore.o_chain.OChain.get_output_port" title="ioiocore.o_chain.OChain.get_output_port"><code class="xref py py-meth docutils literal notranslate"><span class="pre">get_output_port()</span></code></a> instead.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>port_name</strong> (<em>str</em>)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="i_chain.html" class="btn btn-neutral float-left" title="IChain" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="io_chain.html" class="btn btn-neutral float-right" title="IOChain" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright g.tec medical engineering GmbH.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

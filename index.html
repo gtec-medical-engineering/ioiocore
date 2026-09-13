@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore &mdash; ioiocore v4.0.7  documentation</title>
+  <title>ioiocore &mdash; ioiocore v5.0.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
@@ -19,7 +19,7 @@
     <script src="_static/js/theme.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Constants" href="content/constants.html" /> 
+    <link rel="next" title="Migration Guide (4.x to 5.0.0)" href="content/migration.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -31,7 +31,7 @@
           
           
           <a href="#" class="icon icon-home">
-            ioiocore v4.0.7
+            ioiocore v5.0.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -43,17 +43,23 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/logging.html">Logging</a></li>
 </ul>
@@ -64,7 +70,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">ioiocore v4.0.7</a>
+          <a href="#">ioiocore v5.0.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -110,7 +116,431 @@ architecture that can be used in various contexts, such as biosignal processing.
 <section id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h2>
 <section id="id1">
-<h3>[4.0.7] - 2026-02-20<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<h3>[5.0.0] - 2026-09-14<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<p>Major release following a full reliability audit. It adds a composable
+<strong>chain</strong> layer and a pair of input-adaptation hooks, replaces node
+authorization with a neutral provider interface, hardens the real-time
+data path, threading and error handling for clinical use, and removes an
+unsafe serialization path. It is also the first ioiocore release to
+publish wheels for Linux and for Python 3.14.
+See the <a class="reference external" href="https://gtec-medical-engineering.github.io/ioiocore/content/migration.html">Migration Guide</a>
+for how to upgrade downstream code.</p>
+<ul>
+<li><p><strong>A node whose inputs are all asynchronous no longer stalls on its
+first burst.</strong> A source firing immediately after <code class="docutils literal notranslate"><span class="pre">start()</span></code>, while a
+silent sibling producer was still setting up, could leave the consumer
+asleep with its queue full. The first cycle waits until every input
+port has a context, and handing over that context did not wake the
+node – only an incoming frame did, and the burst was already over.</p>
+<p>It recovered as soon as more data arrived, so it stalled for good only
+where every input is asynchronous and the burst ends: an event port
+fed by a marker source that has gone quiet, or two epoch streams.
+Measured before the fix: eight pushes produced zero cycles in five
+runs out of eight.</p>
+</li>
+<li><p><strong>Wheels for Linux, and for Python 3.14.</strong> A release now publishes 15
+wheels – Windows, macOS and manylinux_2_28 x86_64, for CPython 3.10
+through 3.14 – where it published 8 before, Windows and macOS only
+and 3.10 through 3.13. On Linux <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">ioiocore</span></code> previously had
+nothing to install: no wheel, and no source distribution on PyPI
+either.</p>
+<p>The interpreter and platform lists are now read from
+<code class="docutils literal notranslate"><span class="pre">[tool.ioiocore]</span> <span class="pre">python_versions</span></code> through <code class="docutils literal notranslate"><span class="pre">scripts/ci_matrix.py</span></code>
+rather than repeated in the release workflow, so a version added there
+is built and not merely tested. The release also refuses to publish
+unless it holds every wheel that matrix calls for: a build that fails
+for one interpreter now stops the release instead of quietly shipping
+without it.</p>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">Port</span></code> is exported.</strong> <code class="docutils literal notranslate"><span class="pre">ioiocore.Port</span></code> binds the base class that
+<code class="docutils literal notranslate"><span class="pre">IPort</span></code> and <code class="docutils literal notranslate"><span class="pre">OPort</span></code> derive from, and whose <code class="docutils literal notranslate"><span class="pre">Configuration</span></code> defines the
+<code class="docutils literal notranslate"><span class="pre">name</span></code>, <code class="docutils literal notranslate"><span class="pre">type</span></code> and <code class="docutils literal notranslate"><span class="pre">timing</span></code> keys they inherit. It was documented in the
+manual but not importable from the package. <code class="docutils literal notranslate"><span class="pre">Interface</span></code> is no longer in
+the manual: it binds a class to its implementation and has no use in
+building a pipeline. It remains importable as
+<code class="docutils literal notranslate"><span class="pre">ioiocore.interface.Interface</span></code>.</p></li>
+<li><p><strong>An output port can be watched without being consumed.</strong>
+<code class="docutils literal notranslate"><span class="pre">OPortImp.add_tap(fn)</span></code> / <code class="docutils literal notranslate"><span class="pre">remove_tap(fn)</span></code> invoke a plain callable with
+every frame the port pushes, before the fan-out copies, and
+<code class="docutils literal notranslate"><span class="pre">remove_tap</span></code> is safe while data is flowing. A port with no taps costs
+one attribute load and a branch, so nothing that does not use this
+pays for it.</p>
+<p>A callable rather than a node, because attaching a <em>node</em> to a
+running graph is not safe: a node with one input port gets no thread
+of its own, so it would execute inside the producer’s push – which
+for a device source is the driver’s own acquisition callback – and a
+node that was attached but never started fills an unbounded input
+queue until the pipeline’s backlog monitor stops the run. A tap has
+no queue, no thread, no setup and no lifecycle, so none of that
+applies. What it owes in exchange is stated in <code class="docutils literal notranslate"><span class="pre">add_tap</span></code>: it runs on
+the producer’s thread and must return immediately, and it is handed
+the producer’s own buffer rather than a copy.</p>
+</li>
+<li><p><strong>A port’s connections are held in a tuple that is replaced, not a
+list that is mutated.</strong> <code class="docutils literal notranslate"><span class="pre">push</span></code> iterates that tuple, so connecting or
+disconnecting while data flows can no longer disturb it.</p>
+<p>This was a silent frame loss, and it fell on a bystander. With three
+consumers <code class="docutils literal notranslate"><span class="pre">[A,</span> <span class="pre">B,</span> <span class="pre">C]</span></code>, removing <code class="docutils literal notranslate"><span class="pre">A</span></code> while <code class="docutils literal notranslate"><span class="pre">push</span></code>’s iterator is on <code class="docutils literal notranslate"><span class="pre">A</span></code>
+makes the loop visit <code class="docutils literal notranslate"><span class="pre">A,</span> <span class="pre">C</span></code> and skip <strong>B</strong> – a filter or a file
+writer, which asked for nothing and is told nothing. Demonstrated
+both ways; <code class="docutils literal notranslate"><span class="pre">test/test_port_taps.py</span></code> reproduces it against a
+pipeline’s ports. Nothing in the library disconnected a port mid-run
+until something wanted to, which is why it had not surfaced.</p>
+<p>Costs nothing: measured over the push path, iterating a tuple
+attribute came out marginally faster than the list it replaces (54.0
+against 59.1 ns per push).</p>
+</li>
+<li><p><strong>An element now keeps the exception that stopped it, not only its
+message.</strong> Every catch site wrote <code class="docutils literal notranslate"><span class="pre">log(msg=e)</span></code> and nothing more,
+which reduces an exception to its text and discards the traceback. A
+caller could be told that a node failed and never be shown where,
+because there was no object left to raise <code class="docutils literal notranslate"><span class="pre">from</span></code> – so no amount of
+checking in the layer above could give a user their own frames back.</p>
+<p><code class="docutils literal notranslate"><span class="pre">ProcessingElement.failure()</span></code> returns it whole, alongside the log
+entry rather than instead of it: the log is what a running system
+writes down, and this is what a caller raises from. All four catch
+sites record it – <code class="docutils literal notranslate"><span class="pre">NodeImp</span></code>’s setup and cycle, and <code class="docutils literal notranslate"><span class="pre">INodeImp</span></code>’s
+direct handler and worker thread.</p>
+<p>The <strong>first</strong> failure is kept. A node whose <code class="docutils literal notranslate"><span class="pre">setup()</span></code> raises returns
+from every later cycle without processing, and the <code class="docutils literal notranslate"><span class="pre">ERROR</span></code> condition
+it leaves behind makes the next cycle look like a fresh failure;
+overwriting would replace the cause with its consequence. Cleared by
+<code class="docutils literal notranslate"><span class="pre">reset_run_state()</span></code> with the counter and the condition, so a restarted
+run does not inherit the previous one’s verdict.</p>
+</li>
+<li><p><strong><code class="docutils literal notranslate"><span class="pre">raise_if_failed()</span></code> now chains to the line that failed.</strong> It builds
+its message from the log entry, which carries the exception’s text and
+the node’s name and cannot carry a traceback – so a script was told
+that a node failed and had to go looking for the line itself, in its
+own node if it wrote one. It raises <code class="docutils literal notranslate"><span class="pre">from</span></code> the kept exception now, so
+<code class="docutils literal notranslate"><span class="pre">__cause__</span></code> holds the original with its frames intact.</p>
+<p>Measured end to end: a node raising in <code class="docutils literal notranslate"><span class="pre">step()</span></code> produces a
+<code class="docutils literal notranslate"><span class="pre">RuntimeError</span></code> whose <code class="docutils literal notranslate"><span class="pre">__cause__</span></code> traceback ends in <code class="docutils literal notranslate"><span class="pre">step</span></code>, which is
+the user’s own method.</p>
+<p><code class="docutils literal notranslate"><span class="pre">from</span></code> only when there is a cause. <code class="docutils literal notranslate"><span class="pre">raise</span> <span class="pre">X</span> <span class="pre">from</span> <span class="pre">None</span></code> suppresses the
+chain, and an element that kept nothing – an older element, or a
+failure that reached only the log – must still raise with whatever
+context Python would have given it.</p>
+<p>Nothing about <em>when</em> an exception is caught changed. The batch path
+already propagated – all three catch sites on it honour <code class="docutils literal notranslate"><span class="pre">_batch</span></code> –
+and the realtime path still catches, because an exception on a source
+thread nobody is waiting on would otherwise die silently. This adds
+what the realtime path was throwing away.</p>
+</li>
+<li><p><strong>An element now reports whether its <code class="docutils literal notranslate"><span class="pre">setup()</span></code> raised, apart from its
+condition.</strong> Both a <code class="docutils literal notranslate"><span class="pre">setup()</span></code> and a <code class="docutils literal notranslate"><span class="pre">step()</span></code> that raise set the element’s
+condition to <code class="docutils literal notranslate"><span class="pre">ERROR</span></code>, so a caller holding only the condition cannot tell a
+graph that was never viable from a run that died on its first frame. The
+distinction matters to exactly one caller: <code class="docutils literal notranslate"><span class="pre">start()</span></code>. A configuration
+that cannot work – a cutoff above Nyquist, a channel count that does not
+agree – is knowable before any data flows, and the <code class="docutils literal notranslate"><span class="pre">start()</span></code> the caller
+is still inside can refuse it. A <code class="docutils literal notranslate"><span class="pre">step()</span></code> that happens to fail on cycle 1
+is an ordinary runtime failure, and making <code class="docutils literal notranslate"><span class="pre">start()</span></code> raise on that would
+turn every one of them into a start failure.</p>
+<p><code class="docutils literal notranslate"><span class="pre">setup_failed()</span></code> on <code class="docutils literal notranslate"><span class="pre">ProcessingElement</span></code> therefore reports the first case
+only. It is cleared with the counter rather than with the condition,
+because the counter is what gates <code class="docutils literal notranslate"><span class="pre">setup()</span></code>: a second run sets up again,
+and must not carry the previous run’s verdict on a setup that has not
+happened yet. <code class="docutils literal notranslate"><span class="pre">get_condition()</span></code> is exposed on the interface at the same
+time; it existed on the implementation and had no public reader.</p>
+</li>
+<li><p><strong>The engine no longer decimates on top of a node’s own answer.</strong>
+<code class="docutils literal notranslate"><span class="pre">_run_cycle</span></code> gated the downstream push on <code class="docutils literal notranslate"><span class="pre">is_decimation_step()</span></code> <em>in
+addition to</em> whatever <code class="docutils literal notranslate"><span class="pre">step()</span></code> returned. <code class="docutils literal notranslate"><span class="pre">step()</span></code> returning <code class="docutils literal notranslate"><span class="pre">None</span></code> already
+means “not this cycle”, and every node that decimates calls that helper
+itself and returns <code class="docutils literal notranslate"><span class="pre">None</span></code> — the four in g.Pype and this repository’s own
+test template — so the extra gate only ever agreed with them.</p>
+<p>Where it could not agree was the case it made impossible. A cycle carries
+<code class="docutils literal notranslate"><span class="pre">frame_size</span></code> samples, so a cadence counted in <em>cycles</em> is the intended one
+only at <code class="docutils literal notranslate"><span class="pre">frame_size</span> <span class="pre">==</span> <span class="pre">1</span></code>. A node whose decimation is semantic rather than
+paced — one that drops samples, like g.Pype’s <code class="docutils literal notranslate"><span class="pre">Decimator</span></code> — therefore could
+not accept any other frame size, and carried a written-down refusal saying
+exactly that.</p>
+<p><code class="docutils literal notranslate"><span class="pre">is_decimation_step()</span></code> is unchanged and remains how a node paces itself; it
+is simply no longer applied a second time. Suite: 309 passed before and
+after.</p>
+</li>
+</ul>
+<p><strong>Breaking changes</strong></p>
+<ul class="simple">
+<li><p>Removed source-code transport from (de)serialization. <code class="docutils literal notranslate"><span class="pre">Portable</span></code>/<code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>
+deserialization now resolves node classes by import (<code class="docutils literal notranslate"><span class="pre">module</span></code> + <code class="docutils literal notranslate"><span class="pre">class</span></code>)
+only; any <code class="docutils literal notranslate"><span class="pre">source</span></code> field in a payload is ignored. Custom nodes must be
+importable on the target host (ship them as a package). <code class="docutils literal notranslate"><span class="pre">add_preinstalled_module()</span></code>
+is now a no-op, kept only for compatibility.</p></li>
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">source_delay</span></code> (the <code class="docutils literal notranslate"><span class="pre">ONode.source_delay</span></code> property, its pipeline
+“equalization”, and the <code class="docutils literal notranslate"><span class="pre">IONode</span></code> stubs); it was never applied.</p></li>
+<li><p>The data path now copies <strong>on push</strong>: <code class="docutils literal notranslate"><span class="pre">OPort</span></code> hands each connected input
+port its own deep copy, and consumers no longer copy on receive. Producers
+may safely reuse output buffers; fan-out consumers are isolated.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pipeline.start()</span></code> now <strong>auto-resets</strong> after an error (previously the
+pipeline was permanently unstartable). Retry policy (backoff, limits) is
+the caller’s responsibility.</p></li>
+<li><p>The pipeline monitor now <strong>stops the pipeline on excessive input backlog</strong>
+(thresholds <code class="docutils literal notranslate"><span class="pre">ConstantsImp.BACKLOG_WARNING</span></code> / <code class="docutils literal notranslate"><span class="pre">BACKLOG_ERROR</span></code>) instead of
+letting a slow consumer grow memory unbounded.</p></li>
+<li><p>Chains no longer silently discard explicitly supplied <code class="docutils literal notranslate"><span class="pre">input_ports</span></code> /
+<code class="docutils literal notranslate"><span class="pre">output_ports</span></code>: a mismatch with the boundary node’s ports now raises at
+construction.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Chain.get_counter()</span></code> / <code class="docutils literal notranslate"><span class="pre">Chain.get_context()</span></code> now delegate to the chain’s
+last internal node (previously always <code class="docutils literal notranslate"><span class="pre">0</span></code> / <code class="docutils literal notranslate"><span class="pre">None</span></code>).</p></li>
+</ul>
+<p><strong>Breaking changes</strong> – node authorization.</p>
+<ul class="simple">
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">NodeImp.add_authorization_key()</span></code> and the module-level
+<code class="docutils literal notranslate"><span class="pre">AUTHORIZED_NODES</span></code> set. A node no longer authorizes itself, so node
+authors have nothing to call: with no provider installed, every node
+starts. The old scheme was satisfied by calling it, which its own
+comment acknowledged, and it obliged every author to opt into their
+own authorization for no benefit.</p></li>
+</ul>
+<p><strong>Added</strong> – batch execution, for a consumer driving a whole recording.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Node.process(data)</span></code> beside <code class="docutils literal notranslate"><span class="pre">Node.step(data)</span></code>. <code class="docutils literal notranslate"><span class="pre">step()</span></code> takes one frame;
+<code class="docutils literal notranslate"><span class="pre">process()</span></code> takes everything the node will ever see, in one call, which is
+what a non-causal operation needs and what lets such a node hold no buffer
+of its own. A node declares which execution modes it supports <strong>by which
+of the two it overrides</strong> — derived from structure, so a node cannot claim
+a mode it has no body for. Implementing neither is refused when the node
+is constructed, naming the class.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">step()</span></code> is therefore <strong>no longer abstract</strong>. A node implementing only
+<code class="docutils literal notranslate"><span class="pre">process()</span></code> is valid; calling <code class="docutils literal notranslate"><span class="pre">step()</span></code> on it raises a message saying it
+runs in a batch pipeline only. The refusal for a node with neither method
+moved from <code class="docutils literal notranslate"><span class="pre">ABCMeta</span></code> to <code class="docutils literal notranslate"><span class="pre">Node.__init__</span></code>, because “one of these two” is a
+condition on a pair of methods that <code class="docutils literal notranslate"><span class="pre">abstractmethod</span></code> cannot express.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">NodeImp.batch</span></code>, set by the pipeline before start and never per cycle,
+since a run is wholly one mode. Two things depend on it: which handler
+runs, and whether an exception is caught.</p></li>
+<li><p><strong>A batch run does not swallow exceptions.</strong> <code class="docutils literal notranslate"><span class="pre">NodeImp._cycle</span></code>,
+<code class="docutils literal notranslate"><span class="pre">NodeImp._setup_wrapper</span></code> and <code class="docutils literal notranslate"><span class="pre">INodeImp._direct_event_handler</span></code> catch and log
+on the realtime path — where the caller is a source thread nobody is
+watching and the log is the only channel — and re-raise on the batch path,
+where the driver <em>is</em> the caller. All three, not one: a graph with fan-in
+forbidden is a synchronous call stack, so the traceback arrives through the
+caller’s own line intact, and catching at any one of the three sites
+swallows it one frame further out, which looks fixed and is not. Most of
+the messages worth reading come from <code class="docutils literal notranslate"><span class="pre">setup()</span></code> rather than <code class="docutils literal notranslate"><span class="pre">step()</span></code> — a
+cutoff above Nyquist, a channel count that disagrees — which is why the
+setup path is included.</p></li>
+</ul>
+<p><strong>Added</strong></p>
+<ul class="simple">
+<li><p>Chain layer: <code class="docutils literal notranslate"><span class="pre">ProcessingElement</span></code> base plus <code class="docutils literal notranslate"><span class="pre">Chain</span></code>, <code class="docutils literal notranslate"><span class="pre">IChain</span></code>, <code class="docutils literal notranslate"><span class="pre">OChain</span></code>,
+<code class="docutils literal notranslate"><span class="pre">IOChain</span></code> — reusable containers of internal nodes usable anywhere the
+equivalent node kind is expected.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">get_input_port()</span></code> / <code class="docutils literal notranslate"><span class="pre">get_output_port()</span></code> with fixed direction on all node
+and chain types.</p></li>
+<li><p>A chain now <em>derives</em> which ports pair its internal nodes instead of
+assuming <code class="docutils literal notranslate"><span class="pre">out</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">in</span></code>. Sequential wiring is unchanged; the pair is
+resolved by three rules, in order: a single output and a single input
+pair whatever they are called, equal name sets pair by name, and equal
+counts with different names pair in declaration order. Anything else is
+refused naming both sides, where it previously surfaced from inside
+<code class="docutils literal notranslate"><span class="pre">connect</span></code> as a missing port and named only one. The old assumption was
+load-bearing and wrong for any boundary node with more than one port –
+a chain exposes its first internal node’s input ports as its own, so a
+transport bridge in front of a multi-port core could neither declare
+those ports nor be wired to them. More permissive than before rather
+than less: the previous form required the exact names <code class="docutils literal notranslate"><span class="pre">out</span></code> and <code class="docutils literal notranslate"><span class="pre">in</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Node.is_externally_fed()</span></code> and <code class="docutils literal notranslate"><span class="pre">Node.is_externally_drained()</span></code>, which a
+node overrides to declare that something outside the pipeline supplies
+or consumes its data. A chain consults them to accept a transport
+bridge at its inlet or outlet, which it would otherwise refuse as a
+node whose ports nothing local feeds.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pipeline.close()</span></code> and context-manager support (<code class="docutils literal notranslate"><span class="pre">with</span> <span class="pre">Pipeline()</span> <span class="pre">as</span> <span class="pre">p:</span></code>)
+to release logging resources; <code class="docutils literal notranslate"><span class="pre">Pipeline.get_backlog()</span></code> and
+<code class="docutils literal notranslate"><span class="pre">Pipeline.is_logging_persistent()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Logger.stop()</span></code>, <code class="docutils literal notranslate"><span class="pre">Logger.is_persistent()</span></code>, and <code class="docutils literal notranslate"><span class="pre">Logger.get_incident()</span></code>
+(a never-evicted last-error/last-warning channel).</p></li>
+<li><p>First-class optional configuration keys via <code class="docutils literal notranslate"><span class="pre">Configuration.OptionalKeys</span></code>
+(validated if present, but may be absent).</p></li>
+<li><p>Linux support: the default log directory is resolved lazily (XDG path);
+importing the package no longer fails on unsupported platforms.</p></li>
+</ul>
+<p><strong>Added</strong> – input adaptation.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Node.pre_setup(data,</span> <span class="pre">port_context_in)</span></code> and <code class="docutils literal notranslate"><span class="pre">Node.pre_step(data)</span></code>, a
+symmetric pair of extension points called immediately before <code class="docutils literal notranslate"><span class="pre">setup()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">step()</span></code>. Both modify their argument in place and default to doing
+nothing. <code class="docutils literal notranslate"><span class="pre">pre_step</span></code> may also return True to <strong>withhold the cycle</strong>:
+<code class="docutils literal notranslate"><span class="pre">step</span></code> is not called and nothing is emitted. A hook that holds frames
+back needs that – the alternative is fabricating a frame to keep the
+cycle going, which puts invented samples at the head of the stream and
+shifts every later one. The cycle counter still advances, so <code class="docutils literal notranslate"><span class="pre">setup</span></code>
+is not repeated and any decimation phase stays aligned with the cycles
+the node was actually driven through. Together they let a consuming
+package present every node with
+uniform inputs without each node author knowing about it: <code class="docutils literal notranslate"><span class="pre">pre_setup</span></code>
+settles what the inputs <em>are</em> – channels, rate, timing – and
+<code class="docutils literal notranslate"><span class="pre">pre_step</span></code> supplies frames that match. Adapting only the frames would
+be too late, because a node decides its own output shape in <code class="docutils literal notranslate"><span class="pre">setup()</span></code>
+from exactly those contexts. The engine holds no opinion about what
+“uniform” means; that belongs to the domain layer.</p></li>
+</ul>
+<p><strong>Added</strong> – a way for a <em>program</em> to learn that the run failed.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Pipeline.add_error_handler(handler)</span></code> is called once when the run
+fails. A failure is detected asynchronously, after <code class="docutils literal notranslate"><span class="pre">start()</span></code> has
+returned, so there is nothing for <code class="docutils literal notranslate"><span class="pre">start()</span></code> to raise – and until now
+the only report was printed to a console, which a windowed application
+may never show. The handler runs on the monitoring thread, so it should
+hand the news to whatever owns the user interface rather than doing
+work itself; an exception raised inside it is logged and swallowed,
+because that thread is the only channel that reports failures and must
+not die reporting one.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pipeline.raise_if_failed()</span></code> for a script that would otherwise carry on
+past a dead pipeline. The message names the exception, the node and the
+source location.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pipeline.get_last_error()</span></code> was annotated <code class="docutils literal notranslate"><span class="pre">str</span></code> but returns a
+<code class="docutils literal notranslate"><span class="pre">LogEntry</span></code>. The annotation is corrected: it hid the node and location a
+reader needs.</p></li>
+</ul>
+<p><strong>Added</strong> – node authorization, replacing the above.</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">set_authorization_provider(provider)</span></code> and <code class="docutils literal notranslate"><span class="pre">authorization_provider()</span></code>.
+A consuming package that must gate execution installs any object with
+<code class="docutils literal notranslate"><span class="pre">is_authorized(key)</span> <span class="pre">-&gt;</span> <span class="pre">bool</span></code>; it is asked once per node <code class="docutils literal notranslate"><span class="pre">start()</span></code>,
+never per cycle, and receives the node’s concrete type. Whatever
+secret the decision rests on stays in the consumer’s package –
+ioiocore holds no policy and no secret, which is why this is an
+interface rather than an implementation.</p></li>
+<li><p>Registration is <strong>one-way</strong>: a second call raises. Otherwise
+installing a permissive provider first would defeat a real one. A
+consumer must treat a failed registration as fatal rather than
+continuing ungated.</p></li>
+</ul>
+<p><strong>Added</strong> – serialization, so a document can be written by something
+other than ioiocore itself.</p>
+<ul class="simple">
+<li><p>A serialized document carries <code class="docutils literal notranslate"><span class="pre">format_version</span></code> and <code class="docutils literal notranslate"><span class="pre">writer</span></code>. A document
+written by a <strong>newer</strong> revision than the running build is refused
+outright rather than half-understood, and one carrying no
+<code class="docutils literal notranslate"><span class="pre">format_version</span></code> is read as the pre-5.0.0 revision; re-saving it stamps
+the current one.</p></li>
+<li><p>A connection may name its endpoints instead of carrying port ids:
+<code class="docutils literal notranslate"><span class="pre">&quot;gen.out&quot;</span></code> for a named port, or <code class="docutils literal notranslate"><span class="pre">&quot;gen&quot;</span></code> for the node’s default one.
+<code class="docutils literal notranslate"><span class="pre">serialize()</span></code> still writes ids and ids are still resolved first, so no
+existing document changes meaning. The names are for a document written
+by hand or by an authoring tool, which cannot know the ids a future
+process will mint.</p></li>
+<li><p>A chain no longer embeds its internal nodes in a document; the loader
+rebuilds them from the chain’s own definition, so the process that
+loads a document decides a chain’s composition. Set
+<code class="docutils literal notranslate"><span class="pre">INTERNALS_ARE_DERIVED</span> <span class="pre">=</span> <span class="pre">False</span></code> on a chain whose composition a document
+must pin instead.</p></li>
+</ul>
+<p><strong>Fixed</strong></p>
+<ul class="simple">
+<li><p>A generated node id is sixteen hexadecimal digits every time. One value
+in sixteen was padded with spaces rather than zeros and came out short,
+so a consumer matching <code class="docutils literal notranslate"><span class="pre">[0-9A-F]{16}</span></code> – an authoring tool keying its
+boxes on the id – failed intermittently and for no visible reason.</p></li>
+<li><p>A document asking for a generated node id now gets one. The sentinel
+was compared by identity, and a document’s own copy of it arrives from
+<code class="docutils literal notranslate"><span class="pre">json.loads</span></code> as a different object, so it was taken for a real id and
+two such nodes collided.</p></li>
+<li><p>A node whose inputs include a port that never delivers data now runs. The
+first cycle waits for a <em>context</em> on every input port instead of <em>data</em> on
+every input port, so a producer that has set up but has nothing to emit no
+longer starves its consumer.</p></li>
+<li><p>Port contexts are delivered when the producer sets up, not on its first data
+push, so a silent port still describes its stream.</p></li>
+<li><p>A multi-input node with only asynchronous inputs drains its whole queue per
+wake instead of a single item, no longer stranding queued data. This
+completes the single-input fix listed below.</p></li>
+<li><p>A node no longer runs <code class="docutils literal notranslate"><span class="pre">step()</span></code> or pushes data after its <code class="docutils literal notranslate"><span class="pre">setup()</span></code> fails.</p></li>
+<li><p>Error reporting no longer crashes on argument-less exceptions or
+non-string log messages; the log-writer thread survives a malformed entry.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Pipeline.start()</span></code> is atomic: a node failing to start rolls back the
+already-started nodes and re-raises, instead of leaving unstoppable ones.</p></li>
+<li><p>Single-input node execution no longer races between <code class="docutils literal notranslate"><span class="pre">start()</span></code> and the
+producer thread, and drains all queued items per event (no lost trailing
+samples); <code class="docutils literal notranslate"><span class="pre">stop()</span></code> no longer hangs behind an input backlog.</p></li>
+<li><p>The monitor thread is joined on <code class="docutils literal notranslate"><span class="pre">stop()</span></code> (no duplicate monitors after a
+restart); the logger is flushed and closed on <code class="docutils literal notranslate"><span class="pre">close()</span></code>.</p></li>
+<li><p>The per-cycle deep copy is no longer performed while holding the input
+port locks.</p></li>
+<li><p>An <code class="docutils literal notranslate"><span class="pre">IONode</span></code> with all-async outputs no longer spawns the pure-source setup
+thread (MRO hazard).</p></li>
+<li><p>A failed <code class="docutils literal notranslate"><span class="pre">connect()</span></code> (or deserialization) no longer leaves a half-connected
+port that still receives data.</p></li>
+<li><p>Error detection uses a sticky incident channel, so a burst of log entries
+can no longer evict an error before the monitor sees it; <code class="docutils literal notranslate"><span class="pre">get_last_error()</span></code>
+is likewise reliable.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Portable</span></code>’s id registry uses weak references (no longer keeps every node
+and port alive for the process lifetime); clearer id-conflict message.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Configuration</span></code> and <code class="docutils literal notranslate"><span class="pre">Context</span></code> now block <code class="docutils literal notranslate"><span class="pre">del</span></code> (implement <code class="docutils literal notranslate"><span class="pre">__delitem__</span></code>).</p></li>
+<li><p>Chain deserialization rebinds subclass node handles to the restored nodes;
+chain port configuration is deep-copied (no shared mutable state).</p></li>
+<li><p>Removed unconditional 10 ms sleep in node setup; removed the shared mutable
+default <code class="docutils literal notranslate"><span class="pre">data={}</span></code> on the cycle entry points; removed dead code
+(<code class="docutils literal notranslate"><span class="pre">PortImp.get_state</span></code>, node authorization key fields).</p></li>
+</ul>
+<p><strong>Fixed</strong> – error reporting, which is the code path that reaches a user
+at the worst possible moment.</p>
+<ul class="simple">
+<li><p>A logged exception lost its type. <code class="docutils literal notranslate"><span class="pre">str(e)</span></code> alone was used whenever it
+produced any text, so a <code class="docutils literal notranslate"><span class="pre">KeyError</span></code> reached the user as
+<code class="docutils literal notranslate"><span class="pre">***</span> <span class="pre">'sampling_rate'</span> <span class="pre">***</span></code> – the one word carrying the meaning was the
+word that got dropped. Now <code class="docutils literal notranslate"><span class="pre">KeyError:</span> <span class="pre">'sampling_rate'</span></code>.</p></li>
+<li><p>The error banner did not say which node failed. It rebuilt a bare file
+path while the log entry already carried an unused <code class="docutils literal notranslate"><span class="pre">summary</span></code> reading
+<code class="docutils literal notranslate"><span class="pre">Class.function()</span> <span class="pre">[file:line]</span></code>. That is now shown, together with the
+node’s instance name: a graph with three <code class="docutils literal notranslate"><span class="pre">Bandpass</span></code> nodes previously
+gave no way to tell which one stopped.</p></li>
+<li><p>ANSI colour codes were emitted unconditionally. Redirected to a file,
+captured by a test harness or displayed in a notebook, the most
+important message a user ever receives arrived wrapped in literal
+<code class="docutils literal notranslate"><span class="pre">[31m</span></code>. Colour is now used only when stdout is a terminal, and
+<code class="docutils literal notranslate"><span class="pre">NO_COLOR</span></code> and <code class="docutils literal notranslate"><span class="pre">TERM=dumb</span></code> are honoured.</p></li>
+<li><p>The banner joined the directory and filename with a hard-coded
+backslash, which is wrong on macOS.</p></li>
+<li><p>A failed deserialization raised <code class="docutils literal notranslate"><span class="pre">TypeError</span></code> without chaining, so a
+missing port id surfaced with no trace of the real cause. Now chained.</p></li>
+<li><p>When a log file could not be created the reason was discarded, in two
+separate handlers, and the banner then told the reader to consult it:
+<code class="docutils literal notranslate"><span class="pre">See</span> <span class="pre">log</span> <span class="pre">file</span> <span class="pre">for</span> <span class="pre">details:</span> <span class="pre">None</span></code>. Both handlers now record the cause
+and the attempted path, <code class="docutils literal notranslate"><span class="pre">Logger</span></code> exposes them, and the banner says
+<code class="docutils literal notranslate"><span class="pre">No</span> <span class="pre">log</span> <span class="pre">file</span> <span class="pre">was</span> <span class="pre">written</span> <span class="pre">at</span> <span class="pre">&lt;path&gt;</span> <span class="pre">(&lt;reason&gt;).</span> <span class="pre">This</span> <span class="pre">message</span> <span class="pre">is</span> <span class="pre">all</span> <span class="pre">there</span> <span class="pre">is.</span></code> The warning at construction names the cause as well, which
+is the moment a user can still act on it.</p></li>
+<li><p>A node that failed to start reported <code class="docutils literal notranslate"><span class="pre">TypeError:</span> <span class="pre">Argument</span> <span class="pre">'msg'</span> <span class="pre">has</span> <span class="pre">incorrect</span> <span class="pre">type</span></code> instead of why it failed. <code class="docutils literal notranslate"><span class="pre">Pipeline.log</span></code> takes a <code class="docutils literal notranslate"><span class="pre">str</span></code>
+while the node loggers take <code class="docutils literal notranslate"><span class="pre">str</span></code> or <code class="docutils literal notranslate"><span class="pre">Exception</span></code>, and the partial-start
+recovery path passed the exception object – so the logging call inside
+the handler raised, replacing the error being handled and pre-empting
+the <code class="docutils literal notranslate"><span class="pre">raise</span></code> on the next line. A regression test for this had been
+failing.</p></li>
+</ul>
+<p><strong>Changed</strong> – the release chain, which is now g.Pype’s.</p>
+<ul class="simple">
+<li><p>The version comes from the git tag via <code class="docutils literal notranslate"><span class="pre">setuptools_scm</span></code>, read from
+CHANGELOG.md by <code class="docutils literal notranslate"><span class="pre">nox</span> <span class="pre">-s</span> <span class="pre">tag_create</span></code>, instead of from a hand-maintained
+<code class="docutils literal notranslate"><span class="pre">VERSION</span></code> tuple. <code class="docutils literal notranslate"><span class="pre">src/ioiocore/__version__.py</span></code> is generated and no longer
+in the repository, so a source checkout needs its git history to report a
+version; <code class="docutils literal notranslate"><span class="pre">ioiocore.__version__</span></code> is unchanged for anyone installing a
+wheel. <code class="docutils literal notranslate"><span class="pre">VERSION</span></code> itself is gone – nothing read it.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">pyproject.toml</span></code> now carries the project metadata and the dependency
+extras that the <code class="docutils literal notranslate"><span class="pre">requirements-*.txt</span></code> files held, and declares which
+modules are compiled (<code class="docutils literal notranslate"><span class="pre">[tool.ioiocore]</span> <span class="pre">cython_files</span></code>). <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> is
+reduced to building the extensions it finds.</p></li>
+<li><p>Builds, tests, linting, cleaning and tagging run as nox sessions, shared
+with g.Pype file for file; <code class="docutils literal notranslate"><span class="pre">scripts/make_*.bat</span></code> are thin wrappers around
+them. <code class="docutils literal notranslate"><span class="pre">setup.py</span></code> no longer renames the sources in place and restores them
+from an <code class="docutils literal notranslate"><span class="pre">atexit</span></code> hook, so a build that fails can no longer leave the
+package as a directory of <code class="docutils literal notranslate"><span class="pre">.pyx</span></code> files with nothing to import.</p></li>
+</ul>
+<p><strong>Deprecated</strong></p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Chain.get_port()</span></code> — use <code class="docutils literal notranslate"><span class="pre">get_input_port()</span></code> / <code class="docutils literal notranslate"><span class="pre">get_output_port()</span></code>.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Portable.add_preinstalled_module()</span></code> — no-op (source transport removed).</p></li>
+</ul>
+<p><strong>Security</strong></p>
+<ul class="simple">
+<li><p>Removed <code class="docutils literal notranslate"><span class="pre">exec()</span></code> of serialized class source during deserialization (an
+arbitrary-code-execution surface reachable from <code class="docutils literal notranslate"><span class="pre">Pipeline.deserialize()</span></code>).</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>[4.0.7] - 2026-02-20<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Fixed reference leakage in context propagation</p></li>
 <li><p>Added direct execution policy in consecutive nodes</p></li>
@@ -118,95 +548,95 @@ architecture that can be used in various contexts, such as biosignal processing.
 <li><p>Added support for macOS 14+</p></li>
 </ul>
 </section>
-<section id="id2">
-<h3>[4.0.6] - 2026-01-21<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3>[4.0.6] - 2026-01-21<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Made put/get at port level thread-safe</p></li>
 <li><p>Fixed bug in data availability condition</p></li>
 </ul>
 </section>
-<section id="id3">
-<h3>[4.0.5] - 2026-01-14<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>[4.0.5] - 2026-01-14<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Fixed some bugs in the de/serialization procedure</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>[4.0.4] - 2026-01-07<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>[4.0.4] - 2026-01-07<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Asynchronous/synchronous data propagation decoupled in step() function</p></li>
 </ul>
 </section>
-<section id="id5">
-<h3>[4.0.3] - 2025-12-01<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>[4.0.3] - 2025-12-01<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Asynchronous data propagation improved</p></li>
 </ul>
 </section>
-<section id="id6">
-<h3>[4.0.2] - 2025-07-11<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3>[4.0.2] - 2025-07-11<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Source delay handling implemented</p></li>
 </ul>
 </section>
-<section id="id7">
-<h3>[4.0.1] - 2025-07-11<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<section id="id8">
+<h3>[4.0.1] - 2025-07-11<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Minor bugfixes</p></li>
 <li><p>Improved logging &amp; exception handling</p></li>
 </ul>
 </section>
-<section id="id8">
-<h3>[4.0.0] - 2025-07-10<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3>[4.0.0] - 2025-07-10<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Updated interface</p></li>
 <li><p>Improved logging</p></li>
 </ul>
 </section>
-<section id="id9">
-<h3>[3.0.0] - 2025-07-03<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<section id="id10">
+<h3>[3.0.0] - 2025-07-03<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Moved from metadata to contexts</p></li>
 <li><p>Bugfixing</p></li>
 </ul>
 </section>
-<section id="id10">
-<h3>[2.3.1] - 2025-06-16<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<section id="id11">
+<h3>[2.3.1] - 2025-06-16<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Added multirate support</p></li>
 <li><p>Bugfixing</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3>[2.3.0] - 2025-04-16<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id12">
+<h3>[2.3.0] - 2025-04-16<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Increase unit test coverage</p></li>
 <li><p>Added support for Python 3.8 and 3.9</p></li>
 </ul>
 </section>
-<section id="id12">
-<h3>[2.2.6] - 2025-02-24<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="id13">
+<h3>[2.2.6] - 2025-02-24<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Added Changelog to README.md</p></li>
 <li><p>Added support for Python 3.10</p></li>
 </ul>
 </section>
-<section id="id13">
-<h3>[2.2.5] - 2025-02-24<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<section id="id14">
+<h3>[2.2.5] - 2025-02-24<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Skipped</p></li>
 </ul>
 </section>
-<section id="id14">
-<h3>[2.2.4] - 2025-02-21<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<section id="id15">
+<h3>[2.2.4] - 2025-02-21<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Updated documentation</p></li>
 <li><p>Added support for macOS</p></li>
 <li><p>Added support for Python 3.11</p></li>
 </ul>
 </section>
-<section id="id15">
-<h3>[2.2.3] - 2025-02-20<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3>[2.2.3] - 2025-02-20<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>First public beta release</p></li>
 </ul>
@@ -216,17 +646,23 @@ architecture that can be used in various contexts, such as biosignal processing.
 <div class="toctree-wrapper compound">
 <p class="caption" role="heading"><span class="caption-text">Programming Reference</span></p>
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="content/migration.html">Migration Guide (4.x to 5.0.0)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/constants.html">Constants</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/configuration.html">Configuration</a></li>
-<li class="toctree-l1"><a class="reference internal" href="content/interface.html">Interface</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/context.html">Context</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/portable.html">Portable</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/port.html">Port</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/i_port.html">IPort</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/o_port.html">OPort</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/processing_element.html">ProcessingElement</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/node.html">Node</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/i_node.html">INode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/o_node.html">ONode</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/io_node.html">IONode</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/chain.html">Chain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/i_chain.html">IChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/o_chain.html">OChain</a></li>
+<li class="toctree-l1"><a class="reference internal" href="content/io_chain.html">IOChain</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/pipeline.html">Pipeline</a></li>
 <li class="toctree-l1"><a class="reference internal" href="content/logging.html">Logging</a></li>
 </ul>
@@ -236,7 +672,7 @@ architecture that can be used in various contexts, such as biosignal processing.
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="content/constants.html" class="btn btn-neutral float-right" title="Constants" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="content/migration.html" class="btn btn-neutral float-right" title="Migration Guide (4.x to 5.0.0)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

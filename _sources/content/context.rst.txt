@@ -1,0 +1,8 @@
+Context
+-------
+
+.. autoclass:: ioiocore.context.Context
+   :members:
+   :undoc-members:
+   :special-members: __init__
+   :show-inheritance:
