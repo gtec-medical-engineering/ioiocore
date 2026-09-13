@@ -154,6 +154,26 @@ class Logger(Interface):
         """
         self._imp.flush()
 
+    def stop(self):
+        """
+        Stop the logger: flush pending entries, close the log file and
+        join the writer thread. Safe to call more than once.
+        """
+        self._imp.stop()
+
+    def is_persistent(self) -> bool:
+        """
+        Whether log entries are written to a file.
+
+        Returns
+        -------
+        bool
+            True if a log file is being written, False if the logger is
+            operating in memory only (e.g. the log directory could not be
+            created).
+        """
+        return self._imp.is_persistent()
+
     def get_all(self) -> list:
         """
         Retrieve all log entries.
@@ -197,7 +217,8 @@ class Logger(Interface):
         """
         return self._imp.has_entries(type)
 
-    def get_last(self, type: Constants.LogTypes, opaque: bool = False) -> Optional[LogEntry]:
+    def get_last(self, type: Constants.LogTypes,
+                 opaque: bool = False) -> Optional[LogEntry]:
         """
         Retrieve the last logged entry of a specific type.
 
@@ -206,7 +227,8 @@ class Logger(Interface):
         type : LogType
             The log type to filter by.
         opaque : bool, optional
-            Whether to return last log entry only once (returning None by repeating).
+            Whether to return the last log entry only once (returning
+            None on repeated calls).
 
         Returns
         -------
@@ -214,6 +236,28 @@ class Logger(Interface):
             The last log entry of the specified type, if available.
         """
         return self._imp.get_last(type=type, opaque=opaque)
+
+    def get_incident(self, type: Constants.LogTypes,
+                     opaque: bool = False) -> Optional[LogEntry]:
+        """
+        Retrieve the last ERROR or WARNING from the never-evicted record.
+
+        Unlike :meth:`get_last`, this is unaffected by ring-buffer
+        eviction, so a burst of log traffic cannot hide an incident.
+
+        Parameters
+        ----------
+        type : LogType
+            The incident type to retrieve (ERROR or WARNING).
+        opaque : bool, optional
+            Whether to return a given incident only once.
+
+        Returns
+        -------
+        Optional[LogEntry]
+            The last incident of the given type, if any.
+        """
+        return self._imp.get_incident(type=type, opaque=opaque)
 
     @property
     def file_name(self) -> str:
@@ -223,6 +267,35 @@ class Logger(Interface):
         Returns
         -------
         str
-            The log file name.
+            The log file name, or None when file logging is unavailable.
         """
         return self._imp.file_name
+
+    @property
+    def file_error(self) -> str:
+        """
+        Why file logging is unavailable.
+
+        File logging is optional -- an unwritable directory must not stop
+        a pipeline -- but without the reason a reader is left guessing
+        between a permissions problem, a missing drive and a bad path.
+
+        Returns
+        -------
+        str
+            A description including the exception type, or None when the
+            log file was created successfully.
+        """
+        return self._imp.file_error
+
+    @property
+    def attempted_file(self) -> str:
+        """
+        The path file logging was attempted at, when it failed.
+
+        Returns
+        -------
+        str
+            The path, or None when the log file was created.
+        """
+        return self._imp.attempted_file

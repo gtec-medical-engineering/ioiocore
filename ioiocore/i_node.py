@@ -63,6 +63,17 @@ class INode(Node):
         self.create_implementation()
         super().__init__(**self.config)
 
+    def get_input_port(self, port_name: str):
+        """
+        Get an input port by name.
+
+        Parameters
+        ----------
+        port_name : str
+            The name of the input port.
+        """
+        return self._imp.get_input_port(port_name)
+
     def start(self):
         """
         Starts the node.

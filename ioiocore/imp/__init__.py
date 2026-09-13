@@ -2,6 +2,7 @@ from .implementation import Implementation
 from .logging_imp import LoggerImp
 from .logging_imp import LogEntryImp
 from .portable_imp import PortableImp
+from .processing_element_imp import ProcessingElementImp
 from .port_imp import PortImp
 from .i_port_imp import IPortImp
 from .o_port_imp import OPortImp
@@ -9,5 +10,9 @@ from .node_imp import NodeImp
 from .i_node_imp import INodeImp
 from .o_node_imp import ONodeImp
 from .io_node_imp import IONodeImp
+from .chain_imp import ChainImp
+from .i_chain_imp import IChainImp
+from .o_chain_imp import OChainImp
+from .io_chain_imp import IOChainImp
 from .pipeline_imp import PipelineImp
 from .constants_imp import ConstantsImp

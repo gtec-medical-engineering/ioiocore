@@ -144,7 +144,7 @@ class ONode(Node):
             del port_context_out[port_name][self.Configuration.Keys.ID]
         return port_context_out
 
-    def cycle(self, data: dict = {}):
+    def cycle(self, data: dict = None):
         """
         Performs a cycle operation on the ONode.
 
@@ -156,13 +156,16 @@ class ONode(Node):
         """
         self._imp._cycle(data)
 
+    def get_output_port(self, port_name: str):
+        """
+        Get an output port by name.
+
+        Parameters
+        ----------
+        port_name : str
+            The name of the output port.
+        """
+        return self._imp.get_output_port(port_name)
+
     def is_decimation_step(self):
         return self._imp.is_decimation_step()
-
-    @property
-    def source_delay(self) -> float:
-        return self._imp.source_delay
-
-    @source_delay.setter
-    def source_delay(self, value: float):
-        self._imp.source_delay = value

@@ -12,8 +12,19 @@ class Configuration(dict):
 
     class Keys:
         """
-        Placeholder for configuration keys. Should be extended by
-        subclasses.
+        Required configuration keys. Every key declared here must be
+        present, not None and not empty, otherwise construction fails.
+        Subclasses extend this class.
+        """
+        pass
+
+    class OptionalKeys:
+        """
+        Optional configuration keys. Keys declared here may be absent;
+        when present they are validated (must not be empty) but are never
+        required. Use this instead of declaring optional values in
+        :class:`Keys` (which would make them mandatory). Subclasses extend
+        this class.
         """
         pass
 
@@ -39,9 +50,21 @@ class Configuration(dict):
             if val in Configuration.ReservedKeys.__dict__.values():
                 continue
             if val not in self.keys():
-                raise ValueError(f"Field '{val}' is required.")
+                raise ValueError(
+                    f"Field '{val}' is required (declared in "
+                    f"{type(self).__name__}.Keys).")
             if self[val] is None:
                 raise ValueError(f"Field '{val}' must not be None.")
+            if not isinstance(self[val], type):
+                if hasattr(self[val], '__len__') and len(self[val]) == 0:  # noqa
+                    raise ValueError(f"Field '{val}' must not be empty.")
+        # Optional keys: validated only if present (may be absent).
+        for key in dir(self.OptionalKeys):
+            if key.startswith('__'):
+                continue
+            val = getattr(self.OptionalKeys, key)
+            if val not in self.keys() or self[val] is None:
+                continue
             if not isinstance(self[val], type):
                 if hasattr(self[val], '__len__') and len(self[val]) == 0:  # noqa
                     raise ValueError(f"Field '{val}' must not be empty.")
@@ -88,7 +111,7 @@ class Configuration(dict):
         raise ValueError("Configuration object is read-only. To "
                          "store user data, use contexts.")
 
-    def delitem(self, key):
+    def __delitem__(self, key):
         """
         Prevent deletion of configuration fields.
 
@@ -99,3 +122,15 @@ class Configuration(dict):
         """
         raise ValueError("Configuration object is read-only. To "
                          "store user data, use contexts.")
+
+    def delitem(self, key):
+        """
+        Prevent deletion of configuration fields (legacy alias of
+        ``__delitem__``).
+
+        Raises
+        ------
+        ValueError
+            If an attempt is made to delete a configuration field.
+        """
+        self.__delitem__(key)

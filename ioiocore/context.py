@@ -24,7 +24,7 @@ class Context(dict):
         raise ValueError("Context is read-only. To modify data, "
                          "override the setup() method.")
 
-    def delitem(self, key):
+    def __delitem__(self, key):
         """
         Prevent deletion of context fields.
 
@@ -35,6 +35,18 @@ class Context(dict):
         """
         raise ValueError("Context is read-only. To modify data, "
                          "override the setup() method.")
+
+    def delitem(self, key):
+        """
+        Prevent deletion of context fields (legacy alias of
+        ``__delitem__``).
+
+        Raises
+        ------
+        ValueError
+            If an attempt is made to delete a context field.
+        """
+        self.__delitem__(key)
 
     @property
     def input(self):
