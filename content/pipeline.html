@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Pipeline &mdash; ioiocore v5.0.0  documentation</title>
+  <title>Pipeline &mdash; ioiocore v5.0.1  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v5.0.0
+            ioiocore v5.0.1
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -71,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v5.0.0</a>
+          <a href="../index.html">ioiocore v5.0.1</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -130,6 +130,11 @@ news to whatever owns the user interface rather than doing work
 itself. An exception raised inside it is logged and swallowed:
 that thread is the only channel that reports failures and must
 not die reporting one.</p>
+<p>Handlers run after <cite>get_condition()</cite> reports ERROR and after
+<cite>stop()</cite>, even one that raised, so whoever reads what a handler
+recorded sees the run over. The converse does not hold: a caller
+polling <cite>get_condition()</cite> can see ERROR before any handler has
+run; <cite>get_last_error()</cite> already returns the entry by then.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>handler</strong> (<em>Callable</em>) – Called with the failing log entry.</p>
