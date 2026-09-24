@@ -1,5 +1,19 @@
 ## Changelog
 
+### [5.0.1] - 2026-09-24
+
+- **An error handler is told even when stopping the pipeline fails.**
+  On a failure the pipeline publishes `ERROR`, stops, and then calls the
+  handlers registered with `add_error_handler()`. An element whose
+  `stop()` raised used to skip that last step, so no handler heard of
+  the failure at all.
+
+  The order is now documented. Whatever a handler records, a caller who
+  reads it also sees `ERROR`, and a stopped pipeline unless stopping it
+  failed. The converse does not hold: a caller polling `get_condition()`
+  can see `ERROR` before any handler has run, and should read
+  `get_last_error()`, which already has the entry.
+
 ### [5.0.0] - 2026-09-14
 
 Major release following a full reliability audit. It adds a composable

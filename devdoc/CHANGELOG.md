@@ -71,7 +71,148 @@ and the two could have drifted from the moment this one existed.
 
 ---
 
+## [5.0.1] - 2026-09-24
+
+### The error handlers stay last, and a raising stop() no longer skips them, 2026-09-24
+
+Where it started: g.Pype records a failure in an error handler
+(`Pipeline.failure`), and its `s6e4_when_something_fails_mid_run.py`
+example polls `get_condition()` for `ERROR` and then reads `failure`.
+The monitor publishes `ERROR`, stops the pipeline and only then calls
+the handlers (`imp/pipeline_imp.py`, `_monitoring_fun`), so the example
+could read `None`: no failure details in 3 runs of 3 when first
+measured, 1 of 3 re-measured against this tree.
+
+**Tried first and reverted: handlers, then ERROR, then stop**
+(D-CORE-16, `ad5e207`). It fixed s6e4 by moving the race to the reader
+on the other side, and every downstream reader of a handler's record is
+on that side: g.Pype's `test_pipeline_package_documents_load.py:74-77`
+polls `failure` and then calls `raise_if_failed()`, and gpype-runtime's
+`gpype_interface.py:436-460` treats a set `failure` as not running.
+Measured through g.Pype with a second handler taking 0.2 s, as
+`MainApp` adds one: condition Healthy, state Running, `raise_if_failed()`
+silent in 3 runs of 3 under that order; Error, Stopped, raised in 3 of 3
+under this one. Running user code before the step that must not be
+skipped also made the report at most once: a handler calling
+`sys.exit()`, or raising an exception whose `__str__` raises, left the
+pipeline Running and Healthy with the incident already consumed. A
+handler calling `stop()`, which that docstring allowed, exposed Stopped
+with a healthy condition, and a handler that restarted the pipeline
+had it stopped again under it.
+
+**Now: ERROR, stop(), then the handlers, in a `finally`.** The order is
+5.0.0's. What changes is that a `stop()` that raises -- because an
+element's own `stop()` did -- no longer skips the handlers. The incident
+is consumed before `stop()` runs, so that raise lost the report for
+good: measured on 5.0.0, the handler was called 0 times; now once. It
+then sees `ERROR` with the state still `RUNNING`, which is true.
+
+The gap s6e4 fell into is the consumer's to close, and costs it
+nothing: `get_last_error()` returns the sticky entry, which the logger
+stores synchronously before the monitor can read it, and
+`get_incident(opaque=True)` marks it seen without clearing it. So
+whoever sees `ERROR` finds it filled. Both docstrings now say so. g.Pype's
+`Pipeline.failure` falling back to it is `gpype-dev`'s change.
+
+Tests in `test_error_reporting.py`:
+`test_whoever_reads_a_handlers_record_sees_the_run_over` holds the
+monitor in a second handler and reads the first one's record, on events
+rather than sleeps; `test_a_handler_that_escapes_cannot_undo_the_failure`
+ends the monitor with `sys.exit()`;
+`test_the_handlers_are_told_even_if_stopping_fails` raises from an
+element's `stop()`. The first two fail against D-CORE-16's order, the
+third against 5.0.0's, and all three passed 25 runs of 25. Full suite:
+340 passed; g.Pype's `test_pipeline_package_documents_load.py` with this
+tree on `PYTHONPATH`: 13 passed. D-CORE-17.
+
 ## [5.0.0] - 2026-09-14
+
+### The release path is gated, resumable and honest about its platforms, 2026-09-14
+
+Filed under 5.0.0 because that release is what found all three; none of
+it changes the published 5.0.0 artifacts, and all of it applies to the
+next one.
+
+**A rehearsal can no longer publish.** The one guard in `deploy.yml` sat
+on `plan` and accepted `'make test'` as well as `'make release'`, and
+every job below inherited it through `needs:` -- so a commit saying
+`make test` would have run the full publishing sequence, `twine upload`
+included. The `release` job now carries its own guard. Never fired, only
+because nobody pushed `make test` in the window it existed.
+
+**A failed release can be finished by running it again.** Every
+publishing step is conditional on its own work not being done: commit
+only when the index differs, tag only when absent, push the tag only
+when origin lacks it, `twine upload --skip-existing`. Both deploy steps
+moved from `cmd` to `bash`, where that reads as what it is.
+
+**Both gates now precede every one-way step.** The public checkout,
+assembly and second gate were hoisted above the first push. They depend
+on nothing it produces, and leaving them after it meant the second gate
+could only ever fail *after* the tag, both GitHub releases and the
+public documentation site had gone out -- which is exactly the shape of
+the failure that stranded 5.0.0 one step short of PyPI.
+
+**The classifiers stop claiming `OS Independent`.** Fifteen wheels and
+no sdist is a binary-only distribution; a platform without a wheel gets
+nothing. Windows, MacOS and POSIX :: Linux replace it, and
+`Development Status` moves to `5 - Production/Stable`. D-BUILD-15.
+
+Verified: all 10 classifiers checked against PyPI's published list of
+895, none invalid; both workflow files parse; 336 tests pass.
+
+### Releasing it found two things reading it had not, 2026-09-14
+
+5.0.0 took three runs, and neither failure was in the library.
+
+**Run one: every test cell failed, and nothing published.** The `test`
+job installed `requirements.txt` and `requirements-test.txt` and no
+package. `requirements.txt` is deliberately empty -- ioiocore has no
+runtime dependencies -- and `src/ioiocore/__version__.py` is generated
+by setuptools_scm rather than tracked, so `import ioiocore` died on its
+fifth line, fifteen cells out of fifteen. The `doc` job had the same
+fault and would have failed next: `doc/conf.py` puts `src/` on
+`sys.path` and autodoc imports the package.
+
+It had never shown because this path had not run since the release
+chain moved to setuptools_scm. `make-prerelease.yml` goes through
+`nox -s test`, which installs the package -- which is why rc6 was green
+through the same suite on the same commit. Both jobs now install it,
+editable, with the version pinned the way the build job pins it.
+
+A local venv holding exactly the two requirements files reproduced the
+failure and then proved the fix: 336 pass. The lesson is narrow and
+worth keeping -- *the developer's own environment already had the
+package installed, which is precisely what made the gap invisible.*
+
+**Run two: the release published everywhere except PyPI.** The gate
+passed, the release branch and the `v5.0.0` tag went to both
+repositories, both GitHub releases were made, gh-pages was replaced --
+and then the public "Create GitHub Release" step returned 403 and the
+upload under it was skipped. For about twenty minutes the public
+repository and the documentation site announced a version that could
+not be installed.
+
+One line. `softprops/action-gh-release` read `GITHUB_TOKEN` from the
+environment in v1; v3 takes a `token` *input* and defaults it to the
+repository-scoped token, which cannot reach the public repository. The
+environment variable was ignored, so the step had been authenticated as
+the wrong identity from the day it moved to v3, and the step before it
+succeeded only because `actions/checkout` was handed `GH_PAT`
+explicitly.
+
+Re-running was not an option -- the job's pushes are unconditional, so a
+second run dies on a commit with nothing to commit and a tag that
+already exists, long before PyPI. `publish-pypi.yml` finished the
+release instead: it takes a completed run, gates its wheels again and
+uploads those. All 15 are on PyPI. D-BUILD-14.
+
+**Both were predicted.** The pre-flight audit raised "a mid-job failure
+cannot be fixed by re-running" and "the public site is deployed four
+steps before PyPI receives anything" as WARNs an hour before both
+happened. They were read, judged non-blocking, and they were right. What
+the audit did *not* ask was whether the jobs could import the package at
+all -- a gap in how it was scoped, not in what it found.
 
 ### The cycle-0 gate could shut a window nothing reopened, 2026-09-13
 

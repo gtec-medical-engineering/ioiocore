@@ -158,6 +158,12 @@ class Pipeline(Interface):
         that thread is the only channel that reports failures and must
         not die reporting one.
 
+        Handlers run after `get_condition()` reports ERROR and after
+        `stop()`, even one that raised, so whoever reads what a handler
+        recorded sees the run over. The converse does not hold: a caller
+        polling `get_condition()` can see ERROR before any handler has
+        run; `get_last_error()` already returns the entry by then.
+
         Parameters
         ----------
         handler : Callable
