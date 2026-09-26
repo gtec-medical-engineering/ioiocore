@@ -174,7 +174,12 @@ class Chain(ProcessingElement):
                 f"node's ports instead of passing {key} to the chain.")
 
     def start(self):
-        """Start the chain and all internal nodes."""
+        """Start the chain and all internal nodes.
+
+        All or nothing: if an internal node raises, the nodes that had
+        started are stopped again, the chain stays stopped, and the
+        exception propagates. Starting a running chain does nothing.
+        """
         self._imp.start()
 
     def stop(self):

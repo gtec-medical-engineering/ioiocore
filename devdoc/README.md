@@ -23,7 +23,7 @@ The table below is generated from each workpackage's own front-matter, so there 
 
 <!-- BEGIN STATUS TABLE -- generated, do not edit by hand -->
 
-5 packages. Status is one of `in progress`, `blocked`, `not started`, `done`, `abandoned`.
+6 packages. Status is one of `in progress`, `blocked`, `not started`, `done`, `abandoned`.
 
 | package | status | owner | blocked on |
 |---|---|---|---|
@@ -31,9 +31,10 @@ The table below is generated from each workpackage's own front-matter, so there 
 | [Decide what batch mode and a second start() mean](workpackages/node-contract-seams.md) | `not started` | ioiocore-dev | &mdash; |
 | [macOS extensions embed absolute build-host paths](workpackages/macos-absolute-build-paths.md) | `not started` | ioiocore-dev | &mdash; |
 | [Make a chain's internal failure findable, and stop tripling its helper](workpackages/chain-failure-reporting.md) | `not started` | ioiocore-dev | &mdash; |
+| [A failed start leaves nothing running, and a restart really starts](workpackages/chain-start-rollback.md) | `done` | ioiocore-dev | &mdash; |
 | [Harden the publication path](workpackages/release-path-hardening.md) | `done` | ioiocore-dev | &mdash; |
 
-*4 not started, 1 done.*
+*4 not started, 2 done.*
 
 <!-- END STATUS TABLE -->
 

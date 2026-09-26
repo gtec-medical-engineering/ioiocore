@@ -1,5 +1,20 @@
 ## Changelog
 
+### [5.0.2] - 2026-09-26
+
+- **A chain whose node failed to start is started again by the next
+  `start()`.** A chain marked itself running before it started its
+  internal nodes, so a node that raised in `start()` left the chain
+  running, and the pipeline's next `start()` returned without starting
+  that node. A pipeline could then report that it was running with, for
+  example, no device open.
+
+  `start()` is now all or nothing for a chain, as it already was for a
+  pipeline: the nodes that did start are stopped again, the chain stays
+  stopped, and the exception propagates. A chain and a pipeline now
+  also stop the element whose `start()` raised, if it had already
+  marked itself running.
+
 ### [5.0.1] - 2026-09-24
 
 - **An error handler is told even when stopping the pipeline fails.**

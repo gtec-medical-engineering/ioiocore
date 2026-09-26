@@ -71,6 +71,88 @@ and the two could have drifted from the moment this one existed.
 
 ---
 
+## [5.0.2] - 2026-09-26
+
+### A failed start leaves nothing running, and a restart really starts, 2026-09-26
+
+Where it started: gpype-dev's rc2 review. In g.Pype every source sits
+in a chain, `[node, Link, Sync]`. A BCI Core that is not in range raises
+from `start()`. The next `pipeline.start()` then returned normally, read
+RUNNING, and never called the amplifier's `start()`, so the run had no
+device and reported nothing. Measured with the review's probe, a stub
+`gtec_ble` with no device, through gpype-dev's venv. On ioiocore 5.0.0,
+whose start path 5.0.1 did not change (`git diff 6f4f2aa 39abe42`
+touches only the monitor), run 2 read
+`started, state=Running; scans this run=3; device=None`. The
+three scans are g.Pype's attestation pre-connect, not `start()`. With
+this tree on `PYTHONPATH`, run 2 raised `ConnectionError` after 6
+scans: the pre-connect's three and `start()`'s own.
+
+**The cause** was the order in `ChainImp.start`. `super().start()`
+marked the chain RUNNING, and only then were the internal nodes
+started, with no rollback. A node that raised left the chain RUNNING.
+D-CORE-04's rollback stops only what *returned* from `start()`, so it
+never reached the chain. `ChainImp.stop` and a later `ChainImp.start`
+both returned early on the chain's state, so nothing else reached it
+either. `IChainImp`, `OChainImp` and `IOChainImp` override neither
+method, so all three had it.
+
+**The pipeline had the same gap one level up.** Its rollback did not
+stop the element that raised. An element that marked itself RUNNING
+before the step that raised stayed RUNNING under a STOPPED pipeline,
+and the next `start()` started it on top of itself. g.Pype's amplifier
+sources have that shape: `super().start()`, then the worker thread,
+then `device.start()`.
+
+**Now.** `ChainImp.start` starts every internal node and marks the
+chain RUNNING last (D-NODE-11). If a node raises,
+`ProcessingElementImp.stop_after_failed_start` stops, newest first, the
+node that raised if it reads RUNNING and then the ones that started.
+A `stop()` that raises there is logged and passed over, and the
+original exception propagates. `PipelineImp.start` now calls the same
+helper in place of its own loop (D-CORE-18). `ChainImp.stop` on a chain
+that reads STOPPED stops any internal node that still reads RUNNING,
+which only a rollback whose `stop()` raised leaves behind.
+
+**Rejected:**
+- Stopping the element that raised whatever its state. Its `stop()` is
+  written for an element that started. This repository's `Counter`
+  template joins a thread that was never started, and raises.
+- Keeping RUNNING first and undoing it in an `except`. The chain would
+  read RUNNING, and log "started", while its nodes might still fail.
+- A sweep in `PipelineImp.stop` for a STOPPED pipeline. Left out, and
+  recorded as out of scope in the workpackage, because it would change
+  what `stop()` does after the monitor's own stop too.
+
+The helper was placed at the end of `ProcessingElementImp`, and the
+pipeline's comment written to keep its block the same length, so the
+line citations throughout `specification.md` and `architecture.md`
+into both files stay true. `chain_imp.py` grows by 30 lines, and its six
+citations were moved.
+
+**Tests**, in `test/test_regressions.py`, 13 of them, each failing on
+the pre-change tree:
+- the chain reads STOPPED and what started is stopped, for all three
+  types;
+- a restart starts every node, the failed one included, and a third
+  `start()` is a no-op;
+- a node that failed after marking itself running is stopped;
+- a rollback `stop()` that raises neither masks the start's exception
+  nor strands the node;
+- in a pipeline: a restart after a failed chain start starts the
+  source; `stop()` after a failed start stops nothing twice; a node
+  that failed after starting is rolled back.
+
+**Verified:**
+- full suite: 353 passed, 340 before plus 13;
+- flake8 clean;
+- compiled: the chain, pipeline, error-reporting and regression tests
+  against all 17 `imp/` modules compiled with Cython 3.3.0 in a scratch
+  copy, 172 passed;
+- g.Pype, with this tree on `PYTHONPATH`: the ten test files that
+  exercise start failure, restart and the device sources, 389 passed.
+  D-NODE-11, D-CORE-18; workpackage `chain-start-rollback`.
+
 ## [5.0.1] - 2026-09-24
 
 ### The error handlers stay last, and a raising stop() no longer skips them, 2026-09-24
