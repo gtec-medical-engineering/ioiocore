@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Chain &mdash; ioiocore v5.0.1  documentation</title>
+  <title>Chain &mdash; ioiocore v5.0.2  documentation</title>
       <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
 
@@ -32,7 +32,7 @@
           
           
           <a href="../index.html" class="icon icon-home">
-            ioiocore v5.0.1
+            ioiocore v5.0.2
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
@@ -71,7 +71,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="../index.html">ioiocore v5.0.1</a>
+          <a href="../index.html">ioiocore v5.0.2</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -202,6 +202,9 @@ replaying the writer’s.</p>
 <dt class="sig sig-object py" id="ioiocore.chain.Chain.start">
 <span class="sig-name descname"><span class="pre">start</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ioiocore/chain.html#Chain.start"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#ioiocore.chain.Chain.start" title="Link to this definition"></a></dt>
 <dd><p>Start the chain and all internal nodes.</p>
+<p>All or nothing: if an internal node raises, the nodes that had
+started are stopped again, the chain stays stopped, and the
+exception propagates. Starting a running chain does nothing.</p>
 </dd></dl>
 
 <dl class="py method">
