@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ioiocore &mdash; ioiocore v5.0.2  documentation</title>
+  <title>ioiocore &mdash; ioiocore v5.1.0  documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=b86133f3" />
       <link rel="stylesheet" type="text/css" href="_static/css/theme.css?v=9edc463e" />
 
@@ -31,7 +31,7 @@
           
           
           <a href="#" class="icon icon-home">
-            ioiocore v5.0.2
+            ioiocore v5.1.0
           </a>
 <div role="search">
   <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
@@ -70,7 +70,7 @@
 
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">ioiocore v5.0.2</a>
+          <a href="#">ioiocore v5.1.0</a>
       </nav>
 
       <div class="wy-nav-content">
@@ -116,7 +116,29 @@ architecture that can be used in various contexts, such as biosignal processing.
 <section id="changelog">
 <h2>Changelog<a class="headerlink" href="#changelog" title="Link to this heading"></a></h2>
 <section id="id1">
-<h3>[5.0.2] - 2026-09-26<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<h3>[5.1.0] - 2026-10-01<a class="headerlink" href="#id1" title="Link to this heading"></a></h3>
+<ul>
+<li><p><strong>ioiocore runs where no thread can be started, such as Pyodide in a
+browser.</strong> There, a node with several input ports runs once the node
+feeding it has finished its cycle, instead of on a thread of its own,
+so it sees everything that cycle pushed, as its thread would have; the
+pipeline monitor runs on the event loop, and the log file is written
+as entries arrive. Your nodes are called with the same data by the
+same rules, and a pipeline needs no log directory there. Nothing
+changes where threads exist.</p>
+<p>Two functions are new: <code class="docutils literal notranslate"><span class="pre">ioc.threads_available()</span></code> says which case you
+are in, and <code class="docutils literal notranslate"><span class="pre">ioc.call_later(delay,</span> <span class="pre">fn)</span></code> schedules <code class="docutils literal notranslate"><span class="pre">fn</span></code> on the running
+event loop, for code of your own that would otherwise start a timer
+thread.</p>
+</li>
+<li><p><strong>A wheel for Pyodide.</strong> ioiocore 5.1.0 is published for Pyodide 314
+(Python 3.14, the <code class="docutils literal notranslate"><span class="pre">pyemscripten_2026_0_wasm32</span></code> platform), compiled like
+every other wheel, so <code class="docutils literal notranslate"><span class="pre">micropip.install(&quot;ioiocore&quot;)</span></code> works in a
+browser.</p></li>
+</ul>
+</section>
+<section id="id2">
+<h3>[5.0.2] - 2026-09-26<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
 <ul>
 <li><p><strong>A chain whose node failed to start is started again by the next
 <code class="docutils literal notranslate"><span class="pre">start()</span></code>.</strong> A chain marked itself running before it started its
@@ -132,8 +154,8 @@ marked itself running.</p>
 </li>
 </ul>
 </section>
-<section id="id2">
-<h3>[5.0.1] - 2026-09-24<a class="headerlink" href="#id2" title="Link to this heading"></a></h3>
+<section id="id3">
+<h3>[5.0.1] - 2026-09-24<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
 <ul>
 <li><p><strong>An error handler is told even when stopping the pipeline fails.</strong>
 On a failure the pipeline publishes <code class="docutils literal notranslate"><span class="pre">ERROR</span></code>, stops, and then calls the
@@ -148,8 +170,8 @@ can see <code class="docutils literal notranslate"><span class="pre">ERROR</span
 </li>
 </ul>
 </section>
-<section id="id3">
-<h3>[5.0.0] - 2026-09-14<a class="headerlink" href="#id3" title="Link to this heading"></a></h3>
+<section id="id4">
+<h3>[5.0.0] - 2026-09-14<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
 <p>Major release following a full reliability audit. It adds a composable
 <strong>chain</strong> layer and a pair of input-adaptation hooks, replaces node
 authorization with a neutral provider interface, hardens the real-time
@@ -572,8 +594,8 @@ package as a directory of <code class="docutils literal notranslate"><span class
 arbitrary-code-execution surface reachable from <code class="docutils literal notranslate"><span class="pre">Pipeline.deserialize()</span></code>).</p></li>
 </ul>
 </section>
-<section id="id4">
-<h3>[4.0.7] - 2026-02-20<a class="headerlink" href="#id4" title="Link to this heading"></a></h3>
+<section id="id5">
+<h3>[4.0.7] - 2026-02-20<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Fixed reference leakage in context propagation</p></li>
 <li><p>Added direct execution policy in consecutive nodes</p></li>
@@ -581,95 +603,95 @@ arbitrary-code-execution surface reachable from <code class="docutils literal no
 <li><p>Added support for macOS 14+</p></li>
 </ul>
 </section>
-<section id="id5">
-<h3>[4.0.6] - 2026-01-21<a class="headerlink" href="#id5" title="Link to this heading"></a></h3>
+<section id="id6">
+<h3>[4.0.6] - 2026-01-21<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Made put/get at port level thread-safe</p></li>
 <li><p>Fixed bug in data availability condition</p></li>
 </ul>
 </section>
-<section id="id6">
-<h3>[4.0.5] - 2026-01-14<a class="headerlink" href="#id6" title="Link to this heading"></a></h3>
+<section id="id7">
+<h3>[4.0.5] - 2026-01-14<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Fixed some bugs in the de/serialization procedure</p></li>
 </ul>
 </section>
-<section id="id7">
-<h3>[4.0.4] - 2026-01-07<a class="headerlink" href="#id7" title="Link to this heading"></a></h3>
+<section id="id8">
+<h3>[4.0.4] - 2026-01-07<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Asynchronous/synchronous data propagation decoupled in step() function</p></li>
 </ul>
 </section>
-<section id="id8">
-<h3>[4.0.3] - 2025-12-01<a class="headerlink" href="#id8" title="Link to this heading"></a></h3>
+<section id="id9">
+<h3>[4.0.3] - 2025-12-01<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Asynchronous data propagation improved</p></li>
 </ul>
 </section>
-<section id="id9">
-<h3>[4.0.2] - 2025-07-11<a class="headerlink" href="#id9" title="Link to this heading"></a></h3>
+<section id="id10">
+<h3>[4.0.2] - 2025-07-11<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Source delay handling implemented</p></li>
 </ul>
 </section>
-<section id="id10">
-<h3>[4.0.1] - 2025-07-11<a class="headerlink" href="#id10" title="Link to this heading"></a></h3>
+<section id="id11">
+<h3>[4.0.1] - 2025-07-11<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Minor bugfixes</p></li>
 <li><p>Improved logging &amp; exception handling</p></li>
 </ul>
 </section>
-<section id="id11">
-<h3>[4.0.0] - 2025-07-10<a class="headerlink" href="#id11" title="Link to this heading"></a></h3>
+<section id="id12">
+<h3>[4.0.0] - 2025-07-10<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Updated interface</p></li>
 <li><p>Improved logging</p></li>
 </ul>
 </section>
-<section id="id12">
-<h3>[3.0.0] - 2025-07-03<a class="headerlink" href="#id12" title="Link to this heading"></a></h3>
+<section id="id13">
+<h3>[3.0.0] - 2025-07-03<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Moved from metadata to contexts</p></li>
 <li><p>Bugfixing</p></li>
 </ul>
 </section>
-<section id="id13">
-<h3>[2.3.1] - 2025-06-16<a class="headerlink" href="#id13" title="Link to this heading"></a></h3>
+<section id="id14">
+<h3>[2.3.1] - 2025-06-16<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Added multirate support</p></li>
 <li><p>Bugfixing</p></li>
 </ul>
 </section>
-<section id="id14">
-<h3>[2.3.0] - 2025-04-16<a class="headerlink" href="#id14" title="Link to this heading"></a></h3>
+<section id="id15">
+<h3>[2.3.0] - 2025-04-16<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Increase unit test coverage</p></li>
 <li><p>Added support for Python 3.8 and 3.9</p></li>
 </ul>
 </section>
-<section id="id15">
-<h3>[2.2.6] - 2025-02-24<a class="headerlink" href="#id15" title="Link to this heading"></a></h3>
+<section id="id16">
+<h3>[2.2.6] - 2025-02-24<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Added Changelog to README.md</p></li>
 <li><p>Added support for Python 3.10</p></li>
 </ul>
 </section>
-<section id="id16">
-<h3>[2.2.5] - 2025-02-24<a class="headerlink" href="#id16" title="Link to this heading"></a></h3>
+<section id="id17">
+<h3>[2.2.5] - 2025-02-24<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Skipped</p></li>
 </ul>
 </section>
-<section id="id17">
-<h3>[2.2.4] - 2025-02-21<a class="headerlink" href="#id17" title="Link to this heading"></a></h3>
+<section id="id18">
+<h3>[2.2.4] - 2025-02-21<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>Updated documentation</p></li>
 <li><p>Added support for macOS</p></li>
 <li><p>Added support for Python 3.11</p></li>
 </ul>
 </section>
-<section id="id18">
-<h3>[2.2.3] - 2025-02-20<a class="headerlink" href="#id18" title="Link to this heading"></a></h3>
+<section id="id19">
+<h3>[2.2.3] - 2025-02-20<a class="headerlink" href="#id19" title="Link to this heading"></a></h3>
 <ul class="simple">
 <li><p>First public beta release</p></li>
 </ul>
