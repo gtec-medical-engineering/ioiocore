@@ -71,6 +71,158 @@ and the two could have drifted from the moment this one existed.
 
 ---
 
+## [5.1.0] - 2026-10-01
+
+### A Pyodide wheel, built and gated like the others, 2026-10-01
+
+Without it the thread-free mode was unreachable in a browser: ioiocore
+ships no sdist and no pure wheel, so micropip had nothing to install.
+PEP 783 is accepted and PyPI takes `pyemscripten_*_wasm32` wheels;
+cibuildwheel builds them, and the release workflows already pin it at
+4.2.0 for Linux.
+
+**Measured locally first**, in WSL (Debian 13), from the staged sdist
+with cibuildwheel 4.2.0 and `--platform pyodide`: `cp314-pyodide_wasm32`
+built in 71 s, 445.6 kB, and its test inside Pyodide found
+`node_imp` and `threads` loaded as `.cpython-314-wasm32-emscripten.so`
+with `threads_available()` False. `check_wheel` passed (18 compiled,
+`__init__.py` the only source), and so did the new WebAssembly half of
+`check_no_debug_info` -- the modules' only custom section is `dylink.0`.
+`test/pyodide/smoke.py` then passed against the *installed* wheel under
+Pyodide 314.0.7, with no source mounted, including after staging had
+moved every `.py` aside, which is the order CI runs it in. The host
+needed `make` and `bzip2` for Emscripten's setup, which ubuntu-24.04
+runners have.
+
+**Two traps on the way.** Pinning the build environment to 314.0.7
+fails: cibuildwheel 4.2.0 pins pyodide-build 0.39.0, which raises
+`ForbiddenExtraKeysError: Extra fields in constructor for
+PyodideLockSpec: tool` on that release's lock file. The default, 314.0.4,
+targets the same ABI, and the wheel runs on 314.0.7. And
+`check_no_debug_info.py` read ELF only, so a WebAssembly module carrying
+full DWARF would have passed it; it now walks the module's custom
+sections.
+
+**Now.** `build-pyodide` in `deploy.yml` and `make-prerelease.yml`
+stages, builds the sdist, runs cibuildwheel for
+`ci_matrix.PYODIDE_BUILDS`, gates the wheel with `check_wheel` and
+`check_no_debug_info`, runs `nox -s pyodide -- wheelhouse/*.whl`, and
+uploads as `builds-pyodide` / `wheels-pyodide`, which the release, the
+candidate and `publish-pypi.yml` already collect by pattern. The count is
+16. The release, the candidate and the candidate's tag cleanup wait on
+the new job. `test/test_ci_scripts.py` covers the parser and the count;
+the classifiers gain `Environment :: WebAssembly :: Emscripten`, checked
+against `trove-classifiers` (D-CORE-22). Not yet run in CI: that is the
+candidate's first run.
+
+### `imp/threads.py` is compiled, and the list is now checked, 2026-10-01
+
+`213a85a` added `imp/threads.py` without an entry in `[tool.ioiocore]
+cython_files`, so a 5.1.0 build would have shipped it as source beside
+seventeen compiled modules. Nothing would have caught it: `check_wheel`
+verifies only the modules the list names. Found while checking release
+readiness. It is listed now, and `test/test_compiled_modules.py` fails
+when a module is added to `imp/` without one, or listed without existing
+-- run against `213a85a`'s `pyproject.toml` it names
+`ioiocore/imp/threads`. Measured on a `nox -s build -p 3.13` wheel:
+`check_wheel` passes with 18 compiled modules and `__init__.py` the only
+source in `imp/`, `check_no_debug_info` passes, and
+`test_without_threads.py` with `test_pipeline.py` pass against the
+compiled modules (26), so `threads.AVAILABLE` can still be cleared on a
+compiled module.
+
+### Review of the thread-free mode: four defects fixed, 2026-10-01
+
+An independent adversarial review of `213a85a` reproduced each of these,
+four of them under Pyodide 314.0.7 as well as on CPython.
+
+**A multi-input node split what its producer pushed into separate
+cycles, on every cycle** -- not, as the entry below and D-CORE-20 said,
+only on the first. A producer pushes its ports one at a time, and a
+handler run inside the first push sees one port. Measured: one source
+with a SYNC and an ASYNC port into a two-input node, 5 cycles, gave 5
+merged dictionaries with threads (6 of 6 runs) and 10 split ones
+without. Every producer's `_cycle` now runs inside
+`threads.cycle_scope()`, and a multi-input node's wake is held to its
+end (D-CORE-21, superseding D-CORE-20's accepted consequence). The
+first-cycle split goes with it: `test_an_async_source_sets_up_inside_start`
+now expects the threaded order, `{"in1": 0, "in2": 0}` first.
+
+**A run restarted from an error handler carried two monitors**, and each
+further restart added one. `_monitor_tick` scheduled its next pass after
+the handler's `start()` had scheduled one. Measured under Pyodide, with a
+0.05 s interval: 16 ticks a second healthy, then 34, 48 and 68 after one,
+two and three restarts, and 3 more in the 0.5 s after `stop()`. It now
+reschedules only if the pass left nothing scheduled, and
+`_schedule_monitor` cancels any handle it replaces.
+
+**`ioc.Pipeline()` without a directory raised `RuntimeError("Unsupported
+OS")` under Pyodide**, `platform.system()` being `"Emscripten"`; the
+smoke test had passed only because it always named a directory.
+`_get_default_dir` now answers the temp directory's `gtec/ioiocore`
+there, and the smoke test builds a bare `ioc.Pipeline()`.
+
+**`import ioiocore` imported asyncio**, 59 ms -> 104 ms measured, best of
+12, on Windows. `call_later` imports it when called.
+
+Also: a test asserting nothing about the scheduling it is named for now
+asserts the handle, and one remapped citation pointed at `_write_queued`
+instead of `_log_worker`. 367 passed (364 + 3).
+
+### Run where no thread can be started, 2026-10-01
+
+Where it started: g.Pype is to run in a browser, for the training's
+in-page examples, on Pyodide (CPython compiled to WebAssembly), which has
+no threads. Measured on 2026-09-30 with Pyodide 314.0.7 in Node: a g.Pype
+batch pipeline stopped with `RuntimeError: can't start new thread` at
+`logging_imp.py:219`, the log writer. With it and the pipeline monitor
+stubbed, the run was correct -- a 10 Hz sine kept, 50 Hz attenuated 62x.
+
+**ioiocore starts four threads**, and each now has a form that needs none,
+taken when `imp/threads.py` reports `available()` false -- exactly when
+`sys.platform == "emscripten"` (D-CORE-20):
+
+* a node with several input ports gets no worker. Every port's handler
+  is `_direct_event_handler`, and `_drain_ports` runs the worker's inner
+  loop on the stack of the push that completes the input;
+* an all-ASYNC source runs its setup cycle inside `start()`;
+* the monitor makes one pass per interval, `_monitoring_fun(once=True)`
+  rescheduled through `threads.call_later` on the event loop;
+* the logger writes each entry in `write()` and the closing line in
+  `stop()`.
+
+`_get_context` stops polling, since nothing can deliver a context while
+the only thread sleeps. Stubbing was rejected as the answer because it
+is silently wrong for the third thread: a stubbed worker never runs, so
+the node never cycles and nothing reports it.
+
+**One order differs.** On a node mixing SYNC and ASYNC ports, an ASYNC
+item already waiting when the SYNC producer sets up is delivered in a
+cycle of its own. `_push_context` wakes the consumer before the
+producer's first sample, and a direct handler acts on the wake at once
+where a worker usually arrives late. Partial dictionaries are already
+the rule on every cycle, so this is a shape nodes receive anyway; the
+threaded order was a race.
+
+`threads_available` and `call_later` are public, for g.Pype's broker and
+pipeline timer. `call_later` uses the running loop; Pyodide reports its
+loop as running even inside a JS callback (measured), so it needs no
+fallback there, and one is kept for a build that does not. On CPython
+without a running loop it returns None rather than a handle nobody runs.
+
+Tested two ways. `test/test_without_threads.py` (11 tests) clears
+`threads.AVAILABLE` and makes `Thread.start` raise, so every path runs
+on the suite's CPython and a stray thread fails the test: 353 passed
+before, 364 after. `nox -s pyodide` mounts `src/` into Pyodide 314.0.7
+under Node and runs `test/pyodide/smoke.py` with nothing stubbed: a
+two-input node, file logging, an ASYNC setup, the monitor stopping a
+failed run, and `call_later` scheduled from a JS callback. It passes in
+7 s.
+
+Line citations in specification.md and architecture.md were remapped
+through the diff -- mechanically for explicit ones, by section for bare
+`:N` ones -- and spot-checked against the source.
+
 ## [5.0.2] - 2026-09-26
 
 ### A failed start leaves nothing running, and a restart really starts, 2026-09-26

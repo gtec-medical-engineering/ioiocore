@@ -1,3 +1,4 @@
+from . import threads
 from .implementation import Implementation
 from .logging_imp import LoggerImp
 from .logging_imp import LogEntryImp

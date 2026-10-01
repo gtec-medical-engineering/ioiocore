@@ -27,5 +27,9 @@ from .imp.node_imp import (
     authorization_provider,
     set_authorization_provider,
 )
+from .imp.threads import (
+    available as threads_available,
+    call_later,
+)
 
 Portable.add_preinstalled_module('ioiocore')

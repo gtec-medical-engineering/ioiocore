@@ -23,18 +23,20 @@ The table below is generated from each workpackage's own front-matter, so there 
 
 <!-- BEGIN STATUS TABLE -- generated, do not edit by hand -->
 
-6 packages. Status is one of `in progress`, `blocked`, `not started`, `done`, `abandoned`.
+8 packages. Status is one of `in progress`, `blocked`, `not started`, `done`, `abandoned`.
 
 | package | status | owner | blocked on |
 |---|---|---|---|
+| [Publish a compiled Pyodide wheel with 5.1.0](workpackages/pyodide-wheel.md) | `in progress` | ioiocore-dev | &mdash; |
 | [A feedback loop runs zero cycles and reports Healthy](workpackages/feedback-loop-silent-stall.md) | `not started` | ioiocore-dev | &mdash; |
 | [Decide what batch mode and a second start() mean](workpackages/node-contract-seams.md) | `not started` | ioiocore-dev | &mdash; |
 | [macOS extensions embed absolute build-host paths](workpackages/macos-absolute-build-paths.md) | `not started` | ioiocore-dev | &mdash; |
 | [Make a chain's internal failure findable, and stop tripling its helper](workpackages/chain-failure-reporting.md) | `not started` | ioiocore-dev | &mdash; |
 | [A failed start leaves nothing running, and a restart really starts](workpackages/chain-start-rollback.md) | `done` | ioiocore-dev | &mdash; |
 | [Harden the publication path](workpackages/release-path-hardening.md) | `done` | ioiocore-dev | &mdash; |
+| [Run where no thread can be started (Pyodide)](workpackages/thread-free.md) | `done` | ioiocore-dev | &mdash; |
 
-*4 not started, 2 done.*
+*1 in progress, 4 not started, 3 done.*
 
 <!-- END STATUS TABLE -->
 

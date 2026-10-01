@@ -1,5 +1,26 @@
 ## Changelog
 
+### [5.1.0] - 2026-10-01
+
+- **ioiocore runs where no thread can be started, such as Pyodide in a
+  browser.** There, a node with several input ports runs once the node
+  feeding it has finished its cycle, instead of on a thread of its own,
+  so it sees everything that cycle pushed, as its thread would have; the
+  pipeline monitor runs on the event loop, and the log file is written
+  as entries arrive. Your nodes are called with the same data by the
+  same rules, and a pipeline needs no log directory there. Nothing
+  changes where threads exist.
+
+  Two functions are new: `ioc.threads_available()` says which case you
+  are in, and `ioc.call_later(delay, fn)` schedules `fn` on the running
+  event loop, for code of your own that would otherwise start a timer
+  thread.
+
+- **A wheel for Pyodide.** ioiocore 5.1.0 is published for Pyodide 314
+  (Python 3.14, the `pyemscripten_2026_0_wasm32` platform), compiled like
+  every other wheel, so `micropip.install("ioiocore")` works in a
+  browser.
+
 ### [5.0.2] - 2026-09-26
 
 - **A chain whose node failed to start is started again by the next
