@@ -71,6 +71,22 @@ and the two could have drifted from the moment this one existed.
 
 ---
 
+## [5.1.1] - 2026-10-03
+
+### A PyInstaller hook for the compiled modules, 2026-10-03
+
+Every module under `imp/` ships compiled, and PyInstaller finds imports
+by reading bytecode, so nothing those modules import is visible to it.
+A frozen probe importing ioiocore and building a `Pipeline` worked
+(measured 2026-10-03, PyInstaller 6.22.2, Windows, Python 3.13), but
+only because the standard modules involved are imported elsewhere too.
+`src/ioiocore/__pyinstaller/hook-ioiocore.py` now names them, registered
+through the `pyinstaller40` entry point, and
+`test/test_pyinstaller_hook.py` keeps its list equal to what the
+compiled sources import. The same probe found gtec_gds and gtec_oscar
+not importable at all frozen, which is why gpype-docs made a package's
+own hook the rule (E-PKG-07, D-BUILD-18).
+
 ## [5.1.0] - 2026-10-01
 
 ### A Pyodide wheel, built and gated like the others, 2026-10-01

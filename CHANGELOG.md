@@ -1,5 +1,12 @@
 ## Changelog
 
+### [5.1.1] - 2026-10-03
+
+- **An application frozen with PyInstaller finds what ioiocore's
+  compiled modules import.** ioiocore registers a PyInstaller hook, so a
+  frozen application no longer depends on some other package importing
+  the same modules.
+
 ### [5.1.0] - 2026-10-01
 
 - **ioiocore runs where no thread can be started, such as Pyodide in a
